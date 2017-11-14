@@ -6,6 +6,11 @@ public struct POINT
 {
     public int X;
     public int Y;
+    public POINT(int x,int y)
+    {
+        X = x;
+        Y = y;
+    }
 }
 
 
@@ -14,6 +19,12 @@ public class Peace : MonoBehaviour
 
     public PeaceType peaceType;
     public POINT point;
+
+    private PieceManager pieaceManager = null;
+    public PieceManager SetPeaceManager
+    {
+        set { pieaceManager = value; }
+    }
 
     // Use this for initialization
     void Start()

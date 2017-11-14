@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameSystem : MonoBehaviour {
+public class GameSystem : MonoBehaviour
+{
 
 
     [SerializeField]
@@ -12,7 +13,7 @@ public class GameSystem : MonoBehaviour {
     private float remainingTime = 0;
 
     [SerializeField]
-    private Text TimeText=null;
+    private Text TimeText = null;
 
     private bool isGameOver = false;
     public bool IsGameOver
@@ -23,18 +24,20 @@ public class GameSystem : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         remainingTime = SetLimitTime;
         isGameOver = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         remainingTime -= Time.deltaTime;
-        TimeText.text = (int)remainingTime/60+ ":" + (int)remainingTime %60;
+        TimeText.text = (int)remainingTime / 60 + ":" + (int)remainingTime % 60;
         if (remainingTime < 0)
             isGameOver = true;
 
-	}
+    }
 }
