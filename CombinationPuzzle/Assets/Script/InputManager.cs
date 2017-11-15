@@ -20,6 +20,8 @@ public class InputManager : MonoBehaviour
     bool noePeaceMove = false;
     Vector2 savePosition;
     string[] MaskNameList;
+
+    Vector2 oldPosition;
     // Use this for initialization
     void Start()
     {
@@ -32,10 +34,9 @@ public class InputManager : MonoBehaviour
     void Update()
     {
 
-          if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.Log("1423");
             //Rayの長さ
             float maxDistance = 10;
 
@@ -45,9 +46,14 @@ public class InputManager : MonoBehaviour
             {
                 peaceManager.SetHoldPeace(hit.collider.gameObject.GetComponent<Peace>());
             }
+
+            oldPosition = Input.mousePosition;
+
         }
-       else if (Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0))
         {
+            Vector2 d = new Vector2(Input.mousePosition.x - oldPosition.x, Input.mousePosition.y - oldPosition.y);
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             //Rayの長さ
@@ -56,11 +62,18 @@ public class InputManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, maxDistance, 100);
 
             Debug.Log(hit.collider);
-            peaceManager.MoveHoldPeace(hit.collider.gameObject.GetComponent<Peace>());
-       
-            Debug.Log("1111");
+            // peaceManager.MoveHoldPeace(hit.collider.gameObject.GetComponent<Peace>());
+            peaceManager.MoveHoldPeace(d, hit);
+
+            oldPosition = Input.mousePosition;
         }
-       
+        else if (Input.GetMouseButtonUp(0))
+        {
+
+
+            peaceManager.ReleasePiece();
+        }
+
 
 
 

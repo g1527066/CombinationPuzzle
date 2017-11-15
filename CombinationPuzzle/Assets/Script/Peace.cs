@@ -20,6 +20,11 @@ public class Peace : MonoBehaviour
     public PeaceType peaceType;
     public POINT point;
 
+    float deleteTime = 0f;
+    float flashingTime = 0f;
+    bool isNoColor = false;
+
+
     private PieceManager pieaceManager = null;
     public PieceManager SetPeaceManager
     {
@@ -35,7 +40,27 @@ public class Peace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(peaceType==PeaceType.None)
+        {
+            deleteTime += Time.deltaTime;
+            flashingTime += Time.deltaTime;
+            if(flashingTime>GameSystem.I.flashingTime)
+            {
+                flashingTime = 0;
 
+                if (isNoColor)
+                    this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+                else
+                    this.GetComponent<UnityEngine.UI.Image>().color = Color.clear;
+
+                isNoColor = !isNoColor;
+            }
+
+            if (deleteTime>GameSystem.I.DeleteTime)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
     public void SetSprite(Sprite setSptrite)
     {

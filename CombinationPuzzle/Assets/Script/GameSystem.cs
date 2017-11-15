@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameSystem : MonoBehaviour
 {
-
+    public static GameSystem I = null;
 
     [SerializeField]
     private float SetLimitTime = 90f;
@@ -16,6 +16,14 @@ public class GameSystem : MonoBehaviour
     private Text TimeText = null;
 
     private bool isGameOver = false;
+
+
+    //企画さんが設定できるように数値、、、
+    //削除までの時間
+    public float DeleteTime = 1.6f;
+    //peace削除の点滅の時間
+    public float flashingTime = 0.2f;
+
     public bool IsGameOver
     {
         get { return isGameOver; }
@@ -26,6 +34,8 @@ public class GameSystem : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        I = this;
+
         remainingTime = SetLimitTime;
         isGameOver = false;
     }
