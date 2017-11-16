@@ -16,9 +16,21 @@ public enum PeaceType
     None,
 }
 
+public struct POINT
+{
+    public int X;
+    public int Y;
+    public POINT(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+}
 
 public class PieceManager : MonoBehaviour
 {
+
+    public static PieceManager I = null;
 
     struct PeaceJudgeStruct
     {
@@ -57,6 +69,7 @@ public class PieceManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        I = this;
         stratPosition.X = -737;
         stratPosition.Y = 364;
 
@@ -70,7 +83,6 @@ public class PieceManager : MonoBehaviour
                 newPeace.GetComponent<RectTransform>().anchoredPosition = new Vector2(stratPosition.X + j * onePeaceSize, stratPosition.Y - i * onePeaceSize);
                 newPeace.point = new POINT(j, i);
                 newPeace.SetSprite(PeaceSprites[(int)newPeace.peaceType]);
-                newPeace.SetPeaceManager = this;
                 peaceList[i, j] = newPeace;
             }
 
@@ -99,7 +111,7 @@ public class PieceManager : MonoBehaviour
         try
         {
             nowPeace = hit.collider.gameObject.GetComponent<Peace>();
-
+            //nowPeace.peaceType = PeaceType.None;
         }
         catch { }
 
@@ -108,6 +120,8 @@ public class PieceManager : MonoBehaviour
         //前回とピースがちがかったら入れ替え
         if (nowPeace != null && nowHoldPeace != nowPeace)
         {
+            AudioManager.I.PlaySound("");//一旦
+
             POINT savepoint = nowHoldPeace.point;
             nowHoldPeace.point = nowPeace.point;
             nowPeace.point = savepoint;
@@ -127,7 +141,7 @@ public class PieceManager : MonoBehaviour
     public void SetHoldPeace(Peace peace)
     {
         nowHoldPeace = peace;
-        nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;
+       // nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;
         //  nowHoldPeace.GetComponent<RectTransform>().anchoredPosition += new Vector3(0,0,-nowHoldPeace.GetComponent<RectTransform>().anchoredPosition.x);
     }
 
@@ -232,7 +246,7 @@ public class PieceManager : MonoBehaviour
         }
 
         //右上
-        if (judgePoint.Y > 0 && judgePoint.X < BoardSizeX)
+        if (judgePoint.Y > 0 && judgePoint.X < BoardSizeX-1)
         {
             if (peaceList[judgePoint.Y - 1, judgePoint.X].peaceType == judgePeace.peaceType &&
                peaceList[judgePoint.Y - 1, judgePoint.X + 1].peaceType == judgePeace.peaceType &&
@@ -244,7 +258,7 @@ public class PieceManager : MonoBehaviour
             }
         }
         //右下
-        if (judgePoint.Y < BoardSizeY && judgePoint.X < BoardSizeX)
+        if (judgePoint.Y < BoardSizeY-1 && judgePoint.X < BoardSizeX-1)
         {
             if (peaceList[judgePoint.Y + 1, judgePoint.X].peaceType == judgePeace.peaceType &&
                peaceList[judgePoint.Y + 1, judgePoint.X + 1].peaceType == judgePeace.peaceType &&
@@ -256,7 +270,7 @@ public class PieceManager : MonoBehaviour
             }
         }
         //左下    
-        if (judgePoint.Y < BoardSizeY && judgePoint.X > 0)
+        if (judgePoint.Y < BoardSizeY-1 && judgePoint.X > 0)
         {
             if (peaceList[judgePoint.Y + 1, judgePoint.X].peaceType == judgePeace.peaceType &&
                peaceList[judgePoint.Y + 1, judgePoint.X - 1].peaceType == judgePeace.peaceType &&

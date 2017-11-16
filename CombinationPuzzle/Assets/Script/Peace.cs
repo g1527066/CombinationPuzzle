@@ -2,16 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct POINT
-{
-    public int X;
-    public int Y;
-    public POINT(int x,int y)
-    {
-        X = x;
-        Y = y;
-    }
-}
 
 
 public class Peace : MonoBehaviour
@@ -23,13 +13,13 @@ public class Peace : MonoBehaviour
     float deleteTime = 0f;
     float flashingTime = 0f;
     bool isNoColor = false;
+    PeaceType nextPeaceType = PeaceType.None; 
 
-
-    private PieceManager pieaceManager = null;
-    public PieceManager SetPeaceManager
-    {
-        set { pieaceManager = value; }
-    }
+    //private PieceManager pieaceManager = null;
+    //public PieceManager SetPeaceManager
+    //{
+    //    set { pieaceManager = value; }
+    //}
 
     // Use this for initialization
     void Start()
@@ -58,6 +48,15 @@ public class Peace : MonoBehaviour
 
             if (deleteTime>GameSystem.I.DeleteTime)
             {
+                if(nextPeaceType!=PeaceType.None)
+                {
+                    //マネージェーからスプライト受け取る
+                    peaceType = nextPeaceType;
+                    nextPeaceType = PeaceType.None;
+                    this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+                    flashingTime = deleteTime = 0;
+                    return;
+                }
                 Destroy(this.gameObject);
             }
         }

@@ -50,4 +50,11 @@ public class GameSystem : MonoBehaviour
             isGameOver = true;
 
     }
+
+    public void ResetScene()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+
+    }
+
 }
