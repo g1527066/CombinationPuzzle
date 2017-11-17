@@ -33,6 +33,9 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameSystem.I.IsGameOver == true) return;
+
+
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -61,7 +64,7 @@ public class InputManager : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, maxDistance, 100);
 
-            Debug.Log(hit.collider);
+            //Debug.Log(hit.collider);
             // peaceManager.MoveHoldPeace(hit.collider.gameObject.GetComponent<Peace>());
             peaceManager.MoveHoldPeace(d, hit);
 

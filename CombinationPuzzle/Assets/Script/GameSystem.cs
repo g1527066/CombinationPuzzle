@@ -8,12 +8,15 @@ public class GameSystem : MonoBehaviour
     public static GameSystem I = null;
 
     [SerializeField]
-    private float SetLimitTime = 90f;
+    private float SetLimitTime = 10f;
 
     private float remainingTime = 0;
 
     [SerializeField]
     private Text TimeText = null;
+    [SerializeField]
+    private Text ResultText = null;
+
 
     private bool isGameOver = false;
 
@@ -43,12 +46,17 @@ public class GameSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isGameOver == false)
+        {
+            if (remainingTime < 0)
+            {
+                isGameOver = true;
+                ResultText.text = "TimeOver!";
+            }
 
-        remainingTime -= Time.deltaTime;
-        TimeText.text = (int)remainingTime / 60 + ":" + (int)remainingTime % 60;
-        if (remainingTime < 0)
-            isGameOver = true;
-
+            remainingTime -= Time.deltaTime;
+            TimeText.text = (int)remainingTime / 60 + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
+        }
     }
 
     public void ResetScene()
@@ -56,5 +64,13 @@ public class GameSystem : MonoBehaviour
         Application.LoadLevel(Application.loadedLevel);
 
     }
+
+    public void Clear()
+    {
+        isGameOver = true;
+        ResultText.text = "Clear!";
+    }
+
+
 
 }
