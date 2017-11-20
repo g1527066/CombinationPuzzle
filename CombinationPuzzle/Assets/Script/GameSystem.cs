@@ -50,8 +50,8 @@ public class GameSystem : MonoBehaviour
         {
             if (remainingTime < 0)
             {
-                isGameOver = true;
-                ResultText.text = "TimeOver!";
+                //isGameOver = true;
+                //ResultText.text = "TimeOver!";
             }
 
             remainingTime -= Time.deltaTime;
