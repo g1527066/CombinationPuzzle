@@ -130,8 +130,6 @@ public class PieceManager : MonoBehaviour
             if (nowHoldPeace.peaceType == PeaceType.None || nowPeace.peaceType == PeaceType.None)//もし持っているのが消えるものか、交換先が消えるものなら交換しようとしたら消える
             {
                 ReleasePiece();
-
-                Debug.Log("どちらかNONEなので消えます、、はず、、");
                 return;
             }//nowPeace.peaceType = PeaceType.None;
         }
@@ -173,7 +171,7 @@ public class PieceManager : MonoBehaviour
 
     public void SetHoldPeace(Peace peace)
     {
-        
+
         nowHoldPeace = peace;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;
         //  nowHoldPeace.GetComponent<RectTransform>().anchoredPosition += new Vector3(0,0,-nowHoldPeace.GetComponent<RectTransform>().anchoredPosition.x);
@@ -187,7 +185,7 @@ public class PieceManager : MonoBehaviour
     {
         if (nowHoldPeace == null) return;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = true;
-       
+
         ResetHoldPeacePosition(nowHoldPeace);
         JudgePiece(nowHoldPeace);
         nowHoldPeace = null;
@@ -235,11 +233,11 @@ public class PieceManager : MonoBehaviour
         {
             //if (isDelete == false)
             //{
-                for (int i = 0; i < deletePointList.Count; i++)
-                {
-                    tempDeletePointList.Add(new POINT(deletePointList[i].X, deletePointList[i].Y));
-                }
-                isDelete = true;
+            for (int i = 0; i < deletePointList.Count; i++)
+            {
+                tempDeletePointList.Add(new POINT(deletePointList[i].X, deletePointList[i].Y));
+            }
+            isDelete = true;
             //}
             //else//被っているのが無いかチェック
             //{
@@ -282,11 +280,11 @@ public class PieceManager : MonoBehaviour
         {
             //if (isDelete == false)
             //{
-                for (int i = 0; i < deletePointList.Count; i++)
-                {
-                    tempDeletePointList.Add(new POINT(deletePointList[i].X, deletePointList[i].Y));
-                }
-                isDelete = true;
+            for (int i = 0; i < deletePointList.Count; i++)
+            {
+                tempDeletePointList.Add(new POINT(deletePointList[i].X, deletePointList[i].Y));
+            }
+            isDelete = true;
             //}
             //else//被っているのが無いかチェック
             //{
@@ -300,71 +298,63 @@ public class PieceManager : MonoBehaviour
             // SetDeletePoint(tempDeletePointList);
         }
 
+
+        #region 四角形判定（オミット）
         //四角形------------------------
         //左上
-        //   tempDeletePointList.Clear();
-        if (judgePoint.Y > 0 && judgePoint.X > 0)
-        {
-            if (peaceTable[new POINT(judgePoint.X, judgePoint.Y - 1)].peaceType == judgePeace.peaceType &&
-               peaceTable[new POINT(judgePoint.X - 1, judgePoint.Y - 1)].peaceType == judgePeace.peaceType &&
-                 peaceTable[new POINT(judgePoint.X - 1, judgePoint.Y)].peaceType == judgePeace.peaceType)
-            {
-                    tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y - 1));
-                    tempDeletePointList.Add(new POINT(judgePoint.X - 1, judgePoint.Y - 1));
-                    tempDeletePointList.Add(new POINT(judgePoint.X - 1, judgePoint.Y));
-                //  SetDeletePoint(tempDeletePointList);
-                isDelete = true;
-            }
-        }
+        //if (judgePoint.Y > 0 && judgePoint.X > 0)
+        //{
+        //    if (peaceTable[new POINT(judgePoint.X, judgePoint.Y - 1)].peaceType == judgePeace.peaceType &&
+        //       peaceTable[new POINT(judgePoint.X - 1, judgePoint.Y - 1)].peaceType == judgePeace.peaceType &&
+        //         peaceTable[new POINT(judgePoint.X - 1, judgePoint.Y)].peaceType == judgePeace.peaceType)
+        //    {
+        //        tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y - 1));
+        //        tempDeletePointList.Add(new POINT(judgePoint.X - 1, judgePoint.Y - 1));
+        //        tempDeletePointList.Add(new POINT(judgePoint.X - 1, judgePoint.Y));
+        //        isDelete = true;
+        //    }
+        //}
 
-        //右上
-        //     tempDeletePointList.Clear();
-        if (judgePoint.Y > 0 && judgePoint.X < BoardSizeX - 1)
-        {
-            if (peaceTable[new POINT(judgePoint.X, judgePoint.Y - 1)].peaceType == judgePeace.peaceType &&
-               peaceTable[new POINT(judgePoint.X + 1, judgePoint.Y - 1)].peaceType == judgePeace.peaceType &&
-                 peaceTable[new POINT(judgePoint.X + 1, judgePoint.Y)].peaceType == judgePeace.peaceType)
-            {
-                // tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y));
-                tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y - 1));
-                tempDeletePointList.Add(new POINT(judgePoint.X + 1, judgePoint.Y - 1));
-                tempDeletePointList.Add(new POINT(judgePoint.X + 1, judgePoint.Y));
-                //  SetDeletePoint(tempDeletePointList);
-                isDelete = true;
-            }
-        }
-        //右下
-        //   tempDeletePointList.Clear();
-        if (judgePoint.Y < BoardSizeY - 1 && judgePoint.X < BoardSizeX - 1)
-        {
-            if (peaceTable[new POINT(judgePoint.X, judgePoint.Y + 1)].peaceType == judgePeace.peaceType &&
-               peaceTable[new POINT(judgePoint.X + 1, judgePoint.Y + 1)].peaceType == judgePeace.peaceType &&
-                 peaceTable[new POINT(judgePoint.X + 1, judgePoint.Y)].peaceType == judgePeace.peaceType)
-            {
-                //     tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y));
-                tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y + 1));
-                tempDeletePointList.Add(new POINT(judgePoint.X + 1, judgePoint.Y + 1));
-                tempDeletePointList.Add(new POINT(judgePoint.X + 1, judgePoint.Y));
-                //     SetDeletePoint(tempDeletePointList);
-                isDelete = true;
-            }
-        }
-        //左下    
-        //   tempDeletePointList.Clear();
-        if (judgePoint.Y < BoardSizeY - 1 && judgePoint.X > 0)
-        {
-            if (peaceTable[new POINT(judgePoint.X, judgePoint.Y + 1)].peaceType == judgePeace.peaceType &&
-               peaceTable[new POINT(judgePoint.X - 1, judgePoint.Y + 1)].peaceType == judgePeace.peaceType &&
-                 peaceTable[new POINT(judgePoint.X - 1, judgePoint.Y)].peaceType == judgePeace.peaceType)
-            {
-                //   tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y));
-                tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y + 1));
-                tempDeletePointList.Add(new POINT(judgePoint.X - 1, judgePoint.Y + 1));
-                tempDeletePointList.Add(new POINT(judgePoint.X - 1, judgePoint.Y));
-                //  SetDeletePoint(tempDeletePointList);
-                isDelete = true;
-            }
-        }
+        ////右上
+        //if (judgePoint.Y > 0 && judgePoint.X < BoardSizeX - 1)
+        //{
+        //    if (peaceTable[new POINT(judgePoint.X, judgePoint.Y - 1)].peaceType == judgePeace.peaceType &&
+        //       peaceTable[new POINT(judgePoint.X + 1, judgePoint.Y - 1)].peaceType == judgePeace.peaceType &&
+        //         peaceTable[new POINT(judgePoint.X + 1, judgePoint.Y)].peaceType == judgePeace.peaceType)
+        //    {
+        //        tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y - 1));
+        //        tempDeletePointList.Add(new POINT(judgePoint.X + 1, judgePoint.Y - 1));
+        //        tempDeletePointList.Add(new POINT(judgePoint.X + 1, judgePoint.Y));
+        //        isDelete = true;
+        //    }
+        //}
+        ////右下
+        //if (judgePoint.Y < BoardSizeY - 1 && judgePoint.X < BoardSizeX - 1)
+        //{
+        //    if (peaceTable[new POINT(judgePoint.X, judgePoint.Y + 1)].peaceType == judgePeace.peaceType &&
+        //       peaceTable[new POINT(judgePoint.X + 1, judgePoint.Y + 1)].peaceType == judgePeace.peaceType &&
+        //         peaceTable[new POINT(judgePoint.X + 1, judgePoint.Y)].peaceType == judgePeace.peaceType)
+        //    {
+        //        tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y + 1));
+        //        tempDeletePointList.Add(new POINT(judgePoint.X + 1, judgePoint.Y + 1));
+        //        tempDeletePointList.Add(new POINT(judgePoint.X + 1, judgePoint.Y));
+        //        isDelete = true;
+        //    }
+        //}
+        ////左下    
+        //if (judgePoint.Y < BoardSizeY - 1 && judgePoint.X > 0)
+        //{
+        //    if (peaceTable[new POINT(judgePoint.X, judgePoint.Y + 1)].peaceType == judgePeace.peaceType &&
+        //       peaceTable[new POINT(judgePoint.X - 1, judgePoint.Y + 1)].peaceType == judgePeace.peaceType &&
+        //         peaceTable[new POINT(judgePoint.X - 1, judgePoint.Y)].peaceType == judgePeace.peaceType)
+        //    {
+        //        tempDeletePointList.Add(new POINT(judgePoint.X, judgePoint.Y + 1));
+        //        tempDeletePointList.Add(new POINT(judgePoint.X - 1, judgePoint.Y + 1));
+        //        tempDeletePointList.Add(new POINT(judgePoint.X - 1, judgePoint.Y));
+        //        isDelete = true;
+        //    }
+        //}
+        #endregion
 
         //もしあれば最後に自分加える
         if (isDelete)
@@ -378,8 +368,8 @@ public class PieceManager : MonoBehaviour
 
     private void SetDeletePoint(List<POINT> deleteList)
     {
-        POINT pint = ReturnPoint(deleteList);
-        PeaceType p = peaceTable[pint].peaceType;
+        POINT point = ReturnPoint(deleteList);
+        PeaceType p = peaceTable[point].peaceType;
         for (int i = 0; i < deleteList.Count; i++)
         {
             try
@@ -397,12 +387,12 @@ public class PieceManager : MonoBehaviour
 
             if (p != PeaceType.Square)//TODO:いったんペンタゴンはスクエアになる設定
             {
-                peaceTable[pint].nextPeaceType = PeaceType.Square;
+                peaceTable[point].nextPeaceType = PeaceType.Square;
             }
             else
             {
 
-                peaceTable[pint].nextPeaceType = PeaceType.Pentagon;
+                peaceTable[point].nextPeaceType = PeaceType.Pentagon;
 
             }
         }
@@ -429,11 +419,25 @@ public class PieceManager : MonoBehaviour
         POINT returnPoint = checkList[0];
         for (int i = 1; i < checkList.Count; i++)
         {
-            //TODO:消すポイントいったんしたに統一
-            if (returnPoint.Y <= checkList[i].Y && returnPoint.X > checkList[i].X)
+            //消すポイントしたに統一
+            //if (returnPoint.Y <= checkList[i].Y && returnPoint.X > checkList[i].X)
+            //{
+            //    returnPoint = checkList[i];
+            //}
+
+            if (returnPoint.X <= checkList[i].X &&
+                    checkList[i].X - returnPoint.X < checkList[i].Y - returnPoint.Y)
             {
-                returnPoint = checkList[i];
+
+                 returnPoint= checkList[i] ;
             }
+            else if (returnPoint.X > checkList[i].X &&
+                returnPoint.X-checkList[i].X>=returnPoint.Y- checkList[i].Y)
+            {
+                 returnPoint=checkList[i] ;
+            }
+
+
         }
         return returnPoint;
     }
@@ -447,14 +451,14 @@ public class PieceManager : MonoBehaviour
         peaceTable.Remove(dPoint);
 
 
-      //  List<Peace> dowPeace = new List<Peace>();
+        //  List<Peace> dowPeace = new List<Peace>();
         //そのポイントから↑下にずらす
         for (int i = dPoint.Y - 1; i >= 0; i--)
         {
             POINT modificationPoint = new POINT(dPoint.X, i);
             peaceTable[new POINT(dPoint.X, i)].point = new POINT(dPoint.X, i + 1);
             Peace p = peaceTable[new POINT(dPoint.X, i)];
-         //   dowPeace.Add(p);
+            //   dowPeace.Add(p);
             peaceTable.Remove(new POINT(dPoint.X, i));
             peaceTable.Add(new POINT(dPoint.X, i + 1), p);
             ResetHoldPeacePosition(p);
