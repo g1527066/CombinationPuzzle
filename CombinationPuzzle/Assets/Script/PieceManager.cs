@@ -520,10 +520,11 @@ public class PieceManager : MonoBehaviour
 
 
 
-
-
                     if (DeletionTargetList[i].deleteCounter == DeletionTargetList[i].point.Count)//全て削除済みだったら削除、上から追加、判定する（両方）、ずらす
                     {
+
+                        Debug.Log("全て削除済み");
+
                         //全て削除
                         foreach (POINT p in DeletionTargetList[i].point)
                         {
@@ -537,14 +538,18 @@ public class PieceManager : MonoBehaviour
                         int changeY;
                         for (int k = 0; k < DisplacePoint.Count; k++)//X各座標
                         {
-                           
+                            Debug.Log("X各座標"+k);
                             //ずらしたい、、、
-                            for(int n=DisplacePoint[k].Y;n>0;n--)
+                            for (int n=DisplacePoint[k].Y;n>0;n--)
                             {
-                                for (changeY = DisplacePoint[k].Y - 1; changeY >= 0; changeY--)
+                                Debug.Log(n);
+                                for (changeY = n - 1; changeY >= 0; changeY--)
                                 {
-                                    if (peaceTable[new POINT(DisplacePoint[k].X,changeY)] != null)
+                                    Debug.Log(changeY);
+                                    //  if (peaceTable[new POINT(DisplacePoint[k].X,changeY)] != null)
+                                    if(peaceTable.ContainsKey(new POINT(DisplacePoint[k].X, changeY)))
                                     {
+
                                         Peace p = peaceTable[new POINT(DisplacePoint[k].X, changeY)];//保存
                                         //中身を無かった場所に移動
                                         p.point =new POINT(DisplacePoint[k].X,n);
@@ -559,7 +564,7 @@ public class PieceManager : MonoBehaviour
                                     }
                                     if(changeY==0)
                                     {
-                                        for(int addPeaceCount=n;addPeaceCount>=0; addPeaceCount--)
+                                        for(int addPeaceCount=n-1;addPeaceCount>=0; addPeaceCount--)
                                         {
                                             SetNewPeace(DisplacePoint[k].X, addPeaceCount);
                                         }
@@ -653,7 +658,6 @@ public class PieceManager : MonoBehaviour
             }
         }
 
-        int count = 0;
         for (int i = 0; i < downPoint.Length; i++)
         {
             if (downPoint[i] != -1)
