@@ -27,10 +27,10 @@ public struct POINT
     }
 }
 
-public class PieceManager : MonoBehaviour
+public class PeaceManager : MonoBehaviour
 {
 
-    public static PieceManager I = null;
+    public static PeaceManager I = null;
 
     struct PeaceJudgeStruct
     {
@@ -181,7 +181,7 @@ public class PieceManager : MonoBehaviour
             nowPeace = hit.collider.gameObject.GetComponent<Peace>();
             if (nowHoldPeace.peaceType == PeaceType.None || nowPeace.peaceType == PeaceType.None)//もし持っているのが消えるものか、交換先が消えるものなら交換しようとしたら消える
             {
-                ReleasePiece();
+                ReleasePeace();
                 return;
             }//nowPeace.peaceType = PeaceType.None;
         }
@@ -233,7 +233,7 @@ public class PieceManager : MonoBehaviour
     {
         peace.GetComponent<RectTransform>().anchoredPosition = new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - peace.point.Y * onePeaceSize);
     }
-    public void ReleasePiece()
+    public void ReleasePeace()
     {
         if (nowHoldPeace == null) return;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = true;
@@ -549,7 +549,7 @@ public class PieceManager : MonoBehaviour
                                     //  if (peaceTable[new POINT(DisplacePoint[k].X,changeY)] != null)
                                     if(peaceTable.ContainsKey(new POINT(DisplacePoint[k].X, changeY)))
                                     {
-
+                                        Debug.Log("キーが存在した場合");
                                         Peace p = peaceTable[new POINT(DisplacePoint[k].X, changeY)];//保存
                                         //中身を無かった場所に移動
                                         p.point =new POINT(DisplacePoint[k].X,n);

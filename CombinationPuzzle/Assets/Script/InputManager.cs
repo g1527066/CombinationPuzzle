@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
 
 
     [SerializeField]
-    PieceManager peaceManager = null;
+    PeaceManager peaceManager = null;
     bool noePeaceMove = false;
     Vector2 savePosition;
     string[] MaskNameList;
@@ -74,7 +74,7 @@ public class InputManager : MonoBehaviour
         {
 
 
-            peaceManager.ReleasePiece();
+            peaceManager.ReleasePeace();
         }
 
 

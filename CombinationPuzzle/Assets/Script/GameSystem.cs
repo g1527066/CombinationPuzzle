@@ -17,6 +17,9 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     private Text ResultText = null;
 
+    [SerializeField]
+    Slider TimeSlider = null;
+
 
     private bool isGameOver = false;
 
@@ -41,6 +44,9 @@ public class GameSystem : MonoBehaviour
 
         remainingTime = SetLimitTime;
         isGameOver = false;
+
+        TimeSlider.maxValue = SetLimitTime;
+        TimeSlider.value = 0;
     }
 
     // Update is called once per frame
@@ -53,9 +59,11 @@ public class GameSystem : MonoBehaviour
                 //isGameOver = true;
                 //ResultText.text = "TimeOver!";
             }
-
             remainingTime -= Time.deltaTime;
             TimeText.text = (int)remainingTime / 60 + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
+
+
+            TimeSlider.value = remainingTime;
         }
     }
 
