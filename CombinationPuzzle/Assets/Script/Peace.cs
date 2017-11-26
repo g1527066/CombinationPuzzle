@@ -15,20 +15,6 @@ public class Peace : MonoBehaviour
     bool isNoColor = false;
     public PeaceType nextPeaceType = PeaceType.None;
   
-
-
-    //private PieceManager pieaceManager = null;
-    //public PieceManager SetPeaceManager
-    //{
-    //    set { pieaceManager = value; }
-    //}
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -52,7 +38,6 @@ public class Peace : MonoBehaviour
             {
                 if(nextPeaceType!=PeaceType.None)
                 {
-                    //マネージェーからスプライト受け取る
                     peaceType = nextPeaceType;
                     nextPeaceType = PeaceType.None;
                     this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
