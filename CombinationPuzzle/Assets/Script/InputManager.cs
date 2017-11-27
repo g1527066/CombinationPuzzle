@@ -76,36 +76,5 @@ public class InputManager : MonoBehaviour
 
             peaceManager.ReleasePeace();
         }
-
-
-
-
-
-        //if (Input.GetMouseButton(0))
-        //{
-        //    noePeaceMove = true;
-        //    savePosition = Input.mousePosition;
-        //}
-        //else if (Input.GetMouseButtonUp(0))
-        //{
-        //    noePeaceMove = false;
-        //}
-
-
-        ////移動中、、、
-        //if (noePeaceMove)
-        //{
-        //    //一番長い上下左右で、一定離れていたら　渡す
-        //    //方向を受け取る、
-
-
-
-        //}
     }
-
-    //      //押された瞬間にピースをマナージェーに
-    //public void SetPushPeace(Peace peace)
-    //{
-    //    peaceManager.nowHoldPeace = peace;
-    //}
 }

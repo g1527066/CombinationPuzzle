@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Peace : MonoBehaviour
 {
 
@@ -42,7 +40,7 @@ public class Peace : MonoBehaviour
                     nextPeaceType = PeaceType.None;
                     this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                     flashingTime = deleteTime = 0;
-                    SetSprite( PeaceManager.I.ReturnSprite(peaceType));
+                    SetSprite(PeaceManager.I.ReturnSprite(peaceType));
                     return;
                 }
                 PeaceManager.I.DeletePeace(this);

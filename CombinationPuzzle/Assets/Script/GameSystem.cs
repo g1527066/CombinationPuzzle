@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameSystem : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class GameSystem : MonoBehaviour
 
 
     private bool isGameOver = false;
+
+    private bool isTimeStop = false;
 
 
     //企画さんが設定できるように数値、、、
@@ -52,16 +55,15 @@ public class GameSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isGameOver == false)
+        if (isGameOver == false&& isTimeStop==false)
         {
             if (remainingTime < 0)
             {
-                //isGameOver = true;
-                //ResultText.text = "TimeOver!";
+                isGameOver = true;
+                ResultText.text = "TimeOver!";
             }
             remainingTime -= Time.deltaTime;
             TimeText.text = (int)remainingTime / 60 + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
-
 
             TimeSlider.value = remainingTime;
         }
@@ -69,8 +71,7 @@ public class GameSystem : MonoBehaviour
 
     public void ResetScene()
     {
-        Application.LoadLevel(Application.loadedLevel);
-
+      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Clear()
@@ -79,6 +80,10 @@ public class GameSystem : MonoBehaviour
         ResultText.text = "Clear!";
     }
 
-
+    //いったん操作できてしまう
+    public void StopTime()
+    {
+        isTimeStop = !isTimeStop;
+    }
 
 }
