@@ -546,6 +546,8 @@ public class PeaceManager : MonoBehaviour
                             peaceTable.Remove(p);
                         }
 
+                        DownDeletingList(DeletionTargetList[i].point,i);
+
                         List<POINT> DisplacePoint = new List<POINT>();
 
                         //削除するところの一番下を求める
@@ -569,20 +571,20 @@ public class PeaceManager : MonoBehaviour
 
                             for (int n = DisplacePoint[k].Y; n > 0; n--)
                             {
-                                Debug.Log(n);
+                                Debug.Log("n="+n);
                                 for (changeY = n - 1; changeY >= 0; changeY--)
                                 {
                                     //Debug.Log(changeY);
                                     if (peaceTable.ContainsKey(new POINT(DisplacePoint[k].X, changeY)))
                                     {
-                                        Debug.Log("キーが存在した" + DisplacePoint[k].X + "  " + changeY);
+                                        Debug.Log("キーが存在したX=" + DisplacePoint[k].X + "  Y=" + changeY);
                                         Peace p = peaceTable[new POINT(DisplacePoint[k].X, changeY)];//保存
                                         //中身を無かった場所に移動
                                         p.point = new POINT(DisplacePoint[k].X, n);
                                         //元の削除
                                         peaceTable.Remove(new POINT(DisplacePoint[k].X, changeY));
                                         //登録しなおし
-                                        Debug.Log("登録しなおしポイント" + p.point.X + "  " + p.point.Y);
+                                        Debug.Log("登録しなおしポイント X=" + p.point.X + "  Y=" + p.point.Y);
                                         peaceTable.Add(p.point, p);//TODO:エラー
                                         //位置のセット
                                         ResetHoldPeacePosition(p);
@@ -593,7 +595,7 @@ public class PeaceManager : MonoBehaviour
                                     }
                                     if (changeY == 0)
                                     {
-                                        Debug.Log("changeY=" + changeY + "  " + n);
+                                        Debug.Log("changeY=" + changeY + "  n" + n);
                                         for (int addPeaceCount = n; addPeaceCount >= 0; addPeaceCount--)
                                         {
                                             SetNewPeace(DisplacePoint[k].X, addPeaceCount);
@@ -635,6 +637,34 @@ public class PeaceManager : MonoBehaviour
         //JudgePeace(newPeace);
         //JudgeGameClear();
         //上追加に
+
+    }
+
+    /// <summary>
+    /// 今の削除中の以外のリストのY軸を下げる
+    /// </summary>
+    /// <param name="deleteList"></param>
+    /// <param name="deleteNumber">何番目の削除リストか</param>
+    private void DownDeletingList(List<POINT> deleteList, int deleteNumber)
+    {
+        for(int i=0;i<DeletionTargetList.Count;i++)
+        {
+            if (i == deleteNumber) continue;
+            for(int j=0;j<DeletionTargetList[i].point.Count;j++)
+            {
+                for(int k=0;k<deleteList.Count;k++)
+                {
+                    if(deleteList[k].X==DeletionTargetList[i].point[j].X&&
+                        deleteList[k].Y > DeletionTargetList[i].point[j].Y)
+                    {
+                        POINT p =DeletionTargetList[i].point[j];
+                        p = new POINT(p.X, p.Y+1);
+                        DeletionTargetList[i].point[j]=p;
+                    }
+                }
+            }
+        }
+
 
     }
 
