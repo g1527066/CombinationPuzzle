@@ -50,7 +50,6 @@ public class PeaceManager : MonoBehaviour
 
     const int BoardSizeX = 10;
     const int BoardSizeY = 6;
-    // Peace[,] peaceList = new Peace[BoardSizeY, BoardSizeX];
 
     //すべて格納
     Dictionary<POINT, Peace> peaceTable = new Dictionary<POINT, Peace>();
@@ -63,16 +62,6 @@ public class PeaceManager : MonoBehaviour
 
     [SerializeField]
     List<Sprite> PeaceSprites = new List<Sprite>();
-
-    //  List<POINT> totalDeleteList = new List<POINT>();
-
-    // List<PeaceJudgeStruct> peaceJudgeStructList = new List<PeaceJudgeStruct>();
-
-    //判定用に
-    //Dictionary<POINT, Peace> peaceJudgeStructList = new Dictionary<POINT, Peace>();
-
-
-    //Dictionary<POINT, Peace> peaceDictiona = new Dictionary<POINT, Peace>();
 
     //移動用の変数
     public Peace nowHoldPeace = null;
@@ -210,23 +199,16 @@ public class PeaceManager : MonoBehaviour
 
             ResetHoldPeacePosition(nowPeace);
             //判定処理
-            // peaceJudgeStructList.Clear();
             JudgePeace(nowPeace);
             //違う色のピース判定もある
 
         }
-        //Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //nowPeace.GetComponent<RectTransform>().anchoredPosition = new Vector2(point.x, point.y);
-
-        //Debug.Log("2");
     }
 
     public void SetHoldPeace(Peace peace)
     {
-
         nowHoldPeace = peace;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;
-        //  nowHoldPeace.GetComponent<RectTransform>().anchoredPosition += new Vector3(0,0,-nowHoldPeace.GetComponent<RectTransform>().anchoredPosition.x);
     }
 
     void ResetHoldPeacePosition(Peace peace)
@@ -244,8 +226,6 @@ public class PeaceManager : MonoBehaviour
     }
 
     //TODO:いったん判定後ピース省略
-
-
     private void JudgePeace(Peace judgePeace)
     {
         //Debug.Log("審査位置" + judgePeace.point.X + " " + judgePeace.point.Y);
@@ -429,6 +409,7 @@ public class PeaceManager : MonoBehaviour
                 d.point.Add(deleteList[i]);
             try
             {
+                peaceTable[deleteList[i]].GetComponent<BoxCollider2D>().enabled = false;
                 peaceTable[deleteList[i]].peaceType = PeaceType.None;
             }
             catch

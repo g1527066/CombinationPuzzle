@@ -41,6 +41,7 @@ public class Peace : MonoBehaviour
                     this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                     flashingTime = deleteTime = 0;
                     SetSprite(PeaceManager.I.ReturnSprite(peaceType));
+                    this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
                     PeaceManager.I.JudgeChangeNextPiece(this);
                     return;
                 }
