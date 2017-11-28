@@ -41,6 +41,7 @@ public class Peace : MonoBehaviour
                     this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                     flashingTime = deleteTime = 0;
                     SetSprite(PeaceManager.I.ReturnSprite(peaceType));
+                    PeaceManager.I.JudgeChangeNextPiece(this);
                     return;
                 }
                 PeaceManager.I.DeletePeace(this);
