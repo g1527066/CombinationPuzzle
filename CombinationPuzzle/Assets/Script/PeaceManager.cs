@@ -69,7 +69,7 @@ public class PeaceManager : MonoBehaviour
 
     POINT stratPosition = new POINT();
 
-    int onePeaceSize = 160;
+    int onePeaceSize = 148;
     const int DeleteCount = 3;
 
     //まとめてポイント代入できなかったっけ？、new必要？
@@ -78,8 +78,8 @@ public class PeaceManager : MonoBehaviour
     void Start()
     {
         I = this;
-        stratPosition.X = -737;
-        stratPosition.Y = 364;
+        stratPosition.X = -718;
+        stratPosition.Y = 290;
 
         for (int i = 0; i < BoardSizeY; i++)
         {
