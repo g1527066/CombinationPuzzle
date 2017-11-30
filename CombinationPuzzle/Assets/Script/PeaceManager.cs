@@ -71,7 +71,31 @@ public class PeaceManager : MonoBehaviour
 
     int onePeaceSize = 148;
     const int DeleteCount = 3;
+    [SerializeField]
+    UnityEngine.UI.Text text = null;
+    [SerializeField]
+    List<Sprite> testDrop = new List<Sprite>();
+    int testSpriteCount = 0;
+    public void ChangeDrop()
+    {
+        testSpriteCount++;
 
+        text.text =( testSpriteCount % testDrop.Count+2).ToString();
+        for (int i = 0; i < BoardSizeY; i++)
+        {
+            for (int j = 0; j < BoardSizeX; j++)
+            {
+                if(peaceTable[new POINT(j,i)].peaceType==PeaceType.Yellow)
+                {
+                    peaceTable[new POINT(j, i)].SetSprite(testDrop[testSpriteCount% testDrop.Count]);
+                }
+
+            }
+        }
+
+
+
+    }
     //まとめてポイント代入できなかったっけ？、new必要？
 
     // Use this for initialization
@@ -559,10 +583,10 @@ public class PeaceManager : MonoBehaviour
     {
         for (int i = 0; i < DeletionTargetList.Count; i++)
         {
-                if (DeletionTargetList[i].GeneratePoint.X == checkPoint.X && DeletionTargetList[i].GeneratePoint.Y == checkPoint.Y)
-                {
-                    return i;
-                }
+            if (DeletionTargetList[i].GeneratePoint.X == checkPoint.X && DeletionTargetList[i].GeneratePoint.Y == checkPoint.Y)
+            {
+                return i;
+            }
         }
         return -1;
     }
@@ -584,7 +608,7 @@ public class PeaceManager : MonoBehaviour
         hitSamePoint = true;
 
         //全て削除済みで、生成も変わっていたら
-        if (nowDeletePoint.deleteCounter == nowDeletePoint.point.Count&&peaceTable[nowDeletePoint.GeneratePoint].peaceType!=PeaceType.None)//全て削除済みだったら削除、上から追加、判定する（両方）、ずらす
+        if (nowDeletePoint.deleteCounter == nowDeletePoint.point.Count && peaceTable[nowDeletePoint.GeneratePoint].peaceType != PeaceType.None)//全て削除済みだったら削除、上から追加、判定する（両方）、ずらす
         {
             Debug.Log("全て削除済み");
             ////全て削除
@@ -603,7 +627,7 @@ public class PeaceManager : MonoBehaviour
             //    Debug.Log("dispoint="+p.X+"  "+p.Y);
             //}
 
-          
+
             for (int k = 0; k < DisplacePoint.Count; k++)//X各座標
             {
                 // Debug.Log("X各座標" + k);
@@ -615,7 +639,7 @@ public class PeaceManager : MonoBehaviour
                     continue;
                 }
                 ColumnFormat(DisplacePoint[k]);
-      
+
             }
             ////判定
             List<POINT> deletePoint = new List<POINT>();
@@ -657,7 +681,7 @@ public class PeaceManager : MonoBehaviour
                 {
                     // Debug.Log("キーが存在したX=" + nonePoint.X + "  Y=" + changeY);
                     Peace p = peaceTable[new POINT(nonePoint.X, changeY)];//保存
-                                                                                 //中身を無かった場所に移動
+                                                                          //中身を無かった場所に移動
                     p.point = new POINT(nonePoint.X, n);
                     //元の削除
                     peaceTable.Remove(new POINT(nonePoint.X, changeY));
