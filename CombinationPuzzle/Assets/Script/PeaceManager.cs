@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public enum PeaceType
 {
@@ -78,22 +79,28 @@ public class PeaceManager : MonoBehaviour
     int testSpriteCount = 0;
     public void ChangeDrop()
     {
+
+        //text.text =( testSpriteCount % testDrop.Count+2).ToString();
+        //for (int i = 0; i < BoardSizeY; i++)
+        //{
+        //    for (int j = 0; j < BoardSizeX; j++)
+        //    {
+        //        if(peaceTable[new POINT(j,i)].peaceType==PeaceType.Yellow)
+        //        {
+        //            peaceTable[new POINT(j, i)].SetSprite(testDrop[testSpriteCount% testDrop.Count]);
+        //        }
+
+        //    }
+        //}
+
+
+        if (testSpriteCount == 0)
+            peaceTable[new POINT(0, 0)].RectTransform.DOMove(new Vector3(stratPosition.X + 1 * onePeaceSize, stratPosition.Y - 0 * onePeaceSize, 0),0.2f);
+        //   peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOMoveX(10,10);
+        //else if (testSpriteCount == 1)
+        //    peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOPause();
+
         testSpriteCount++;
-
-        text.text =( testSpriteCount % testDrop.Count+2).ToString();
-        for (int i = 0; i < BoardSizeY; i++)
-        {
-            for (int j = 0; j < BoardSizeX; j++)
-            {
-                if(peaceTable[new POINT(j,i)].peaceType==PeaceType.Yellow)
-                {
-                    peaceTable[new POINT(j, i)].SetSprite(testDrop[testSpriteCount% testDrop.Count]);
-                }
-
-            }
-        }
-
-
 
     }
     //まとめてポイント代入できなかったっけ？、new必要？
@@ -192,11 +199,11 @@ public class PeaceManager : MonoBehaviour
         try
         {
             nowPeace = hit.collider.gameObject.GetComponent<Peace>();
-            if (nowHoldPeace.peaceType == PeaceType.None || nowPeace.peaceType == PeaceType.None)//もし持っているのが消えるものか、交換先が消えるものなら交換しようとしたら消える
-            {
-                ReleasePeace();
-                return;
-            }//nowPeace.peaceType = PeaceType.None;
+            //if (nowHoldPeace.peaceType == PeaceType.None || nowPeace.peaceType == PeaceType.None)//もし持っているのが消えるものか、交換先が消えるものなら交換しようとしたら消える
+            //{
+            //    ReleasePeace();
+            //    return;
+            //}//nowPeace.peaceType = PeaceType.None;
         }
         catch { return; }
 
@@ -433,7 +440,6 @@ public class PeaceManager : MonoBehaviour
                 d.point.Add(deleteList[i]);
             try
             {
-                peaceTable[deleteList[i]].GetComponent<BoxCollider2D>().enabled = false;
                 peaceTable[deleteList[i]].peaceType = PeaceType.None;
             }
             catch

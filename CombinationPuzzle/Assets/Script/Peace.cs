@@ -12,15 +12,28 @@ public class Peace : MonoBehaviour
     float flashingTime = 0f;
     bool isNoColor = false;
     public PeaceType nextPeaceType = PeaceType.None;
-  
+
+
+    RectTransform rectTransform;
+    public RectTransform RectTransform
+    {
+        get { return rectTransform; }
+    }
+
+    private void Start()
+    {
+        rectTransform = this.gameObject.GetComponent<RectTransform>();
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        if(peaceType==PeaceType.None)
+        if (peaceType == PeaceType.None)
         {
             deleteTime += Time.deltaTime;
             flashingTime += Time.deltaTime;
-            if(flashingTime>GameSystem.I.flashingTime)
+            if (flashingTime > GameSystem.I.flashingTime)
             {
                 flashingTime = 0;
 
@@ -32,16 +45,15 @@ public class Peace : MonoBehaviour
                 isNoColor = !isNoColor;
             }
 
-            if (deleteTime>GameSystem.I.DeleteTime)
+            if (deleteTime > GameSystem.I.DeleteTime)
             {
-                if(nextPeaceType!=PeaceType.None)
+                if (nextPeaceType != PeaceType.None)
                 {
                     peaceType = nextPeaceType;
                     nextPeaceType = PeaceType.None;
                     this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                     flashingTime = deleteTime = 0;
                     SetSprite(PeaceManager.I.ReturnSprite(peaceType));
-                    this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
                     PeaceManager.I.JudgeChangeNextPiece(this);
                     return;
                 }
