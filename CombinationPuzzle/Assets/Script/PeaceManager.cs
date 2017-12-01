@@ -96,11 +96,37 @@ public class PeaceManager : MonoBehaviour
         //Debug.Log(stratPosition.X + 1 * onePeaceSize);
         //Debug.Log( onePeaceSize);
 
-        if (testSpriteCount == 0)
-            peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(new Vector3(stratPosition.X + 1 * onePeaceSize, stratPosition.Y - 0 * onePeaceSize, 0),0.1f);
-          // peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOMoveX(10,10);
-        //else if (testSpriteCount == 1)
+        //if (testSpriteCount == 0)
+        //    peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(new Vector3(stratPosition.X + 1 * onePeaceSize, stratPosition.Y - 0 * onePeaceSize, 0),0.1f);
+        //  // peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOMoveX(10,10);
+        ////else if (testSpriteCount == 1)
         //    peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOPause();
+
+        Sequence sequence = DOTween.Sequence().
+            Append(
+            
+                peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(
+                   new Vector3(stratPosition.X + 0* onePeaceSize, stratPosition.Y - 1 * onePeaceSize, 0), 0.1f)
+            )
+            .Append(
+            peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(
+                   new Vector3(stratPosition.X + 0 * onePeaceSize, stratPosition.Y - 2 * onePeaceSize, 0), 0.1f)
+            
+            )
+            .Append(
+            peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(
+                   new Vector3(stratPosition.X + 0 * onePeaceSize, stratPosition.Y - 3 * onePeaceSize, 0), 0.1f)
+
+            )
+
+
+
+
+            .InsertCallback(2,()=>text.text="down");
+
+
+
+
 
         testSpriteCount++;
 
@@ -482,6 +508,30 @@ public class PeaceManager : MonoBehaviour
 
     }
 
+    //今の場所の一つ下がなかったら動かす
+    public void FallingPeace(Peace peace)
+    {
+        if (peace.point.Y > BoardSizeY - 1) //一番下より小さく、
+        {
+            for(int i=peace.point.Y+1;i< BoardSizeY;i++)
+            {
+                if(peaceTable.ContainsKey(new POINT(peace.point.X,i))==false)
+                {
+                    //そのポイントより下のポイントで一個でも空きマスがあればポイントが無ければ動かす
+                    //番号は途中から変える?
+
+                    //Sequence sequence = DOTween.Sequence().
+                    //    OnStart(() =>
+                    //    {
+                    //        peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(Vector2.zero, 10);//移動
+                    //    }).InsertCallback(2, () => text.text = "sss");//ここで半分の時番号変える、もし交換して何も無いなら終了
+                }
+            }
+        }
+           
+    }
+
+
     //今までのリストに同じものが無いかチェック
     private bool JudgeDoublePoint(List<POINT> originalPointList, POINT CheckPoint)
     {
@@ -706,7 +756,7 @@ public class PeaceManager : MonoBehaviour
                     peaceTable.Add(p.point, p);//TODO:エラー
 
                     //位置のセット
-                  //  if(p!=nowHoldPeace)
+                    if(p!=nowHoldPeace)
                     ResetPeacePosition(p);
 
                     if (changeY == 0)
