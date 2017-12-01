@@ -93,10 +93,12 @@ public class PeaceManager : MonoBehaviour
         //    }
         //}
 
+        //Debug.Log(stratPosition.X + 1 * onePeaceSize);
+        //Debug.Log( onePeaceSize);
 
         if (testSpriteCount == 0)
-            peaceTable[new POINT(0, 0)].RectTransform.DOMove(new Vector3(stratPosition.X + 1 * onePeaceSize, stratPosition.Y - 0 * onePeaceSize, 0),0.2f);
-        //   peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOMoveX(10,10);
+            peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(new Vector3(stratPosition.X + 1 * onePeaceSize, stratPosition.Y - 0 * onePeaceSize, 0),0.1f);
+          // peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOMoveX(10,10);
         //else if (testSpriteCount == 1)
         //    peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOPause();
 
@@ -228,7 +230,7 @@ public class PeaceManager : MonoBehaviour
             //tabelのキーも変更↑できてるか、、、？
 
 
-            ResetHoldPeacePosition(nowPeace);
+            ResetPeacePosition(nowPeace);
             //判定処理
             JudgePeace(nowPeace);
             //違う色のピース判定もある
@@ -242,7 +244,7 @@ public class PeaceManager : MonoBehaviour
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    void ResetHoldPeacePosition(Peace peace)
+    void ResetPeacePosition(Peace peace)
     {
         peace.GetComponent<RectTransform>().anchoredPosition = new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - peace.point.Y * onePeaceSize);
     }
@@ -251,7 +253,7 @@ public class PeaceManager : MonoBehaviour
         if (nowHoldPeace == null) return;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = true;
 
-        ResetHoldPeacePosition(nowHoldPeace);
+        ResetPeacePosition(nowHoldPeace);
         JudgePeace(nowHoldPeace);
         nowHoldPeace = null;
     }
@@ -259,13 +261,11 @@ public class PeaceManager : MonoBehaviour
     //TODO:いったん判定後ピース省略
     private void JudgePeace(Peace judgePeace)
     {
-        //Debug.Log("審査位置" + judgePeace.point.X + " " + judgePeace.point.Y);
-        //Debug.Log("DeletionTargetList=" + DeletionTargetList.Count);
         if (judgePeace.peaceType == PeaceType.None)
             return;
 
         //プレイヤーの持っているのは除外
-        POINT judgePoint;// = judgePeace.point;
+        POINT judgePoint;
 
         List<POINT> temporaryDeletingList = new List<POINT>();
 
@@ -273,9 +273,11 @@ public class PeaceManager : MonoBehaviour
         bool isDelete = false;
         //上下調査------------------------
         int count;// = 1;
-        //  POINT generatePeacePoint = new POINT(judgePeace.point.X, judgePeace.point.Y);
         //上へ
         totalDeleteList.Add(new POINT(judgePeace.point.X, judgePeace.point.Y));
+
+        //連鎖中で無い可能性もあるので一回一回チェックする
+        POINT checkPoint;
 
         for (int j = 0; j < totalDeleteList.Count; j++)
         {
@@ -284,20 +286,24 @@ public class PeaceManager : MonoBehaviour
             temporaryDeletingList.Clear();
             for (int i = judgePoint.Y - 1; i >= 0; i--)
             {
-                if (peaceTable[new POINT(judgePoint.X, i)].peaceType == judgePeace.peaceType)
+                 checkPoint = new POINT(judgePoint.X, i);
+                if (peaceTable.ContainsKey(checkPoint)==false) break;
+                if (peaceTable[checkPoint].peaceType == judgePeace.peaceType)
                 {
                     count++;
-                    temporaryDeletingList.Add(new POINT(judgePoint.X, i));
+                    temporaryDeletingList.Add(checkPoint);
                 }
                 else
                     break;
             }
             for (int i = judgePoint.Y + 1; i < BoardSizeY; i++)
             {
-                if (peaceTable[new POINT(judgePoint.X, i)].peaceType == judgePeace.peaceType)
+                checkPoint = new POINT(judgePoint.X, i);
+                if (peaceTable.ContainsKey(checkPoint) == false) break;
+                if (peaceTable[checkPoint].peaceType == judgePeace.peaceType)
                 {
                     count++;
-                    temporaryDeletingList.Add(new POINT(judgePoint.X, i));
+                    temporaryDeletingList.Add(checkPoint);
                 }
                 else
                     break;
@@ -320,9 +326,11 @@ public class PeaceManager : MonoBehaviour
             temporaryDeletingList.Clear();
             for (int i = judgePoint.X + 1; i < BoardSizeX; i++)
             {
-                if (peaceTable[new POINT(i, judgePoint.Y)].peaceType == judgePeace.peaceType)
+                checkPoint = new POINT(i, judgePoint.Y);
+                if (peaceTable.ContainsKey(checkPoint) == false) break;
+                if (peaceTable[checkPoint].peaceType == judgePeace.peaceType)
                 {
-                    temporaryDeletingList.Add(new POINT(i, judgePoint.Y));
+                    temporaryDeletingList.Add(checkPoint);
                     count++;
                 }
                 else
@@ -330,9 +338,11 @@ public class PeaceManager : MonoBehaviour
             }
             for (int i = judgePoint.X - 1; i >= 0; i--)
             {
-                if (peaceTable[new POINT(i, judgePoint.Y)].peaceType == judgePeace.peaceType)
+                checkPoint = new POINT(i, judgePoint.Y);
+                if (peaceTable.ContainsKey(checkPoint) == false) break;
+                if (peaceTable[checkPoint].peaceType == judgePeace.peaceType)
                 {
-                    temporaryDeletingList.Add(new POINT(i, judgePoint.Y));
+                    temporaryDeletingList.Add(checkPoint);
                     count++;
                 }
                 else
@@ -531,7 +541,7 @@ public class PeaceManager : MonoBehaviour
     {
         //リストの何番目か検索
         int delteListNumber = ReturnGenerationSameDeleteListNumber(deletePeace.point);
-        DeletePoint nowDeletePoint = DeletionTargetList[delteListNumber];
+        DeletePoint nowDeletePoint = DeletionTargetList[delteListNumber];//error
         if (nowDeletePoint.deleteCounter == nowDeletePoint.point.Count)
         {
             foreach (POINT p in nowDeletePoint.point)
@@ -694,8 +704,10 @@ public class PeaceManager : MonoBehaviour
                     //登録しなおし
                     //  Debug.Log("登録しなおしポイント X=" + p.point.X + "  Y=" + p.point.Y);
                     peaceTable.Add(p.point, p);//TODO:エラー
-                                               //位置のセット
-                    ResetHoldPeacePosition(p);
+
+                    //位置のセット
+                  //  if(p!=nowHoldPeace)
+                    ResetPeacePosition(p);
 
                     if (changeY == 0)
                         SetNewPeace(nonePoint.X, changeY);
