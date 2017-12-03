@@ -27,6 +27,9 @@ public class GameSystem : MonoBehaviour
     private bool isTimeStop = false;
 
 
+    [SerializeField]
+    JudgeManager judgeManager = null;
+
     //企画さんが設定できるように数値、、、
     //削除までの時間
     public float DeleteTime = 1.6f;
@@ -76,7 +79,7 @@ public class GameSystem : MonoBehaviour
 
     public void Clear()
     {
-        isGameOver = true;
+       // isGameOver = true;
         ResultText.text = "Clear!";
     }
 
@@ -84,6 +87,8 @@ public class GameSystem : MonoBehaviour
     public void StopTime()
     {
         isTimeStop = !isTimeStop;
+        judgeManager.ChallengeWindowActive();
+        ResultText.gameObject.SetActive(false);
     }
 
 }
