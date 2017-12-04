@@ -95,23 +95,32 @@ public class JudgeManager : MonoBehaviour
     {
         if (challengeType != ChallengeType.Creation) return;
         List<Peace> keyList = new List<Peace>(dictionary.Values);
+        if (CheckCreatePeaceCount(keyList, targetList) == true)
+            ClearChallange();
+    }
+
+
+    private bool CheckCreatePeaceCount(List<Peace> list, List<TargetSet> tList)
+    {
         int count = 0;
-        for (int i = 0; i < keyList.Count; i++)
+        for (int i = 0; i < list.Count; i++)
         {
-            for (int j = 0; j < targetList.Count; j++)
+            for (int j = 0; j < tList.Count; j++)
             {
-                if (targetList[j].peaceType == keyList[i].peaceType)//複数種類に未対応
+                if (tList[j].peaceType == list[i].peaceType)//複数種類に未対応
                 {
                     count++;
                     break;
                 }
-
             }
         }
         if (targetList[0].count <= count)
         {
-            ClearChallange();
+
+            return true;
         }
+        else
+            return false;
     }
 
 
@@ -134,7 +143,6 @@ public class JudgeManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         SetChallengeWindow();
-        //   ChallengeWindowActive();
 
     }
 
@@ -170,11 +178,6 @@ public class JudgeManager : MonoBehaviour
         titleText.text = "第" + (completeCount + 1) + "課題";
         string text = "";
 
-        //    Creation,//何個作成
-        //Deletion,//何個削除
-        //ConclusionDeletion,//何個まとめて削除
-        //MultipleDeletion,         //あれとこれを消せ
-        //DeletionCount,//何回消せ
         switch (challengeType)
         {
             case ChallengeType.Creation:
@@ -276,65 +279,83 @@ public class JudgeManager : MonoBehaviour
         targetList.Clear();
         TargetSet target;
         challengeType = (ChallengeType)Random.Range(0, (int)ChallengeType.DeletionCount + 1);
-        switch (challengeType)
+        bool setOK = false;
+       
+        while (setOK == false)
         {
-            case ChallengeType.Creation:
+            switch (challengeType)
+            {
+                case ChallengeType.Creation:
 
-                target.peaceType = (PeaceType)Random.Range(0, (int)PeaceType.None);
-                target.count = Random.Range(MinCreateCount, MaxCreateCount);
-                target.remainingCount = -1;
-                targetList.Add(target);
-              //  CheckCreate(PeaceManager.I.PeaceTable);
-
-                break;
-            case ChallengeType.Deletion:
-
-                target.peaceType = (PeaceType)Random.Range(0, (int)PeaceType.None);
-                target.remainingCount = target.count = Random.Range(1, MaxCreateCount);
-                targetList.Add(target);
-                break;
-            case ChallengeType.ConclusionDeletion://まとめて消す
-                target.peaceType = 0;
-                target.count = Random.Range(MinConclusionCount, MaxConclusionCount);
-                target.remainingCount = -1;
-                targetList.Add(target);
-                break;
-
-            case ChallengeType.DeletionCount:
-                target.peaceType = 0;
-                target.count = Random.Range(MinDeleteCount, MaxDeleteCount);
-                target.remainingCount = -1;
-                targetList.Add(target);
-                break;
-            case ChallengeType.MultipleDeletion:
-                int deleteCount = 2;// Random.Range(1, MaxMultipleCount + 1);
-                bool isContinu = false;
-                for (int i = 0; i < deleteCount; i++)
-                {
                     target.peaceType = (PeaceType)Random.Range(0, (int)PeaceType.None);
-                    target.remainingCount=target.count = Random.Range(MinDeleteCount, MaxDeleteCount);
-                    isContinu = false;
-                    if (targetList.Count > 0)
+                    target.count = Random.Range(MinCreateCount, MaxCreateCount);
+                    target.remainingCount = -1;
+
+                    List<Peace> keyList = new List<Peace>(PeaceManager.I.PeaceTable.Values);
+                    List<TargetSet> t = new List<TargetSet>();
+                    t.Add(target);
+                    if (CheckCreatePeaceCount(keyList, t) == true)
                     {
-
-                        for (int j = 0; j < targetList.Count; j++)
-                        {
-                            if (targetList[j].peaceType == target.peaceType)
-                            {
-                                i--;
-                                isContinu = true;
-                                break;
-                            }
-
-
-                        }
+                        setOK = true;
                     }
-                    if (isContinu == true)
-                        continue;
+                    else
+                        targetList.Add(target);
 
+                    //  CheckCreate(PeaceManager.I.PeaceTable);
+
+                    break;
+                case ChallengeType.Deletion:
+                    setOK = true;
+                    target.peaceType = (PeaceType)Random.Range(0, (int)PeaceType.None);
+                    target.remainingCount = target.count = Random.Range(1, MaxCreateCount);
                     targetList.Add(target);
-                }
-                break;
+                    break;
+                case ChallengeType.ConclusionDeletion://まとめて消す
+                    setOK = true;
+                    target.peaceType = 0;
+                    target.count = Random.Range(MinConclusionCount, MaxConclusionCount);
+                    target.remainingCount = -1;
+                    targetList.Add(target);
+                    break;
+
+                case ChallengeType.DeletionCount:
+                    setOK = true;
+                    target.peaceType = 0;
+                    target.count = Random.Range(MinDeleteCount, MaxDeleteCount);
+                    target.remainingCount = -1;
+                    targetList.Add(target);
+                    break;
+                case ChallengeType.MultipleDeletion:
+                    setOK = true;
+                    int deleteCount = 2;// Random.Range(1, MaxMultipleCount + 1);
+                    bool isContinu = false;
+                    for (int i = 0; i < deleteCount; i++)
+                    {
+                        target.peaceType = (PeaceType)Random.Range(0, (int)PeaceType.None);
+                        target.remainingCount = target.count = Random.Range(MinDeleteCount, MaxDeleteCount);
+                        isContinu = false;
+                        if (targetList.Count > 0)
+                        {
+
+                            for (int j = 0; j < targetList.Count; j++)
+                            {
+                                if (targetList[j].peaceType == target.peaceType)
+                                {
+                                    i--;
+                                    isContinu = true;
+                                    break;
+                                }
+
+
+                            }
+                        }
+                        if (isContinu == true)
+                            continue;
+
+                        targetList.Add(target);
+                    }
+                    break;
+            }
         }
 
     }

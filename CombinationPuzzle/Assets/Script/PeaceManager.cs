@@ -529,17 +529,38 @@ public class PeaceManager : MonoBehaviour
                 {
                     //そのポイントより下のポイントで一個でも空きマスがあればポイントが無ければ動かす
                     //番号は途中から変える?
+                  //  new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - peace.point.Y * onePeaceSize);
+                    Sequence sequence = DOTween.Sequence().
+                        OnStart(() =>
+                        {
+                            peaceTable[peace.point].RectTransform.DOLocalMove(new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - (peace.point.Y+1) * onePeaceSize), 1);//移動
+                        }).InsertCallback(0.5f, () =>SetChangePoint(peace,new POINT(peace.point.X, peace.point.Y+1)))
+                        .OnComplete(() => 
+                            FallingPeace(peace)
+                        );//ここで半分の時番号変える、もし交換して何も無いなら終了
 
-                    //Sequence sequence = DOTween.Sequence().
-                    //    OnStart(() =>
-                    //    {
-                    //        peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(Vector2.zero, 10);//移動
-                    //    }).InsertCallback(2, () => text.text = "sss");//ここで半分の時番号変える、もし交換して何も無いなら終了
+
+
                 }
             }
         }
+    }
+
+
+    private void SetChangePoint(Peace nowPeace , POINT changePoint)
+    {
+        if (peaceTable.ContainsKey(changePoint) == false)
+        {
+            Peace p = nowPeace;
+            peaceTable.Remove(nowPeace.point);
+            p.point = changePoint;
+            peaceTable.Add(p.point,p);
+        }
+        else
+            Debug.LogError("すでにピースが存在しています");
 
     }
+
 
 
     //今までのリストに同じものが無いかチェック
