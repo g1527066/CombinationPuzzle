@@ -12,8 +12,8 @@ public class Peace : MonoBehaviour
     float flashingTime = 0f;
     bool isNoColor = false;
     public PeaceType nextPeaceType = PeaceType.None;
-
-
+    public bool isMatching = false;
+    public bool IsDuringFall = false;
     RectTransform rectTransform;
     public RectTransform RectTransform
     {
@@ -29,7 +29,7 @@ public class Peace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (peaceType == PeaceType.None)
+        if (isMatching)
         {
             deleteTime += Time.deltaTime;
             flashingTime += Time.deltaTime;
@@ -47,24 +47,40 @@ public class Peace : MonoBehaviour
 
             if (deleteTime > GameSystem.I.DeleteTime)
             {
+                isMatching = false;
                 if (nextPeaceType != PeaceType.None)
                 {
+
                     peaceType = nextPeaceType;
-                    nextPeaceType = PeaceType.None;
+//                    nextPeaceType = PeaceType.None;
                     this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                     flashingTime = deleteTime = 0;
                     SetSprite(PeaceManager.I.ReturnSprite(peaceType));
-                    PeaceManager.I.JudgeChangeNextPiece(this);
+                    PeaceManager.I.DeletePeace(this);
+                   // nextPeaceType = PeaceType.None;
+
+
                     return;
                 }
-                PeaceManager.I.DeletePeace(this);
+                PeaceManager.I.DeletePeace(this);//ストックに追加
                 AudioManager.I.PlaySound("DeletePeace");
-                Destroy(this.gameObject);
+                this.gameObject.SetActive(false);
+                // Destroy(this.gameObject);
             }
         }
     }
     public void SetSprite(Sprite setSptrite)
     {
         this.GetComponent<UnityEngine.UI.Image>().sprite = setSptrite;
+    }
+
+    //消して次の追加する前の初期化用
+    public void Initialization()
+    {
+        deleteTime = 0f;
+        flashingTime = 0f;
+        isNoColor = false;
+        nextPeaceType = PeaceType.None;
+        isMatching = false;
     }
 }
