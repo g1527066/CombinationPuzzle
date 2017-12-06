@@ -70,11 +70,11 @@ public class JudgeManager : MonoBehaviour
 
     void Start()
     {
-        SetNewChallenge();
-        SetChallengeWindow();
+        //SetNewChallenge();
+        //SetChallengeWindow();
 
-        deleteCountdown = -1;
-        StartCoroutine(StartStop());
+        //deleteCountdown = -1;
+        //StartCoroutine(StartStop());
 
     }
 
@@ -133,7 +133,7 @@ public class JudgeManager : MonoBehaviour
         GameSystem.I.Clear();
         deleteCountdown = -1;
         //次の課題設定
-        SetNewChallenge();
+      //  SetNewChallenge();
         StartCoroutine(ClearCoRoutine());
 
     }

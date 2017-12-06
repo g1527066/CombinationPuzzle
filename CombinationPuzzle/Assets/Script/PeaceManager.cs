@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
+
 
 public enum PeaceType
 {
@@ -100,28 +102,6 @@ public class PeaceManager : MonoBehaviour
     public void ChangeDrop()
     {
 
-        //text.text =( testSpriteCount % testDrop.Count+2).ToString();
-        //for (int i = 0; i < BoardSizeY; i++)
-        //{
-        //    for (int j = 0; j < BoardSizeX; j++)
-        //    {
-        //        if(peaceTable[new POINT(j,i)].peaceType==PeaceType.Yellow)
-        //        {
-        //            peaceTable[new POINT(j, i)].SetSprite(testDrop[testSpriteCount% testDrop.Count]);
-        //        }
-
-        //    }
-        //}
-
-        //Debug.Log(stratPosition.X + 1 * onePeaceSize);
-        //Debug.Log( onePeaceSize);
-
-        //if (testSpriteCount == 0)
-        //    peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(new Vector3(stratPosition.X + 1 * onePeaceSize, stratPosition.Y - 0 * onePeaceSize, 0),0.1f);
-        //  // peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOMoveX(10,10);
-        ////else if (testSpriteCount == 1)
-        //    peaceTable[new POINT(0, 0)].GetComponent<RectTransform>().DOPause();
-
         Sequence sequence = DOTween.Sequence().
             Append(
 
@@ -164,7 +144,7 @@ public class PeaceManager : MonoBehaviour
         {
             for (int j = 0; j < BoardSizeX; j++)
             {
-                PeaceType addPeaceType = (PeaceType)Random.Range(0, (int)PeaceType.Square);
+                PeaceType addPeaceType = (PeaceType)UnityEngine.Random.Range(0, (int)PeaceType.Square);
                 if (StartJudge(new POINT(j, i), addPeaceType))
                 {
                     Peace newPeace = Instantiate(peacePrefab).GetComponent<Peace>();
@@ -475,9 +455,9 @@ public class PeaceManager : MonoBehaviour
     private void SetDeletePoint(List<POINT> deleteList)
     {
 
-        //DeletePoint d;
-        //d.point = new List<POINT>();
-        //d.deleteCounter = 0;
+        DeletePoint d;
+        d.deletePeaceList = new List<Peace>();
+        d.deleteCounter = 0;
 
 
         //foreach(var b in deleteList)
@@ -488,16 +468,16 @@ public class PeaceManager : MonoBehaviour
         List<PeaceType> deletePeace = new List<PeaceType>();
 
         POINT point = ReturnGeneratePoint(deleteList);
-        d.GeneratePoint = point;
+        //  d.GeneratePoint = point;
         PeaceType p = peaceTable[point].peaceType;
         for (int i = 0; i < deleteList.Count; i++)
         {
-            if (deleteList[i].X != point.X || deleteList[i].Y != point.Y)
-                d.point.Add(deleteList[i]);
+            // if (deleteList[i].X != point.X || deleteList[i].Y != point.Y)
+            d.deletePeaceList.Add(PeaceTable[deleteList[i]]);
             try
             {
                 deletePeace.Add(peaceTable[deleteList[i]].peaceType);
-                peaceTable[deleteList[i]].peaceType = PeaceType.None;
+                peaceTable[deleteList[i]].isMatching = true;  // = PeaceType.None;
             }
             catch
             {
@@ -508,59 +488,25 @@ public class PeaceManager : MonoBehaviour
 
         try
         {
-            if (p == PeaceType.Pentagon)//ペンタゴンは全て削除なので生成場所も追加する
-            {
-                d.point.Add(d.GeneratePoint);
+            //if (p == PeaceType.Pentagon)//ペンタゴンは全て削除なので生成場所も追加する
+            //{
+            //    d.point.Add(d.GeneratePoint);
 
-            }
-            else if (p != PeaceType.Square)//TODO:いったんペンタゴンはスクエアになる設定
-            {
+            //}
+            if (p != PeaceType.Square && p != PeaceType.Pentagon)
                 peaceTable[point].nextPeaceType = PeaceType.Square;
-            }
-            else
-            {
-
+            else if (p == PeaceType.Square)
                 peaceTable[point].nextPeaceType = PeaceType.Pentagon;
-
-            }
             DeletionTargetList.Add(d);
 
         }
-        catch { }
-        judgeManager.DleteCheck(deletePeace, DeletionTargetList.Count);
+        catch { Debug.LogError("削除リスト作成中エラー"); }
+        // judgeManager.DleteCheck(deletePeace, DeletionTargetList.Count);
 
     }
 
-    //今の場所の一つ下がなかったら動かす
-    public void FallingPeace(Peace peace)
-    {
-        if (peace.point.Y > BoardSizeY - 1) //一番下より小さく、
-        {
-            for (int i = peace.point.Y + 1; i < BoardSizeY; i++)
-            {
-                if (peaceTable.ContainsKey(new POINT(peace.point.X, i)) == false)
-                {
-                    //そのポイントより下のポイントで一個でも空きマスがあればポイントが無ければ動かす
-                    //番号は途中から変える?
-                    //  new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - peace.point.Y * onePeaceSize);
-                    Sequence sequence = DOTween.Sequence().
-                        OnStart(() =>
-                        {
-                            peaceTable[peace.point].RectTransform.DOLocalMove(new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - (peace.point.Y + 1) * onePeaceSize), 1);//移動
-                        }).InsertCallback(0.5f, () => SetChangePoint(peace, new POINT(peace.point.X, peace.point.Y + 1)))
-                        .OnComplete(() =>
-                            FallingPeace(peace)
-                        );//ここで半分の時番号変える、もし交換して何も無いなら終了
 
-
-
-                }
-            }
-        }
-    }
-
-
-    private void SetChangePoint(Peace nowPeace, POINT changePoint)
+    private void SetChangePoint(Peace nowPeace, POINT changePoint,bool isJugde=false)
     {
         if (peaceTable.ContainsKey(changePoint) == false)
         {
@@ -568,10 +514,28 @@ public class PeaceManager : MonoBehaviour
             peaceTable.Remove(nowPeace.point);
             p.point = changePoint;
             peaceTable.Add(p.point, p);
+            
         }
-        else
-            Debug.LogError("すでにピースが存在しています");
+        else//無理だったら次のフレームで挑戦する
+        {
+            //Action<Peace, POINT> action = new Action<Peace, POINT>(SetChangePoint);
+            //action(nowPeace,changePoint);
+            if(isJugde==false)
+            StartCoroutine(ExecuteNextFrame(nowPeace,changePoint));
+            //SetChangePoint(nowPeace,changePoint);//= (nowPeace )=>SetChangePoint(nowPeace, changePoint);
 
+            Debug.Log("今 x="+nowPeace.point.X+"  y="+nowPeace.point.Y);
+            Debug.Log("changePoint X="+ changePoint.X+" Y="+changePoint.Y);
+            //  Debug.LogError("すでにピースが存在しています");
+            Debug.Log("すでにピースが存在しています");
+        }
+    }
+
+    //actionがわからなかった、、、
+    private IEnumerator ExecuteNextFrame(Peace nowPeace, POINT changePoint)
+    {
+        yield return null;
+        SetChangePoint(nowPeace, changePoint,true);
     }
 
 
@@ -631,65 +595,15 @@ public class PeaceManager : MonoBehaviour
     }
 
 
-    //public void JudgeChangeNextPiece(Peace deletePeace)
-    //{
-    //    //リストの何番目か検索
-    //    int delteListNumber = ReturnGenerationSameDeleteListNumber(deletePeace.point);
-    //    DeletePoint nowDeletePoint = DeletionTargetList[delteListNumber];//error
-    //    if (nowDeletePoint.deleteCounter == nowDeletePoint.deletePeaceList.Count)
-    //    {
-    //        judgeManager.DeleteCount();
-    //        //foreach (POINT p in nowDeletePoint.point)
-    //        //{
-
-    //        //    peaceTable.Remove(p);
-    //        //}
-    //        for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
-    //        {
-    //            if(peaceTable[nowDeletePoint.deletePeaceList[i].point].)
-    //        }
-
-
-
-
-    //        //今の以外の削除リストを下げる
-    //        DownDeletingList(nowDeletePoint.point, delteListNumber);
-    //        List<POINT> DisplacePoint = new List<POINT>();
-    //        //削除するところの一番下を求める
-    //        SetDisplacePoint(DisplacePoint, nowDeletePoint.point);
-
-    //        for (int k = 0; k < DisplacePoint.Count; k++)//X各座標
-    //        {
-    //            if (DisplacePoint[k].Y == 0)
-    //            {
-    //                SetNewPeace(DisplacePoint[k].X, 0);
-    //                continue;
-    //            }
-    //            ColumnFormat(DisplacePoint[k]);
-    //        }
-    //        ////判定
-    //        List<POINT> deletePoint = new List<POINT>();
-    //        SetDeletePointList(deletePoint, nowDeletePoint);//ここがエラー
-    //        for (int k = 0; k < deletePoint.Count; k++)
-    //        {
-    //            JudgePeace(peaceTable[deletePoint[k]]);//TODO:error
-    //        }
-    //        JudgePeace(peaceTable[nowDeletePoint.GeneratePoint]);//変化する前にすべての削除がオア割ってしまうと判定ができないまだNone
-    //        DeletionTargetList.Remove(nowDeletePoint);
-    //        judgeManager.CheckCreate(peaceTable);
-
-    //    }
-    //}
-
 
     //DeleteListの何番目にあるか
-    private int ReturnSameDeleteListNumber(POINT checkPoint)
+    private int ReturnSameDeleteListNumber(Peace checkPeace)
     {
         for (int i = 0; i < DeletionTargetList.Count; i++)
         {
-            for (int j = 0; j < DeletionTargetList[i].point.Count; j++)
+            for (int j = 0; j < DeletionTargetList[i].deletePeaceList.Count; j++)
             {
-                if (DeletionTargetList[i].point[j].X == checkPoint.X && DeletionTargetList[i].point[j].Y == checkPoint.Y)
+                if (DeletionTargetList[i].deletePeaceList[j] == checkPeace)
                 {
                     return i;
                 }
@@ -699,44 +613,42 @@ public class PeaceManager : MonoBehaviour
     }
 
 
-    private int ReturnGenerationSameDeleteListNumber(POINT checkPoint)
-    {
-        for (int i = 0; i < DeletionTargetList.Count; i++)
-        {
-            if (DeletionTargetList[i].GeneratePoint.X == checkPoint.X && DeletionTargetList[i].GeneratePoint.Y == checkPoint.Y)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-
 
     //ピースを削除し、上から追加、ずらす
     //TODO:いったん一瞬で詰める
     public void DeletePeace(Peace deletePeace)
     {
-        bool hitSamePoint = false;
         POINT dPoint = deletePeace.point;
 
-        int delteListNumber = ReturnSameDeleteListNumber(deletePeace.point);
-        if (delteListNumber == -1) return;//見つからなかった
-
+        int delteListNumber = ReturnSameDeleteListNumber(deletePeace);
+        if (delteListNumber == -1)
+        {
+            Debug.LogError("リストに見つからなかった");
+            return;//見つからなかった
+        }
         DeletePoint nowDeletePoint = DeletionTargetList[delteListNumber];
         nowDeletePoint.deleteCounter++;
         DeletionTargetList[delteListNumber] = nowDeletePoint;
-        hitSamePoint = true;
 
         //全て削除済みで、生成も変わっていたら
         if (nowDeletePoint.deleteCounter == nowDeletePoint.deletePeaceList.Count/* && peaceTable[nowDeletePoint.GeneratePoint].peaceType != PeaceType.None*/)//全て削除済みだったら削除、上から追加、判定する（両方）、ずらす
         {
-            judgeManager.DeleteCount();
-            Debug.Log("全て削除済み");
+            //  judgeManager.DeleteCount();
+           // Debug.Log("全て削除済み");
             ////生成されたもの以外リストから削除、ストックに追加
             //foreach (POINT p in nowDeletePoint.point)
             //{
             //    peaceTable.Remove(p);
             //}
+            Peace generationPeace = null;
+
+            List<POINT> nowDeletePointList = new List<POINT>();
+            for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
+            {
+              //  Debug.Log("構造体  X=" + nowDeletePoint.deletePeaceList[i].point.X + " Y=" + nowDeletePoint.deletePeaceList[i].point.Y);
+                nowDeletePointList.Add(nowDeletePoint.deletePeaceList[i].point);
+            }
+
             for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
             {
                 POINT p = nowDeletePoint.deletePeaceList[i].point;
@@ -749,8 +661,12 @@ public class PeaceManager : MonoBehaviour
 
                     //削除
                     peaceTable.Remove(p);
-
-
+                    //消したところに上に追加
+                    AddToTopPeace(peace);
+                }
+                else
+                {
+                    generationPeace = peaceTable[p];
                 }
             }
 
@@ -759,145 +675,134 @@ public class PeaceManager : MonoBehaviour
             //DownDeletingList(nowDeletePoint.point, delteListNumber);
             List<POINT> DisplacePoint = new List<POINT>();
             //構造体のpeaceのpoint を格納
-            List<POINT> nowDeletePointList = new List<POINT>();
-            for(int i=0;i<nowDeletePoint.deletePeaceList.Count;i++)
-            {
-                nowDeletePointList.Add(nowDeletePoint.deletePeaceList[i].point);
-            }
+        
 
             //削除するところの一番下を求める
             SetDisplacePoint(DisplacePoint, nowDeletePointList);
-            //foreach (POINT p in DisplacePoint)
-            //{
-            //    Debug.Log("dispoint="+p.X+"  "+p.Y);
-            //}
+            foreach (POINT p in DisplacePoint)
+            {
+                Debug.Log("削除格納dispoint=" + p.X + "  " + p.Y);
+            }
 
 
             for (int k = 0; k < DisplacePoint.Count; k++)//X各座標
             {
-                // Debug.Log("X各座標" + k);
-                //ずらしたい、、、
+                bool isGeneration = false;
+                //上を全て下げるフラグを立てる
+                for (int i = DisplacePoint[k].Y; i >= 0; i--)
+                {
+                    if (peaceTable.ContainsKey(new POINT(DisplacePoint[k].X, i)))
+                    {
+                        //フラグが経っているか生成時なら残りは確認しながら落ちる
 
-                //if (DisplacePoint[k].Y == 0)
-                //{
-                //    SetNewPeace(DisplacePoint[k].X, 0);
-                //    continue;
-                //}
-                //ColumnFormat(DisplacePoint[k]);
+                        if (isGeneration || peaceTable[new POINT(DisplacePoint[k].X, i)].nextPeaceType != PeaceType.None)
+                        {
+                            isGeneration = true;
+                            if (peaceTable[new POINT(DisplacePoint[k].X, i)].IsDuringFall == false)
+                            {
+                             //   Debug.Log("落とす　X="+ DisplacePoint[k].X+" Y="+i);
+                                CheckFallingPeace(peaceTable[new POINT(DisplacePoint[k].X, i)]);
+                            }
+                        }
+                        else
+                        {
+                            if (peaceTable[new POINT(DisplacePoint[k].X, i)].IsDuringFall == false)
+                            {
+                               // Debug.Log("落とす　X=" + DisplacePoint[k].X + " Y=" + i);
+                                SetFallPeace(peaceTable[new POINT(DisplacePoint[k].X, i)]);
+                            }
+                        }
+                    }
+                }
 
             }
-            ////判定
-            List<POINT> deletePoint = new List<POINT>();
-            SetDeletePointList(deletePoint, nowDeletePoint);//ここがエラー
-            for (int k = 0; k < deletePoint.Count; k++)
-            {
-                //  Debug.Log("--" + deletePoint[k].X + "  " + deletePoint[k].Y);
-                JudgePeace(peaceTable[deletePoint[k]]);//TODO:error
-                                                       // Debug.Log(peaceTable[deletePoint[k]].point.X + "  " + peaceTable[deletePoint[k]].point.Y);
+         
+            generationPeace.nextPeaceType = PeaceType.None;//最後に直す
+            //判定は生成したところだけ
+            JudgePeace(generationPeace);
 
-            }
-            ////■とかに変化したものも判定//前がペンタゴンの場合もう一回判定してしまうことになる
-            JudgePeace(peaceTable[nowDeletePoint.GeneratePoint]);//変化する前にすべての削除がオア割ってしまうと判定ができないまだNone
-            Debug.Log("生成場所" + nowDeletePoint.GeneratePoint.X + "  " + nowDeletePoint.GeneratePoint.Y);
-            Debug.Log("生成タイプ" + peaceTable[nowDeletePoint.GeneratePoint].peaceType);
-            //リストも削除
-            //Debug.Log("削除前"+DeletionTargetList.Count);
+
             DeletionTargetList.Remove(nowDeletePoint);
-            Debug.Log("削除後" + peaceTable.Count);
 
-            judgeManager.CheckCreate(peaceTable);
-            // JudgeGameClear();
+            // judgeManager.CheckCreate(peaceTable);
         }
     }
 
+
     /// <summary>
-    /// 指定された位置から順にピースをずらし、補う
+    /// 削除されるピースと同じX軸の上に追加
     /// </summary>
-    private void ColumnFormat(POINT nonePoint)
+    /// <param name="deletePeace"></param>
+    private void AddToTopPeace(Peace deletePeace)
     {
-        int changeY;
-        for (int n = nonePoint.Y; n > 0; n--)
+        for (int i = -1; i >= -BoardSizeY; i--)
         {
-            //   Debug.Log("n="+n);
-            for (changeY = n - 1; changeY >= 0; changeY--)
+            if (peaceTable.ContainsKey(new POINT(deletePeace.point.X, i)) == false)
             {
-                //Debug.Log(changeY);
-                if (peaceTable.ContainsKey(new POINT(nonePoint.X, changeY)))
-                {
-                    // Debug.Log("キーが存在したX=" + nonePoint.X + "  Y=" + changeY);
-                    Peace p = peaceTable[new POINT(nonePoint.X, changeY)];//保存
-                                                                          //中身を無かった場所に移動
-                    p.point = new POINT(nonePoint.X, n);
-                    //元の削除
-                    peaceTable.Remove(new POINT(nonePoint.X, changeY));
-                    //登録しなおし
-                    //  Debug.Log("登録しなおしポイント X=" + p.point.X + "  Y=" + p.point.Y);
-                    peaceTable.Add(p.point, p);//TODO:エラー
-
-                    //位置のセット
-                    if (p != nowHoldPeace)
-                        ResetPeacePosition(p);
-
-                    if (changeY == 0)
-                        SetNewPeace(nonePoint.X, changeY);
-                    break;
-                }
-                if (changeY == 0)
-                {
-                    // Debug.Log("changeY=" + changeY + "  n" + n);
-                    for (int addPeaceCount = n; addPeaceCount >= 0; addPeaceCount--)
-                    {
-                        SetNewPeace(nonePoint.X, addPeaceCount);
-                    }
-                    break;
-                }
-
+                //初期化
+                deletePeace.Initialization();
+                deletePeace.SetNewType();
+                deletePeace.SetSprite(ReturnSprite(deletePeace.peaceType));
+                //point
+                deletePeace.point = new POINT(deletePeace.point.X, i);
+                //テーブルに追加
+                peaceTable.Add(deletePeace.point, deletePeace);
+                //場所を移動
+                ResetPeacePosition(deletePeace);
+                //落下をつける
+                SetFallPeace(deletePeace);
+                return;
             }
         }
     }
 
-
-
-    /// <summary>
-    /// 今の削除中の以外のリストのY軸を下げる
-    /// </summary>
-    /// <param name="deleteList"></param>
-    /// <param name="deleteNumber">何番目の削除リストか</param>
-    private void DownDeletingList(List<POINT> deleteList, int deleteNumber)
+    //今の場所の一つ下がなかったら動かす
+    public void CheckFallingPeace(Peace peace)
     {
-        Debug.Log("下げました");
-
-        for (int i = 0; i < DeletionTargetList.Count; i++)
+        Debug.Log("CheckFallingPeace  x=" + peace.point.X + "　Y=" + peace.point.Y);
+        if (peace.point.Y < BoardSizeY - 1) //一番下より小さく、
         {
-            if (i == deleteNumber) continue;
-            for (int k = 0; k < deleteList.Count; k++)
+            for (int i = peace.point.Y + 1; i < BoardSizeY; i++)
             {
-                for (int j = 0; j < DeletionTargetList[i].point.Count; j++)
+                if (peaceTable.ContainsKey(new POINT(peace.point.X, i)) == false)
                 {
+                    peaceTable[peace.point].IsDuringFall = true;
+                    //そのポイントより下のポイントで一個でも空きマスがあればポイントが無ければ動かす
+                    //番号は途中から変える?
+                    //  new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - peace.point.Y * onePeaceSize);
+                    Sequence sequence = DOTween.Sequence().
+                        OnStart(() =>
+                        {
+                            peaceTable[peace.point].RectTransform.DOLocalMove(new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - (peace.point.Y + 1) * onePeaceSize), 1);//移動
+                        }).InsertCallback(0.5f, () => SetChangePoint(peace, new POINT(peace.point.X, peace.point.Y + 1)))
+                        .OnComplete(() =>
+                            CheckFallingPeace(peace)
+                        );//ここで半分の時番号変える、もし交換して何も無いなら終了
 
-                    if (deleteList[k].X == DeletionTargetList[i].point[j].X &&
-                        deleteList[k].Y > DeletionTargetList[i].point[j].Y)
-                    {
-                        POINT p = DeletionTargetList[i].point[j];
-                        p = new POINT(p.X, p.Y + 1);
-                        DeletionTargetList[i].point[j] = p;
-                    }
-                }
-
-                if (deleteList[k].X == DeletionTargetList[i].GeneratePoint.X &&
-                        deleteList[k].Y > DeletionTargetList[i].GeneratePoint.Y)
-                {
-                    DeletePoint d = DeletionTargetList[i];
-                    POINT p = DeletionTargetList[i].GeneratePoint;
-                    p = new POINT(p.X, p.Y + 1);
-                    d.GeneratePoint = p;
-                    DeletionTargetList[i] = d;
-                    Debug.Log("生成場所も下げました");
+                    return;
 
                 }
             }
         }
     }
+
+    /// <summary>
+    /// 落下させつつピースの番号を変える
+    /// </summary>
+    private void SetFallPeace(Peace peace)
+    {
+
+        peace.IsDuringFall = true;
+        Sequence sequence = DOTween.Sequence().
+                     OnStart(() =>
+                     {
+                         peaceTable[peace.point].RectTransform.DOLocalMove(new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - (peace.point.Y + 1) * onePeaceSize), 1);//移動
+                     }).InsertCallback(0.5f, () => SetChangePoint(peace, new POINT(peace.point.X, peace.point.Y + 1)))
+                     .OnComplete(() =>
+                         CheckFallingPeace(peace)
+                     );//ここで半分の時番号変える、もし交換して何も無いなら終了
+    }
+
 
     private void SetDisplacePoint(List<POINT> displacePoint, List<POINT> deleteList)
     {
@@ -907,6 +812,7 @@ public class PeaceManager : MonoBehaviour
             downPoint[i] = -1;
         for (int i = 0; i < deleteList.Count; i++)
         {
+     //       Debug.Log("deleteList[i].Y > downPoint[deleteList[i].X]  " + deleteList[i].Y + ">" + downPoint[deleteList[i].X]);
             if (deleteList[i].Y > downPoint[deleteList[i].X])
             {
                 downPoint[deleteList[i].X] = deleteList[i].Y;
@@ -922,45 +828,6 @@ public class PeaceManager : MonoBehaviour
         }
     }
 
-
-    private void SetDeletePointList(List<POINT> deletePoint, DeletePoint deletePointStruct)
-    {
-        int downCount;
-        for (int i = 0; i < BoardSizeX; i++)
-        {
-            downCount = -1;
-            for (int j = 0; j < deletePointStruct.point.Count; j++)
-            {
-                if (deletePointStruct.point[j].X == i && downCount < deletePointStruct.point[j].Y)
-                {
-                    downCount = deletePointStruct.point[j].Y;
-                }
-            }
-            if (downCount != -1)
-            {
-                for (int j = downCount; j >= 0; j--)
-                {
-                    deletePoint.Add(new POINT(i, j));
-                }
-            }
-        }
-    }
-
-
-
-
-    //上に新しいピースを入れる
-    private void SetNewPeace(int x, int y)
-    {
-        POINT setPoint = new POINT(x, y);
-        Peace newPeace = Instantiate(peacePrefab).GetComponent<Peace>();
-        newPeace.peaceType = (PeaceType)Random.Range(0, (int)PeaceType.Square);
-        newPeace.transform.SetParent(peaceParent.transform, false);
-        newPeace.GetComponent<RectTransform>().anchoredPosition = new Vector2(stratPosition.X + setPoint.X * onePeaceSize, stratPosition.Y - setPoint.Y * onePeaceSize);
-        newPeace.point = setPoint;
-        newPeace.SetSprite(PeaceSprites[(int)newPeace.peaceType]);
-        peaceTable.Add(newPeace.point, newPeace);
-    }
 
 
 
@@ -988,15 +855,15 @@ public class PeaceManager : MonoBehaviour
         Debug.Log("マス数=" + peaceTable.Count);
         Debug.Log("削除リスト数=" + DeletionTargetList.Count);
 
-        for (int i = 0; i < DeletionTargetList.Count; i++)
-        {
-            for (int j = 0; j < DeletionTargetList[i].point.Count; j++)
-            {
-                Debug.Log("i=" + i + " j=" + j + " X=" + DeletionTargetList[i].point[j].X + " Y=" + DeletionTargetList[i].point[j].Y);
+        //for (int i = 0; i < DeletionTargetList.Count; i++)
+        //{
+        //    for (int j = 0; j < DeletionTargetList[i].point.Count; j++)
+        //    {
+        //        Debug.Log("i=" + i + " j=" + j + " X=" + DeletionTargetList[i].point[j].X + " Y=" + DeletionTargetList[i].point[j].Y);
 
-            }
+        //    }
 
-        }
+        //}
         Debug.Log("------------------------------");
 
 

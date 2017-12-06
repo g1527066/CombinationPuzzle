@@ -22,6 +22,7 @@ public class Peace : MonoBehaviour
 
     private void Start()
     {
+        Initialization();
         rectTransform = this.gameObject.GetComponent<RectTransform>();
     }
 
@@ -48,12 +49,13 @@ public class Peace : MonoBehaviour
             if (deleteTime > GameSystem.I.DeleteTime)
             {
                 isMatching = false;
+                this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                 if (nextPeaceType != PeaceType.None)
                 {
 
                     peaceType = nextPeaceType;
 //                    nextPeaceType = PeaceType.None;
-                    this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+                  
                     flashingTime = deleteTime = 0;
                     SetSprite(PeaceManager.I.ReturnSprite(peaceType));
                     PeaceManager.I.DeletePeace(this);
@@ -64,7 +66,7 @@ public class Peace : MonoBehaviour
                 }
                 PeaceManager.I.DeletePeace(this);//ストックに追加
                 AudioManager.I.PlaySound("DeletePeace");
-                this.gameObject.SetActive(false);
+               // this.gameObject.SetActive(false);
                 // Destroy(this.gameObject);
             }
         }
@@ -82,5 +84,9 @@ public class Peace : MonoBehaviour
         isNoColor = false;
         nextPeaceType = PeaceType.None;
         isMatching = false;
+    }
+    public void SetNewType()
+    {
+       peaceType= (PeaceType)Random.Range(0, (int)PeaceType.Square);
     }
 }

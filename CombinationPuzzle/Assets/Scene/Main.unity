@@ -1284,7 +1284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SetLimitTime: 90
-  TimeText: {fileID: 1639705709}
+  TimeText: {fileID: 918539323}
   ResultText: {fileID: 811831503}
   TimeSlider: {fileID: 1747523328}
   judgeManager: {fileID: 1738620270}
@@ -1452,6 +1452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2d567b0eb09a9449611914a6f22a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nowHoldPeace: {fileID: 0}
   judgeManager: {fileID: 1738620270}
   peacePrefab: {fileID: 1391290457556056, guid: 9824e54ae43ea964eb5a544ebc0e9ea4,
     type: 2}
@@ -1465,13 +1466,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 80594f00dfe07ad4d9388f971999fff3, type: 3}
   - {fileID: 21300000, guid: 8cb69fa0f42166f49b8fe78038009b56, type: 3}
   - {fileID: 21300000, guid: 4d2ffc59b011b814882ec050f9c74af0, type: 3}
-  nowHoldPeace: {fileID: 0}
-  text: {fileID: 1398626756}
-  testDrop:
-  - {fileID: 21300000, guid: 86d516ad5df5b0c498027d4af1d91a50, type: 3}
-  - {fileID: 21300000, guid: e67a655be9a86a1409a1f735270c32ab, type: 3}
-  - {fileID: 21300000, guid: 4dd2974de3ebc1b498dd88b431e4683b, type: 3}
-  - {fileID: 21300000, guid: ad48839fc5b54fc4583fe37a6beae734, type: 3}
+  text: {fileID: 0}
+  testDrop: []
 --- !u!1001 &603690280
 Prefab:
   m_ObjectHideFlags: 0
@@ -2864,7 +2860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3187e7f357a68624e94556570d3d5657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comment: "\u30FB\u524A\u9664\u4E2D\u5165\u308C\u66FF\u3048\u3067\u304D\u3066\u306A\u3044\r\n\u30FB\u6301\u3063\u3066\u3044\u308B\u72B6\u614B\u3067\u4E09\u3064\u306E\u771F\u3093\u4E2D\u3067\u4ED6\u306B\u884C\u304F\u3068\u6D88\u3048\u308B\r\n\u30FB\u5927\u91CF\u306B\u6D88\u3057\u305F\u6642\u30D0\u30B0\u6709\u308A"
+  comment: 
 --- !u!1001 &1514149245
 Prefab:
   m_ObjectHideFlags: 0
@@ -4110,8 +4106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 2019982111}
-  Trade: {fileID: 8300000, guid: 9c4cfd8fa07a65448a9583e26620e874, type: 3}
-  DeletePeace: {fileID: 8300000, guid: 9fc34a8ac74746d4fb6976cd2f20857d, type: 3}
+  Trade: {fileID: 0}
+  DeletePeace: {fileID: 0}
 --- !u!4 &2019982113
 Transform:
   m_ObjectHideFlags: 0
@@ -4136,7 +4132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3187e7f357a68624e94556570d3d5657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comment: "\u30C6\u30B9\u30C8\u7528\u306B\u30DC\u30EA\u30E5\u30FC\u30E0\u4E0B\u3052\u3066\u307E\u3059\n----------------------------"
+  comment: 
 --- !u!224 &2084578446 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224025741498900140, guid: 62b4f4b27cb08dc459e710a0244453e0,
