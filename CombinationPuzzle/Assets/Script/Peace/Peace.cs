@@ -2,16 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Peace : MonoBehaviour
+
+public enum PeaceColor
 {
 
-    public PeaceType peaceType;
+    Red,
+    Blue,
+    Yellow,
+    Green,
+    Perple,
+    Orange,
+    None,
+}
+
+public enum PeaceForm
+{
+    triangle,
+    Square,
+    Pentagon,
+    None,
+}
+
+public abstract class Peace : MonoBehaviour
+{
+
+    public PeaceColor peaceType;
+    public PeaceForm nowPeaceForm;
+
+    public abstract PeaceForm GetPeaceForm
+    {
+        get;
+    }
+
+
+
     public POINT point;
 
-    float deleteTime = 0f;
-    float flashingTime = 0f;
-    bool isNoColor = false;
-    public PeaceType nextPeaceType = PeaceType.None;
+   protected  float deleteTime = 0f;
+    protected float flashingTime = 0f;
+    protected bool isNoColor = false;
+    public PeaceForm nextPeaceForm = PeaceForm.None;
     public bool isMatching = false;
     public bool IsDuringFall = false;
     RectTransform rectTransform;
@@ -50,10 +80,10 @@ public class Peace : MonoBehaviour
             {
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
-                if (nextPeaceType != PeaceType.None)
+                if (nextPeaceForm != PeaceForm.None)
                 {
 
-                    peaceType = nextPeaceType;
+                    nowPeaceForm= nextPeaceForm;
 //                    nextPeaceType = PeaceType.None;
                   
                     flashingTime = deleteTime = 0;
@@ -82,11 +112,11 @@ public class Peace : MonoBehaviour
         deleteTime = 0f;
         flashingTime = 0f;
         isNoColor = false;
-        nextPeaceType = PeaceType.None;
+        nextPeaceForm = PeaceForm.None;
         isMatching = false;
     }
     public void SetNewType()
     {
-       peaceType= (PeaceType)Random.Range(0, (int)PeaceType.Square);
+       peaceType= (PeaceColor)Random.Range(0, (int)PeaceColor.None);
     }
 }

@@ -18,7 +18,7 @@ public enum ChallengeType
 
 public struct TargetSet
 {
-    public PeaceType peaceType;
+    public PeaceColor peaceType;
 
     public int count;
     public int remainingCount;
@@ -146,26 +146,26 @@ public class JudgeManager : MonoBehaviour
 
     }
 
-    private string PeaceTypeString(PeaceType peaceType)
+    private string PeaceTypeString(PeaceColor peaceType)
     {
         switch (peaceType)
         {
-            case PeaceType.Red:
+            case PeaceColor.Red:
                 return "赤";
-            case PeaceType.Blue:
+            case PeaceColor.Blue:
                 return "青";
-            case PeaceType.Yellow:
+            case PeaceColor.Yellow:
                 return "黄色";
-            case PeaceType.Green:
+            case PeaceColor.Green:
                 return "緑";
-            case PeaceType.Perple:
+            case PeaceColor.Perple:
                 return "紫";
-            case PeaceType.Orange:
+            case PeaceColor.Orange:
                 return "橙";
-            case PeaceType.Square:
-                return "四角";
-            case PeaceType.Pentagon:
-                return "五角";
+            //case PeaceColor.Square:
+            //    return "四角";
+            //case PeaceColor.Pentagon:
+            //    return "五角";
             default:
                 Debug.LogError("色変更時エラー");
                 return "error";
@@ -235,7 +235,7 @@ public class JudgeManager : MonoBehaviour
         }
     }
 
-    public void DleteCheck(List<PeaceType> list, int deleteCount)
+    public void DleteCheck(List<PeaceColor> list, int deleteCount)
     {
         if (challengeType == ChallengeType.Creation || ChallengeType.DeletionCount == challengeType) return;
         if (challengeType == ChallengeType.ConclusionDeletion)
@@ -287,7 +287,7 @@ public class JudgeManager : MonoBehaviour
             {
                 case ChallengeType.Creation:
 
-                    target.peaceType = (PeaceType)Random.Range(0, (int)PeaceType.None);
+                    target.peaceType = (PeaceColor)Random.Range(0, (int)PeaceColor.None);
                     target.count = Random.Range(MinCreateCount, MaxCreateCount);
                     target.remainingCount = -1;
 
@@ -306,7 +306,7 @@ public class JudgeManager : MonoBehaviour
                     break;
                 case ChallengeType.Deletion:
                     setOK = true;
-                    target.peaceType = (PeaceType)Random.Range(0, (int)PeaceType.None);
+                    target.peaceType = (PeaceColor)Random.Range(0, (int)PeaceColor.None);
                     target.remainingCount = target.count = Random.Range(1, MaxCreateCount);
                     targetList.Add(target);
                     break;
@@ -331,7 +331,7 @@ public class JudgeManager : MonoBehaviour
                     bool isContinu = false;
                     for (int i = 0; i < deleteCount; i++)
                     {
-                        target.peaceType = (PeaceType)Random.Range(0, (int)PeaceType.None);
+                        target.peaceType = (PeaceColor)Random.Range(0, (int)PeaceColor.None);
                         target.remainingCount = target.count = Random.Range(MinDeleteCount, MaxDeleteCount);
                         isContinu = false;
                         if (targetList.Count > 0)
