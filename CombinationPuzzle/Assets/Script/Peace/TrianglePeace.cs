@@ -8,14 +8,10 @@ public class TrianglePeace : Peace {
     {
         get { return PeaceForm.triangle; }
     }
+    public override PeaceColor GetPeaceColor
+    {
+        get { return peaceColor; }
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

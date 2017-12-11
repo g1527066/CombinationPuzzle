@@ -6,10 +6,18 @@ public class PeaceGenerator : MonoBehaviour
 {
 
     [SerializeField]
-    GameObject peacePrefab = null;
+    public GameObject peacePrefab = null;
 
     [SerializeField]
     GameObject PeacePool = null;
+
+
+    //カラーの後は形
+    [SerializeField]
+    List<Sprite> PeaceSprites = new List<Sprite>();
+
+
+
 
     // Use this for initialization
     void Start()
@@ -24,36 +32,62 @@ public class PeaceGenerator : MonoBehaviour
     }
 
 
-    public void AllGeneration(Dictionary<POINT, Peace> dictionary,PeaceJudger peaceJudger)
+    public void AllGeneration(Dictionary<POINT, Peace> dictionary, PeaceJudger peaceJudger)
     {
         PeaceColor addPeaceType;
         for (int i = 0; i < PeaceManager.BoardSizeY; i++)
         {
             for (int j = 0; j < PeaceManager.BoardSizeX; j++)
             {
-                 addPeaceType = (PeaceColor)UnityEngine.Random.Range(0, (int)PeaceColor.None);
+                addPeaceType = (PeaceColor)UnityEngine.Random.Range(0, (int)PeaceColor.None);
                 Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
-                peace.peaceType = addPeaceType;
+                peace.peaceColor = addPeaceType;
                 peace.point = new POINT(j, i);
-                if(peaceJudger.CurrentDeletable(dictionary,peace))
+                if (peaceJudger.CurrentDeletable(dictionary, peace))
                 {
-                    continue;
                     j--;
+                    continue;
                 }
                 peace.transform.SetParent(PeacePool.transform, false);
-
-
+                peace.SetSprite(PeaceSprites[(int)peace.peaceColor]);
+                dictionary.Add(peace.point, peace);
             }
         }
     }
 
-    //    //newPeace.GetComponent<RectTransform>().anchoredPosition = new Vector2(stratPosition.X + j * onePeaceSize, stratPosition.Y - i * onePeaceSize);
-    //    //newPeace.SetSprite(PeaceSprites[(int)newPeace.peaceType]);
-    //    //peaceTable.Add(newPeace.point, newPeace);
-    //}
-    //else
-    //    j--;
+    public void ChangeForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
+    {
+        peaceTable.Remove(changePeace.point);
+        Peace newPeace = null;
+        changePeace.SetSprite(PeaceSprites[(int)changePeace.nextPeaceForm + (int)PeaceColor.None - 2]);
+        if (changePeace.nextPeaceForm == PeaceForm.Square)
+            newPeace= changePeace.gameObject.AddComponent<SquarePeace>();
+        else
+            newPeace = changePeace.gameObject.AddComponent<PentagonPeace>();
+        newPeace.point = changePeace.point;
 
+        peaceTable.Add(newPeace.point, newPeace);
+        Destroy(changePeace);
+    }
 
+    public void AddToTopPeace(Dictionary<POINT, Peace> peaceTable, Peace deletePeace)
+    {
+        for (int i = -1; i >= -PeaceManager.BoardSizeY; i--)
+        {
+            if (peaceTable.ContainsKey(new POINT(deletePeace.point.X, i)) == false)
+            {
+                //初期化
+                deletePeace.Initialization();
+                deletePeace.SetNewType();
+                deletePeace.SetSprite(PeaceSprites[(int)deletePeace.peaceColor]);
+                //point
+                deletePeace.point = new POINT(deletePeace.point.X, i);
+                //テーブルに追加
+                peaceTable.Add(deletePeace.point, deletePeace);
 
+                return;
+            }
+        }
+        Debug.LogError("上に追加できません");
+    }
 }

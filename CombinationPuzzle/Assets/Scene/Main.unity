@@ -1421,6 +1421,9 @@ GameObject:
   m_Component:
   - component: {fileID: 576598417}
   - component: {fileID: 576598418}
+  - component: {fileID: 576598421}
+  - component: {fileID: 576598420}
+  - component: {fileID: 576598419}
   m_Layer: 0
   m_Name: PeaceManager
   m_TagString: Untagged
@@ -1453,10 +1456,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowHoldPeace: {fileID: 0}
-  judgeManager: {fileID: 1738620270}
+  peaceJudger: {fileID: 576598421}
+  peaceGenerator: {fileID: 576598419}
+  peaceOperator: {fileID: 576598420}
+  peaceParent: {fileID: 1285013652}
+  text: {fileID: 0}
+  testDrop: []
+--- !u!114 &576598419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 576598416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343a2887503050247a4cf78ae278208a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   peacePrefab: {fileID: 1391290457556056, guid: 9824e54ae43ea964eb5a544ebc0e9ea4,
     type: 2}
-  peaceParent: {fileID: 1285013652}
+  PeacePool: {fileID: 1285013652}
   PeaceSprites:
   - {fileID: 21300000, guid: 3378d6530ebe33c4086dd4c7124a6e0d, type: 3}
   - {fileID: 21300000, guid: 6c27cdfefffcf954ab35281d6ea674f5, type: 3}
@@ -1464,10 +1483,28 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 731b9eb272250864d9cbec8392384774, type: 3}
   - {fileID: 21300000, guid: dcbbad52e4d51704b903bdfb90665ba8, type: 3}
   - {fileID: 21300000, guid: 80594f00dfe07ad4d9388f971999fff3, type: 3}
-  - {fileID: 21300000, guid: 8cb69fa0f42166f49b8fe78038009b56, type: 3}
-  - {fileID: 21300000, guid: 4d2ffc59b011b814882ec050f9c74af0, type: 3}
-  text: {fileID: 0}
-  testDrop: []
+--- !u!114 &576598420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 576598416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8feedbd7c0d5b4f9eece0d574da4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &576598421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 576598416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bb52960db2735478352b1192b170fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &603690280
 Prefab:
   m_ObjectHideFlags: 0
@@ -2494,7 +2531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1285013653}
   m_Layer: 5
-  m_Name: Piece
+  m_Name: PiecePool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

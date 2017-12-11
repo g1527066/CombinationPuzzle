@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 224035600039512544}
   - component: {fileID: 222439889442916524}
   - component: {fileID: 114283994390741410}
-  - component: {fileID: 114405283776306978}
   - component: {fileID: 61181375956441606}
   m_Layer: 5
   m_Name: Piese
@@ -82,19 +81,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114405283776306978
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1391290457556056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a04ed422331e15643a4d34049f5ebc03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  peaceType: 0
-  nextPeaceType: 8
 --- !u!222 &222439889442916524
 CanvasRenderer:
   m_ObjectHideFlags: 1

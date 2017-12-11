@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SquarePeace : MonoBehaviour {
+public class SquarePeace : Peace {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public override PeaceForm GetPeaceForm
+    {
+        get { return PeaceForm.Square; }
+    }
+    public override PeaceColor GetPeaceColor
+    {
+        get { return PeaceColor.None; }
+    }
+
+
 }

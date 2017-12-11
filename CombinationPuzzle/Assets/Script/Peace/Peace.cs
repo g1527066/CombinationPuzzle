@@ -26,7 +26,7 @@ public enum PeaceForm
 public abstract class Peace : MonoBehaviour
 {
 
-    public PeaceColor peaceType;
+    public PeaceColor peaceColor;
     public PeaceForm nowPeaceForm;
 
     public abstract PeaceForm GetPeaceForm
@@ -35,7 +35,10 @@ public abstract class Peace : MonoBehaviour
     }
 
 
-
+    public abstract PeaceColor GetPeaceColor
+    {
+        get;
+    }
     public POINT point;
 
    protected  float deleteTime = 0f;
@@ -80,24 +83,8 @@ public abstract class Peace : MonoBehaviour
             {
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
-                if (nextPeaceForm != PeaceForm.None)
-                {
-
-                    nowPeaceForm= nextPeaceForm;
-//                    nextPeaceType = PeaceType.None;
-                  
-                    flashingTime = deleteTime = 0;
-                    SetSprite(PeaceManager.I.ReturnSprite(peaceType));
-                    PeaceManager.I.DeletePeace(this);
-                   // nextPeaceType = PeaceType.None;
-
-
-                    return;
-                }
-                PeaceManager.I.DeletePeace(this);//ストックに追加
+                PeaceManager.I.DeletePeace(this);
                 AudioManager.I.PlaySound("DeletePeace");
-               // this.gameObject.SetActive(false);
-                // Destroy(this.gameObject);
             }
         }
     }
@@ -117,6 +104,6 @@ public abstract class Peace : MonoBehaviour
     }
     public void SetNewType()
     {
-       peaceType= (PeaceColor)Random.Range(0, (int)PeaceColor.None);
+       peaceColor= (PeaceColor)Random.Range(0, (int)PeaceColor.None);
     }
 }

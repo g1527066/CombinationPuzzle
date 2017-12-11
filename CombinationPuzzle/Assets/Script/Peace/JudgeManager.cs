@@ -107,7 +107,7 @@ public class JudgeManager : MonoBehaviour
         {
             for (int j = 0; j < tList.Count; j++)
             {
-                if (tList[j].peaceType == list[i].peaceType)//複数種類に未対応
+                if (tList[j].peaceType == list[i].peaceColor)//複数種類に未対応
                 {
                     count++;
                     break;
@@ -291,15 +291,15 @@ public class JudgeManager : MonoBehaviour
                     target.count = Random.Range(MinCreateCount, MaxCreateCount);
                     target.remainingCount = -1;
 
-                    List<Peace> keyList = new List<Peace>(PeaceManager.I.PeaceTable.Values);
+                   // List<Peace> keyList = new List<Peace>(PeaceManager.I.PeaceTable.Values);
                     List<TargetSet> t = new List<TargetSet>();
                     t.Add(target);
-                    if (CheckCreatePeaceCount(keyList, t) == true)
-                    {
-                        setOK = true;
-                    }
-                    else
-                        targetList.Add(target);
+                    //if (CheckCreatePeaceCount(keyList, t) == true)
+                    //{
+                    //    setOK = true;
+                    //}
+                    //else
+                    //    targetList.Add(target);
 
                     //  CheckCreate(PeaceManager.I.PeaceTable);
 
