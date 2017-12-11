@@ -41,13 +41,16 @@ public abstract class Peace : MonoBehaviour
     }
     public POINT point;
 
-   protected  float deleteTime = 0f;
+    protected float deleteTime = 0f;
     protected float flashingTime = 0f;
     protected bool isNoColor = false;
     public PeaceForm nextPeaceForm = PeaceForm.None;
     public bool isMatching = false;
     public bool IsDuringFall = false;
     RectTransform rectTransform;
+    public float downPosition = 0f;
+
+
     public RectTransform RectTransform
     {
         get { return rectTransform; }
@@ -104,6 +107,30 @@ public abstract class Peace : MonoBehaviour
     }
     public void SetNewType()
     {
-       peaceColor= (PeaceColor)Random.Range(0, (int)PeaceColor.None);
+        peaceColor = (PeaceColor)Random.Range(0, (int)PeaceColor.None);
+    }
+
+    public void SetDown(float yPosition)
+    {
+        IsDuringFall = true;
+
+    }
+
+
+    private IEnumerator DownMovePeace()
+    {
+        while (IsDuringFall)
+        {
+            rectTransform.anchoredPosition -= new Vector2(0,PeaceManager.I.downSpeed);
+
+            if (PeaceManager.I.downSpeed >= rectTransform.anchoredPosition.y)
+            {
+                PeaceManager.I.
+                IsDuringFall = false;
+                break;
+            }
+
+            yield return null;
+        }
     }
 }

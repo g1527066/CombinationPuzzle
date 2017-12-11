@@ -12,6 +12,9 @@ public class PeaceManager : MonoBehaviour
     //------設定用
     public const int BoardSizeX = 10;
     public const int BoardSizeY = 6;
+    [SerializeField]
+   public float downSpeed = 1.0f;
+
 
     Dictionary<POINT, Peace> peaceTable = new Dictionary<POINT, Peace>();
   
@@ -27,9 +30,13 @@ public class PeaceManager : MonoBehaviour
     PeaceJudger peaceJudger = null;
     [SerializeField]
     PeaceGenerator peaceGenerator = null;
+    
     [SerializeField]
     PeaceOperator peaceOperator = null;
-
+    public PeaceOperator PeaceOperator
+    {
+        get { return peaceOperator; }
+    }
 
 
     [SerializeField]

@@ -16,15 +16,18 @@ public struct POINT
 public class PeaceOperator : MonoBehaviour
 {
 
+   public static PeaceOperator I=null;
+
     [SerializeField]
     POINT stratPosition = new POINT(-718, 290);
     const int onePeaceSize = 148;
 
 
+
     // Use this for initialization
     void Start()
     {
-
+        I = null;
     }
 
     // Update is called once per frame
@@ -69,8 +72,8 @@ public class PeaceOperator : MonoBehaviour
 
     public void AddDrop(Peace peace)
     {
-
-
+        
+        
 
     }
 

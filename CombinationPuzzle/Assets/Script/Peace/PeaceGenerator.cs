@@ -5,6 +5,9 @@ using UnityEngine;
 public class PeaceGenerator : MonoBehaviour
 {
 
+    public static PeaceGenerator I = null;
+
+
     [SerializeField]
     public GameObject peacePrefab = null;
 
@@ -22,7 +25,7 @@ public class PeaceGenerator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        I = this;
     }
 
     // Update is called once per frame
