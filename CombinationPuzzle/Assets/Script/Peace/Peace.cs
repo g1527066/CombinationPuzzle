@@ -45,6 +45,11 @@ public abstract class Peace : MonoBehaviour
     protected float flashingTime = 0f;
     protected bool isNoColor = false;
     public PeaceForm nextPeaceForm = PeaceForm.None;
+    public abstract PeaceForm GetNextPeaceForm
+    {
+        get;
+    }
+
     public bool isMatching = false;
     public bool IsDuringFall = false;
     RectTransform rectTransform;
@@ -86,7 +91,7 @@ public abstract class Peace : MonoBehaviour
             {
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
-                PeaceManager.I.DeletePeace(this);
+                PeaceJudger.I.DeletePeace(PeaceManager.I.GetPeaceTabel, this);
                 AudioManager.I.PlaySound("DeletePeace");
             }
         }
@@ -112,25 +117,70 @@ public abstract class Peace : MonoBehaviour
 
     public void SetDown(float yPosition)
     {
+        //    Debug.Log("最初の位置" + RectTransform.anchoredPosition);
+        //    Debug.Log("目標地点=" + yPosition);
+        if (IsDuringFall == true) return;
         IsDuringFall = true;
-
+        downPosition = yPosition;
+        StartCoroutine(DownMovePeace());
+        if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
+        {
+           StartCoroutine(NextCheck());
+        }
     }
 
 
     private IEnumerator DownMovePeace()
     {
+
         while (IsDuringFall)
         {
-            rectTransform.anchoredPosition -= new Vector2(0,PeaceManager.I.downSpeed);
+          //  Debug.Log("DownMovePeace");
+            rectTransform.anchoredPosition -= new Vector2(0, PeaceOperator.I.downSpeed);
 
-            if (PeaceManager.I.downSpeed >= rectTransform.anchoredPosition.y)
+            if (downPosition >= rectTransform.anchoredPosition.y)
             {
-                PeaceManager.I.
-                IsDuringFall = false;
-                break;
+               // Debug.Log("セットしなおし");
+               //Debug.Break();
+                //場所戻す
+                PeaceOperator.I.ResetPosition(this);
+                //審査して下がなければ落ちるように設定
+                if (PeaceJudger.I.CheckPossibleDown(PeaceManager.I.GetPeaceTabel, this))
+                {
+                    //ポイント更新//もし無理だったら次のフレームで審査する
+                    if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
+                    {
+                        yield return NextCheck();
+                    }
+                    //新しく座標設定
+                 //   Debug.Log("前downPosition" + downPosition);
+                    downPosition = PeaceOperator.I.DownPosition(new POINT(point.X, point.Y));
+                   // Debug.Log("現在downPosition" + downPosition);
+
+                }
+                else
+                {
+                    IsDuringFall = false;
+                    break;
+                }
             }
 
             yield return null;
         }
+    }
+
+    private IEnumerator NextCheck()
+    {
+        while (true)
+        {
+           // Debug.Log("NextCheckコルーチン内");
+            if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
+            {
+             //   Debug.Log("NextCheckコルーチン内　見つかりました");
+                break;
+            }
+            yield return null;
+        }
+
     }
 }

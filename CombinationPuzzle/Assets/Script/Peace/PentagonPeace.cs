@@ -14,5 +14,8 @@ public class PentagonPeace : Peace
         get { return PeaceColor.None; }
     }
 
-
+    public override PeaceForm GetNextPeaceForm
+    {
+        get { return PeaceForm.None; }
+    }
 }

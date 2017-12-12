@@ -77,15 +77,17 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -1461,7 +1463,6 @@ MonoBehaviour:
   peaceOperator: {fileID: 576598420}
   peaceParent: {fileID: 1285013652}
   text: {fileID: 0}
-  testDrop: []
 --- !u!114 &576598419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1483,6 +1484,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 731b9eb272250864d9cbec8392384774, type: 3}
   - {fileID: 21300000, guid: dcbbad52e4d51704b903bdfb90665ba8, type: 3}
   - {fileID: 21300000, guid: 80594f00dfe07ad4d9388f971999fff3, type: 3}
+  - {fileID: 21300000, guid: 8cb69fa0f42166f49b8fe78038009b56, type: 3}
+  - {fileID: 21300000, guid: 4d2ffc59b011b814882ec050f9c74af0, type: 3}
 --- !u!114 &576598420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1494,6 +1497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8feedbd7c0d5b4f9eece0d574da4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  downSpeed: 7
 --- !u!114 &576598421
 MonoBehaviour:
   m_ObjectHideFlags: 0

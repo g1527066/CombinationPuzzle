@@ -23,7 +23,7 @@ public class PeaceGenerator : MonoBehaviour
 
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         I = this;
     }
@@ -46,7 +46,7 @@ public class PeaceGenerator : MonoBehaviour
                 Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
                 peace.peaceColor = addPeaceType;
                 peace.point = new POINT(j, i);
-                if (peaceJudger.CurrentDeletable(dictionary, peace))
+                if (PeaceJudger.I.CurrentDeletable(dictionary, peace))
                 {
                     j--;
                     continue;
@@ -62,8 +62,8 @@ public class PeaceGenerator : MonoBehaviour
     {
         peaceTable.Remove(changePeace.point);
         Peace newPeace = null;
-        changePeace.SetSprite(PeaceSprites[(int)changePeace.nextPeaceForm + (int)PeaceColor.None - 2]);
-        if (changePeace.nextPeaceForm == PeaceForm.Square)
+        changePeace.SetSprite(PeaceSprites[(int)changePeace.GetNextPeaceForm + (int)PeaceColor.None - 1]);
+        if (changePeace.GetNextPeaceForm == PeaceForm.Square)
             newPeace= changePeace.gameObject.AddComponent<SquarePeace>();
         else
             newPeace = changePeace.gameObject.AddComponent<PentagonPeace>();
@@ -92,5 +92,20 @@ public class PeaceGenerator : MonoBehaviour
             }
         }
         Debug.LogError("上に追加できません");
+    }
+
+    public bool SetPeaceList(Peace peace,POINT newPoint)
+    {
+        //Debug.Log("次は X="+newPoint.X+" Y="+newPoint.Y+"に代入");
+        //Debug.Log("現在 X=" + peace.point.X + " Y=" + peace.point.Y + "に代入");
+
+        if (PeaceManager.I.GetPeaceTabel.ContainsKey(newPoint)) return false;
+        //ポイント更新
+        Peace p = peace;
+        PeaceManager.I.GetPeaceTabel.Remove(peace.point);
+        p.point = newPoint;
+        //リストにセットしなおす
+        PeaceManager.I.GetPeaceTabel.Add(newPoint,p);
+        return true;
     }
 }

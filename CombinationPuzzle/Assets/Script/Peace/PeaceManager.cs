@@ -12,12 +12,15 @@ public class PeaceManager : MonoBehaviour
     //------設定用
     public const int BoardSizeX = 10;
     public const int BoardSizeY = 6;
-    [SerializeField]
-   public float downSpeed = 1.0f;
 
 
     Dictionary<POINT, Peace> peaceTable = new Dictionary<POINT, Peace>();
-  
+    public Dictionary<POINT, Peace> GetPeaceTabel
+    {
+        get { return peaceTable; }
+    }
+
+
     List<Peace> stockPeaceList = new List<Peace>();
     //移動用の変数
     public Peace nowHoldPeace = null;
@@ -287,49 +290,6 @@ public class PeaceManager : MonoBehaviour
             }
         }
     }
-
-    /// <summary>
-    /// 落下させつつピースの番号を変える
-    /// </summary>
-    //private void SetFallPeace(Peace peace)
-    //{
-
-    //    peace.IsDuringFall = true;
-    //    Sequence sequence = DOTween.Sequence().
-    //                 OnStart(() =>
-    //                 {
-    //                     peaceTable[peace.point].RectTransform.DOLocalMove(new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - (peace.point.Y + 1) * onePeaceSize), 1);//移動
-    //                 }).InsertCallback(0.5f, () => SetChangePoint(peace, new POINT(peace.point.X, peace.point.Y + 1)))
-    //                 .OnComplete(() =>
-    //                     CheckFallingPeace(peace)
-    //                 );//ここで半分の時番号変える、もし交換して何も無いなら終了
-    //}
-
-
-    private void SetDisplacePoint(List<POINT> displacePoint, List<POINT> deleteList)
-    {
-
-        int[] downPoint = new int[BoardSizeX];
-        for (int i = 0; i < downPoint.Length; i++)
-            downPoint[i] = -1;
-        for (int i = 0; i < deleteList.Count; i++)
-        {
-            //       Debug.Log("deleteList[i].Y > downPoint[deleteList[i].X]  " + deleteList[i].Y + ">" + downPoint[deleteList[i].X]);
-            if (deleteList[i].Y > downPoint[deleteList[i].X])
-            {
-                downPoint[deleteList[i].X] = deleteList[i].Y;
-            }
-        }
-
-        for (int i = 0; i < downPoint.Length; i++)
-        {
-            if (downPoint[i] != -1)
-            {
-                displacePoint.Add(new POINT(i, downPoint[i]));
-            }
-        }
-    }
-
 
 
 

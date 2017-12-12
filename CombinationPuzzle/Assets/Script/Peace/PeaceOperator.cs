@@ -20,14 +20,16 @@ public class PeaceOperator : MonoBehaviour
 
     [SerializeField]
     POINT stratPosition = new POINT(-718, 290);
-    const int onePeaceSize = 148;
+  public  const int onePeaceSize = 148;
 
+    [SerializeField]
+    public float downSpeed = 1.5f;
 
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        I = null;
+        I = this;
     }
 
     // Update is called once per frame
@@ -72,11 +74,12 @@ public class PeaceOperator : MonoBehaviour
 
     public void AddDrop(Peace peace)
     {
-        
-        
-
+        peace.SetDown(DownPosition(new POINT(peace.point.X, peace.point.Y + 1)));
     }
 
-
+    public float DownPosition(POINT targetPoint)
+    {
+        return stratPosition.Y - targetPoint.Y * onePeaceSize;
+    }
 
 }

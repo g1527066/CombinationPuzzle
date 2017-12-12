@@ -65,7 +65,7 @@ public class InputManager : MonoBehaviour
 
             Peace peace = null;
             if (hit.collider != null)
-                peace = hit.collider.gameObject.GetComponent<TrianglePeace>();
+                peace = hit.collider.gameObject.GetComponent<Peace>();
 
                     peaceManager.MoveHoldPeace(d, peace);
 

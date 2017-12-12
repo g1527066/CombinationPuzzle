@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrianglePeace : Peace {
+public class TrianglePeace : Peace
+{
 
     public override PeaceForm GetPeaceForm
     {
@@ -12,6 +13,8 @@ public class TrianglePeace : Peace {
     {
         get { return peaceColor; }
     }
-
-
+    public override PeaceForm GetNextPeaceForm
+    {
+        get { return PeaceForm.Square; }
+    }
 }
