@@ -58,19 +58,21 @@ public class PeaceGenerator : MonoBehaviour
         }
     }
 
-    public void ChangeNextForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
+    //TODO:直す
+    public Peace ChangeNextForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
     {
         peaceTable.Remove(changePeace.point);
         Peace newPeace = null;
         changePeace.SetSprite(PeaceSprites[(int)changePeace.GetNextPeaceForm + (int)PeaceColor.None - 1]);
         if (changePeace.GetNextPeaceForm == PeaceForm.Square)
             newPeace= changePeace.gameObject.AddComponent<SquarePeace>();
-        else if(changePeace.GetNextPeaceForm == PeaceForm.Square)
+        else if(changePeace.GetNextPeaceForm == PeaceForm.Pentagon)
             newPeace = changePeace.gameObject.AddComponent<PentagonPeace>();
         newPeace.point = changePeace.point;
 
         peaceTable.Add(newPeace.point, newPeace);
         Destroy(changePeace);
+        return newPeace;
     }
 
     //TODO:いったん三角のみにする
@@ -110,7 +112,7 @@ public class PeaceGenerator : MonoBehaviour
 
     public bool SetPeaceList(Peace peace,POINT newPoint)
     {
-        //Debug.Log("次は X="+newPoint.X+" Y="+newPoint.Y+"に代入");
+        //Debug.Log("次は X=" + newPoint.X + " Y=" + newPoint.Y + "に代入");
         //Debug.Log("現在 X=" + peace.point.X + " Y=" + peace.point.Y + "に代入");
 
         if (PeaceManager.I.GetPeaceTabel.ContainsKey(newPoint)) return false;
@@ -120,6 +122,8 @@ public class PeaceGenerator : MonoBehaviour
         p.point = newPoint;
         //リストにセットしなおす
         PeaceManager.I.GetPeaceTabel.Add(newPoint,p);
+        Debug.Log("セットしなおし"+ "次は X=" + newPoint.X + " Y=" + newPoint.Y + "に代入しました");
+
         return true;
     }
 }

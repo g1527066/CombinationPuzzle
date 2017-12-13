@@ -14,7 +14,7 @@ public class SquarePeace : Peace {
     }
         public override PeaceForm GetNextPeaceForm
     {
-        get { return PeaceForm.Square; }
+        get { return PeaceForm.Pentagon; }
     }
 
 }

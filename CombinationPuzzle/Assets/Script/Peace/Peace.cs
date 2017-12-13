@@ -58,13 +58,19 @@ public abstract class Peace : MonoBehaviour
 
     public RectTransform RectTransform
     {
-        get { return rectTransform; }
+        get
+        {
+            if(rectTransform == null)
+            {
+                rectTransform = transform as RectTransform;
+            }
+            return rectTransform;
+        }
     }
 
     private void Start()
     {
         Initialization();
-        rectTransform = this.gameObject.GetComponent<RectTransform>();
     }
 
 
@@ -73,6 +79,7 @@ public abstract class Peace : MonoBehaviour
     {
         if (isMatching)
         {
+            Debug.Log("Update"+point.X+"  "+point.Y );
             deleteTime += Time.deltaTime;
             flashingTime += Time.deltaTime;
             if (flashingTime > GameSystem.I.flashingTime)
@@ -89,6 +96,7 @@ public abstract class Peace : MonoBehaviour
 
             if (deleteTime > GameSystem.I.DeleteTime)
             {
+                Debug.Log("削除");
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                 PeaceJudger.I.DeletePeace(PeaceManager.I.GetPeaceTabel, this);
@@ -109,6 +117,7 @@ public abstract class Peace : MonoBehaviour
         isNoColor = false;
         nextPeaceForm = PeaceForm.None;
         isMatching = false;
+        Debug.Log("位置？"+point.X+"  "+point.Y );
     }
     public void SetNewType()
     {
@@ -125,7 +134,8 @@ public abstract class Peace : MonoBehaviour
         StartCoroutine(DownMovePeace());
         if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
         {
-           StartCoroutine(NextCheck());
+            //    Debug.Log("目標地点=" + yPosition);
+            StartCoroutine(NextCheck());
         }
     }
 
@@ -135,13 +145,12 @@ public abstract class Peace : MonoBehaviour
 
         while (IsDuringFall)
         {
-          //  Debug.Log("DownMovePeace");
-            rectTransform.anchoredPosition -= new Vector2(0, PeaceOperator.I.downSpeed);
+            RectTransform.anchoredPosition -= new Vector2(0, PeaceOperator.I.downSpeed);
 
-            if (downPosition >= rectTransform.anchoredPosition.y)
+            if (downPosition >= RectTransform.anchoredPosition.y)
             {
-               // Debug.Log("セットしなおし");
-               //Debug.Break();
+                // Debug.Log("セットしなおし");
+                //Debug.Break();
                 //場所戻す
                 PeaceOperator.I.ResetPosition(this);
                 //審査して下がなければ落ちるように設定
@@ -153,9 +162,9 @@ public abstract class Peace : MonoBehaviour
                         yield return NextCheck();
                     }
                     //新しく座標設定
-                 //   Debug.Log("前downPosition" + downPosition);
+                    //   Debug.Log("前downPosition" + downPosition);
                     downPosition = PeaceOperator.I.DownPosition(new POINT(point.X, point.Y));
-                   // Debug.Log("現在downPosition" + downPosition);
+                    // Debug.Log("現在downPosition" + downPosition);
 
                 }
                 else
@@ -173,10 +182,10 @@ public abstract class Peace : MonoBehaviour
     {
         while (true)
         {
-           // Debug.Log("NextCheckコルーチン内");
+             Debug.Log("NextCheckコルーチン内");
             if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
-             //   Debug.Log("NextCheckコルーチン内　見つかりました");
+                //   Debug.Log("NextCheckコルーチン内　見つかりました");
                 break;
             }
             yield return null;

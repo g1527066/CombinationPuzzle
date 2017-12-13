@@ -24,7 +24,7 @@ public class PeaceManager : MonoBehaviour
     List<Peace> stockPeaceList = new List<Peace>();
     //移動用の変数
     public Peace nowHoldPeace = null;
-    
+
     //ToDo:判定に入らないようにする！
 
 
@@ -33,7 +33,7 @@ public class PeaceManager : MonoBehaviour
     PeaceJudger peaceJudger = null;
     [SerializeField]
     PeaceGenerator peaceGenerator = null;
-    
+
     [SerializeField]
     PeaceOperator peaceOperator = null;
     public PeaceOperator PeaceOperator
@@ -73,7 +73,7 @@ public class PeaceManager : MonoBehaviour
     //        )
     //        .InsertCallback(2, () => text.text = "down");
     //    testSpriteCount++;
-  //  }
+    //  }
     //まとめてポイント代入できなかったっけ？、new必要？
 
     // Use this for initialization
@@ -126,18 +126,38 @@ public class PeaceManager : MonoBehaviour
         return true;
     }
 
+    public Peace testP = null;
+
     // Update is called once per frame
     void Update()
     {
+        if (peaceTable.ContainsKey(new POINT(2, 0)))
+        {
+            if (testP == null)
+                testP = peaceTable[new POINT(2, 0)];
 
+            if (testP == peaceTable[new POINT(2, 0)])
+            {
+                Debug.Log("20の状態   前回と一緒");
+            }
+            else
+            {
+                Debug.Log("20の状態   変わりました");
+                Debug.Break();
+                testP = peaceTable[new POINT(2, 0)];
 
-
+            }
+        }
+        else
+        {
+            Debug.Log("キーがありません");
+        }
     }
 
     public void MoveHoldPeace(Vector2 difference, Peace hitPeace)
     {
         if (nowHoldPeace == null) return;
-        peaceOperator.MovePeace(difference,nowHoldPeace);
+        peaceOperator.MovePeace(difference, nowHoldPeace);
 
         if (hitPeace == null) return;
 
@@ -146,9 +166,9 @@ public class PeaceManager : MonoBehaviour
         {
             AudioManager.I.PlaySound("Trade");//一旦
 
-            peaceOperator.TradeDictionaryPeace(peaceTable,nowHoldPeace,hitPeace);
+            peaceOperator.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
             peaceOperator.ResetPosition(hitPeace);
-            peaceJudger.JudgePeace(peaceTable, hitPeace,nowHoldPeace);
+            peaceJudger.JudgePeace(peaceTable, hitPeace, nowHoldPeace);
         }
     }
 
@@ -158,22 +178,22 @@ public class PeaceManager : MonoBehaviour
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;
     }
 
-  
+
     public void ReleasePeace()
     {
         if (nowHoldPeace == null) return;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = true;
         peaceOperator.ResetPosition(nowHoldPeace);
-        peaceJudger.JudgePeace(peaceTable,nowHoldPeace,nowHoldPeace);
+        peaceJudger.JudgePeace(peaceTable, nowHoldPeace, nowHoldPeace);
         nowHoldPeace = null;
     }
 
     public GameObject GetPeacePrefab()
     {
-        return peaceGenerator.peacePrefab;      
+        return peaceGenerator.peacePrefab;
     }
 
-   
+
 
 
     private void SetChangePoint(Peace nowPeace, POINT changePoint, bool isJugde = false)
@@ -210,7 +230,7 @@ public class PeaceManager : MonoBehaviour
 
 
 
-  
+
 
     //被っていたらtrue
     private bool CheckSamePeacePoint(List<POINT> pointList, POINT checkPoint)
@@ -224,18 +244,18 @@ public class PeaceManager : MonoBehaviour
     }
 
 
- 
 
-    public void ChangePeaceClass(Peace oldPeace,Peace newPeace)
+
+    public void ChangePeaceClass(Peace oldPeace, Peace newPeace)
     {
         Peace old = oldPeace;
         peaceTable.Remove(oldPeace.point);
-        peaceTable.Add(newPeace.point,newPeace);
+        peaceTable.Add(newPeace.point, newPeace);
     }
 
-    public void ChangeForm(Peace peace)
+    public Peace ChangeForm(Peace peace)
     {
-        peaceGenerator.ChangeNextForm(peaceTable,peace);
+        return peaceGenerator.ChangeNextForm(peaceTable, peace);
     }
 
 
@@ -244,7 +264,7 @@ public class PeaceManager : MonoBehaviour
     //TODO:いったん一瞬で詰める
     public void DeletePeace(Peace deletePeace)
     {
-       peaceJudger.DeletePeace(peaceTable,deletePeace);
+        peaceJudger.DeletePeace(peaceTable, deletePeace);
     }
 
 
@@ -254,8 +274,9 @@ public class PeaceManager : MonoBehaviour
     /// <param name="deletePeace"></param>
     public void AddToTopPeace(Peace deletePeace)
     {
-       peaceGenerator.AddToTopPeace(peaceTable,deletePeace);
+        peaceGenerator.AddToTopPeace(peaceTable, deletePeace);
         //場所移動
+        Debug.Log("今" + deletePeace.point.X + "  " + deletePeace.point.Y);
         peaceOperator.ResetPosition(deletePeace);
         //落下付与する
         peaceOperator.AddDrop(deletePeace);
@@ -315,7 +336,7 @@ public class PeaceManager : MonoBehaviour
         Debug.Log("--------Debug----------------------");
 
         Debug.Log("マス数=" + peaceTable.Count);
-       // Debug.Log("削除リスト数=" + DeletionTargetList.Count);
+        // Debug.Log("削除リスト数=" + DeletionTargetList.Count);
 
         //for (int i = 0; i < DeletionTargetList.Count; i++)
         //{
