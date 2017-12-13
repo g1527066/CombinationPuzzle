@@ -266,7 +266,7 @@ public class PeaceJudger : MonoBehaviour
             //削除した場所以降のピースを落下させる//TODO:生成がnullだと、、？
             List<POINT> downTargetPoint = new List<POINT>();
             SetDownUnderList(downTargetPoint, nowDeletePoint.deletePeaceList, nowDeletePoint.nextGenerationPeace);
-     
+
 
 
             //生成されたもの以外リストから削除
@@ -274,6 +274,13 @@ public class PeaceJudger : MonoBehaviour
             {
                 if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace) continue;
                 peaceTable.Remove(nowDeletePoint.deletePeaceList[i].point);
+
+                //形を三角に戻す
+                //リストから削除
+                Peace p = nowDeletePoint.deletePeaceList[i];
+                nowDeletePoint.deletePeaceList.Remove(nowDeletePoint.deletePeaceList[i]);
+                //新しいの追加
+                nowDeletePoint.deletePeaceList.Add(PeaceGenerator.I.ChangeForm(nowDeletePoint.deletePeaceList[i]));
                 // 上に追加
                 PeaceManager.I.AddToTopPeace(nowDeletePoint.deletePeaceList[i]);
             }
@@ -320,8 +327,8 @@ public class PeaceJudger : MonoBehaviour
             peaceTable[deleteList[i]].isMatching = true;
         }
 
-        Debug.Log("現在の形"+p);
-      //  Debug.Break();
+        Debug.Log("現在の形" + p);
+        //  Debug.Break();
         if (p == PeaceForm.Pentagon)
         {
             d.nextGenerationPeace = null;
@@ -329,7 +336,7 @@ public class PeaceJudger : MonoBehaviour
         else
         {
             d.nextGenerationPeace = peaceTable[generationPoint];
-         //   peaceTable[generationPoint].nextPeaceForm = p + 1;
+            //   peaceTable[generationPoint].nextPeaceForm = p + 1;
         }
         DeletionTargetList.Add(d);
     }
@@ -408,7 +415,7 @@ public class PeaceJudger : MonoBehaviour
     //下にピースが無ければtrue
     public bool CheckPossibleDown(Dictionary<POINT, Peace> peaceTable, Peace peace)
     {
-       // Debug.Log("下に行けるか検索" + peace.point.X + "  " + peace.point.Y);
+        // Debug.Log("下に行けるか検索" + peace.point.X + "  " + peace.point.Y);
         for (int i = peace.point.Y + 1; i < PeaceManager.BoardSizeY; i++)
         {
             if (peaceTable.ContainsKey(new POINT(peace.point.X, i)) == false)
@@ -421,9 +428,9 @@ public class PeaceJudger : MonoBehaviour
 
     private void SetDownUnderList(List<POINT> ResultList, List<Peace> deleteList, Peace ignorePoint)
     {
-        foreach(var p in deleteList)
+        foreach (var p in deleteList)
         {
-            Debug.Log("存在"+p.point.X+" " + p.point.Y);
+            Debug.Log("存在" + p.point.X + " " + p.point.Y);
         }
 
 
@@ -432,12 +439,12 @@ public class PeaceJudger : MonoBehaviour
             downPoint[i] = -1;
         for (int i = 0; i < deleteList.Count; i++)
         {
-            if (ignorePoint!=null&&deleteList[i].point.X == ignorePoint.point.X && deleteList[i].point.Y == ignorePoint.point.Y)
+            if (ignorePoint != null && deleteList[i].point.X == ignorePoint.point.X && deleteList[i].point.Y == ignorePoint.point.Y)
                 continue;
 
             if (deleteList[i].point.Y > downPoint[deleteList[i].point.X])
             {
-                Debug.Log("配列更新 "+ deleteList[i].point.X+"  "+ deleteList[i].point.Y);
+                Debug.Log("配列更新 " + deleteList[i].point.X + "  " + deleteList[i].point.Y);
                 downPoint[deleteList[i].point.X] = deleteList[i].point.Y;
             }
         }
@@ -446,7 +453,7 @@ public class PeaceJudger : MonoBehaviour
         {
             if (downPoint[i] != -1)
             {
-                Debug.Log("落下リストに格納"+i+"  "+ downPoint[i]);
+                Debug.Log("落下リストに格納" + i + "  " + downPoint[i]);
                 ResultList.Add(new POINT(i, downPoint[i]));
             }
         }

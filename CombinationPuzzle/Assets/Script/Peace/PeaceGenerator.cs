@@ -58,7 +58,7 @@ public class PeaceGenerator : MonoBehaviour
         }
     }
 
-    public void ChangeForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
+    public void ChangeNextForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
     {
         peaceTable.Remove(changePeace.point);
         Peace newPeace = null;
@@ -73,6 +73,19 @@ public class PeaceGenerator : MonoBehaviour
         Destroy(changePeace);
     }
 
+    //TODO:いったん三角のみにする
+    public Peace ChangeForm(Peace changePeace)
+    {
+        PeaceManager.I.GetPeaceTabel.Remove(changePeace.point);
+        Peace newPeace = null;
+        newPeace = changePeace.gameObject.AddComponent<TrianglePeace>();
+        changePeace.SetSprite(PeaceSprites[(int)changePeace.peaceColor]);
+        newPeace.point = changePeace.point;
+        
+        PeaceManager.I.GetPeaceTabel.Add(newPeace.point, newPeace);
+        Destroy(changePeace);
+        return newPeace;
+    }
 
     public void AddToTopPeace(Dictionary<POINT, Peace> peaceTable, Peace deletePeace)
     {
