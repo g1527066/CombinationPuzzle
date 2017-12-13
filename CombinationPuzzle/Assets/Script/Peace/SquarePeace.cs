@@ -12,9 +12,9 @@ public class SquarePeace : Peace {
     {
         get { return PeaceColor.None; }
     }
-    public override PeaceForm GetNextPeaceForm
+        public override PeaceForm GetNextPeaceForm
     {
-        get { return PeaceForm.Pentagon; }
+        get { return PeaceForm.Square; }
     }
 
 }

@@ -235,7 +235,7 @@ public class PeaceManager : MonoBehaviour
 
     public void ChangeForm(Peace peace)
     {
-        peaceGenerator.ChangeNextForm(peaceTable,peace);
+        peaceGenerator.ChangeForm(peaceTable,peace);
     }
 
 

@@ -65,7 +65,6 @@ public abstract class Peace : MonoBehaviour
     {
         Initialization();
         rectTransform = this.gameObject.GetComponent<RectTransform>();
-        Debug.Log("peace Start呼ばれました");
     }
 
 
@@ -136,7 +135,7 @@ public abstract class Peace : MonoBehaviour
 
         while (IsDuringFall)
         {
-            Debug.Log("DownMovePeace"+RectTransform.position.x);
+          //  Debug.Log("DownMovePeace");
             rectTransform.anchoredPosition -= new Vector2(0, PeaceOperator.I.downSpeed);
 
             if (downPosition >= rectTransform.anchoredPosition.y)
@@ -174,10 +173,10 @@ public abstract class Peace : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("NextCheckコルーチン内");
+           // Debug.Log("NextCheckコルーチン内");
             if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
-                Debug.Log("NextCheckコルーチン内　見つかりました");
+             //   Debug.Log("NextCheckコルーチン内　見つかりました");
                 break;
             }
             yield return null;
