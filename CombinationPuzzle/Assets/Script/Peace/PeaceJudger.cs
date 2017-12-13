@@ -275,6 +275,7 @@ public class PeaceJudger : MonoBehaviour
                 if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace) continue;
                 peaceTable.Remove(nowDeletePoint.deletePeaceList[i].point);
                 // 上に追加
+                PeaceGenerator.I.ChangeForm(nowDeletePoint.deletePeaceList[i],PeaceForm.triangle);
                 PeaceManager.I.AddToTopPeace(nowDeletePoint.deletePeaceList[i]);
             }
 

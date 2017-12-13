@@ -58,20 +58,37 @@ public class PeaceGenerator : MonoBehaviour
         }
     }
 
-    public void ChangeForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
+    public void ChangeNextForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
     {
-        peaceTable.Remove(changePeace.point);
-        Peace newPeace = null;
-        changePeace.SetSprite(PeaceSprites[(int)changePeace.GetNextPeaceForm + (int)PeaceColor.None - 1]);
-        if (changePeace.GetNextPeaceForm == PeaceForm.Square)
-            newPeace= changePeace.gameObject.AddComponent<SquarePeace>();
-        else
-            newPeace = changePeace.gameObject.AddComponent<PentagonPeace>();
-        newPeace.point = changePeace.point;
-
-        peaceTable.Add(newPeace.point, newPeace);
-        Destroy(changePeace);
+            ChangeForm(changePeace, changePeace.GetNextPeaceForm);
     }
+
+    public void ChangeForm(Peace peace,PeaceForm changePeaceForm)
+    {
+        PeaceManager.I.GetPeaceTabel.Remove(peace.point);
+        Peace newPeace = null;
+
+        if (changePeaceForm == PeaceForm.Square)
+        {
+            peace.SetSprite(PeaceSprites[(int)PeaceForm.Square + (int)PeaceColor.None - 1]);
+            newPeace = peace.gameObject.AddComponent<SquarePeace>();
+        }
+        else if (changePeaceForm == PeaceForm.Pentagon)
+        {
+            peace.SetSprite(PeaceSprites[(int)PeaceForm.Pentagon+ (int)PeaceColor.None - 1]);
+            newPeace = peace.gameObject.AddComponent<PentagonPeace>();
+        }
+        else
+        {
+            newPeace = peace.gameObject.AddComponent<PentagonPeace>();
+            newPeace.SetNewType();
+            peace.SetSprite(PeaceSprites[(int)newPeace.GetPeaceColor]);
+        }
+        newPeace.point = peace.point;
+        PeaceManager.I.GetPeaceTabel.Add(newPeace.point, newPeace);
+        Destroy(peace);
+    }
+   
 
     public void AddToTopPeace(Dictionary<POINT, Peace> peaceTable, Peace deletePeace)
     {
