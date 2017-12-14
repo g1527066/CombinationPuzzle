@@ -61,6 +61,7 @@ public class PeaceGenerator : MonoBehaviour
     //TODO:直す
     public Peace ChangeNextForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
     {
+
         peaceTable.Remove(changePeace.point);
         Peace newPeace = null;
         changePeace.SetSprite(PeaceSprites[(int)changePeace.GetNextPeaceForm + (int)PeaceColor.None - 1]);

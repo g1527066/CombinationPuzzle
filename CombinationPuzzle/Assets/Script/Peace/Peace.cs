@@ -68,7 +68,7 @@ public abstract class Peace : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         Initialization();
     }
@@ -79,7 +79,6 @@ public abstract class Peace : MonoBehaviour
     {
         if (isMatching)
         {
-            Debug.Log("Update"+point.X+"  "+point.Y );
             deleteTime += Time.deltaTime;
             flashingTime += Time.deltaTime;
             if (flashingTime > GameSystem.I.flashingTime)
@@ -96,7 +95,6 @@ public abstract class Peace : MonoBehaviour
 
             if (deleteTime > GameSystem.I.DeleteTime)
             {
-                Debug.Log("削除");
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                 PeaceJudger.I.DeletePeace(PeaceManager.I.GetPeaceTabel, this);
@@ -117,7 +115,6 @@ public abstract class Peace : MonoBehaviour
         isNoColor = false;
         nextPeaceForm = PeaceForm.None;
         isMatching = false;
-        Debug.Log("位置？"+point.X+"  "+point.Y );
     }
     public void SetNewType()
     {
@@ -170,6 +167,7 @@ public abstract class Peace : MonoBehaviour
                 else
                 {
                     IsDuringFall = false;
+                    PeaceJudger.I.DownJudge(this);
                     break;
                 }
             }

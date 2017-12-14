@@ -274,29 +274,22 @@ public class PeaceJudger : MonoBehaviour
             List<Peace> SetChangeList = new List<Peace>();
             for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
             {
+                EffectManager.I.StartEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "");
+
                 if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace) continue;
 
+               
                 SetChangeList.Add(PeaceGenerator.I.ChangeForm(nowDeletePoint.deletePeaceList[i]));
                 peaceTable.Remove(nowDeletePoint.deletePeaceList[i].point);
-                //形を三角に戻す
-                //リストから削除
-                //Peace p = nowDeletePoint.deletePeaceList[i];
-                //新しいの追加
-                // nowDeletePoint.deletePeaceList.Add(PeaceGenerator.I.ChangeForm(nowDeletePoint.deletePeaceList[i]));
-                //nowDeletePoint.deletePeaceList.Remove(nowDeletePoint.deletePeaceList[i]);
-
-                // 上に追加
-            //    Debug.Log("上に追加" + SetChangeList[SetChangeList.Count - 1].point.X + "  " + SetChangeList[SetChangeList.Count - 1].point.Y);
-
                 PeaceManager.I.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
             }
 
-            //動かすのはあと、場所がずれるため
+            //  動かすのはあと、場所がずれるため
             for (int i = 0; i < downTargetPoint.Count; i++)
             {
                 for (int j = downTargetPoint[i].Y; j >= 0; j--)
                 {
-                   // Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
+                    Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
                     if (PeaceManager.I.GetPeaceTabel.ContainsKey(new POINT(downTargetPoint[i].X, j)))
                         PeaceOperator.I.AddDrop(PeaceManager.I.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)]);
                 }
@@ -330,9 +323,7 @@ public class PeaceJudger : MonoBehaviour
                 Debug.LogError("キーがありません！");
 
             d.deletePeaceList.Add(peaceTable[deleteList[i]]);
-            Debug.Log("設定前"+ peaceTable[deleteList[i]].isMatching);
             peaceTable[deleteList[i]].isMatching = true;
-            Debug.Log("設定" + peaceTable[deleteList[i]].point.X+"  " + peaceTable[deleteList[i]].point.Y);
         }
 
         //  Debug.Break();
@@ -451,7 +442,7 @@ public class PeaceJudger : MonoBehaviour
 
             if (deleteList[i].point.Y > downPoint[deleteList[i].point.X])
             {
-              //  Debug.Log("配列更新 " + deleteList[i].point.X + "  " + deleteList[i].point.Y);
+                //  Debug.Log("配列更新 " + deleteList[i].point.X + "  " + deleteList[i].point.Y);
                 downPoint[deleteList[i].point.X] = deleteList[i].point.Y;
             }
         }
@@ -460,7 +451,7 @@ public class PeaceJudger : MonoBehaviour
         {
             if (downPoint[i] != -1)
             {
-               // Debug.Log("落下リストに格納" + i + "  " + downPoint[i]);
+                // Debug.Log("落下リストに格納" + i + "  " + downPoint[i]);
                 ResultList.Add(new POINT(i, downPoint[i]));
             }
         }
@@ -469,15 +460,41 @@ public class PeaceJudger : MonoBehaviour
     public void DebugLog()
     {
         Debug.Log("消されていない");
-        for (int i=0;i< DeletionTargetList.Count;i++)
+        for (int i = 0; i < DeletionTargetList.Count; i++)
         {
             for (int j = 0; j < DeletionTargetList[i].deletePeaceList.Count; j++)
             {
-                Debug.Log(DeletionTargetList[i].deletePeaceList[j].point.X+"  "+ DeletionTargetList[i].deletePeaceList[j].point.Y); 
+                Debug.Log(DeletionTargetList[i].deletePeaceList[j].point.X + "  " + DeletionTargetList[i].deletePeaceList[j].point.Y);
             }
         }
 
 
     }
+
+    List<Peace> JudgeList = new List<Peace>();
+    public void DownJudge(Peace peace)
+    {
+        JudgeList.Add(peace);
+        //落下したら　リストに格納、数フレーム待ってから判定
+        StartCoroutine(WaitJudge());
+    }
+
+    private IEnumerator WaitJudge()
+    {
+        int waitFrame = 5;
+        for (int waitCount = 0;waitCount< waitFrame;waitCount++)
+        {
+            if(waitCount< waitFrame)
+            yield return null;
+        }
+
+        for(int i=0;i<JudgeList.Count;i++)
+        {
+            JudgePeace(PeaceManager.I.GetPeaceTabel,JudgeList[i],PeaceManager.I.nowHoldPeace);
+        }
+        JudgeList.Clear();
+    }
+
+  
 
 }

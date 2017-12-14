@@ -16,11 +16,11 @@ public struct POINT
 public class PeaceOperator : MonoBehaviour
 {
 
-   public static PeaceOperator I=null;
+    public static PeaceOperator I = null;
 
     [SerializeField]
     POINT stratPosition = new POINT(-718, 290);
-  public  const int onePeaceSize = 148;
+    public const int onePeaceSize = 148;
 
     [SerializeField]
     public float downSpeed = 1.5f;
@@ -68,9 +68,20 @@ public class PeaceOperator : MonoBehaviour
         Peace addPeace2 = p2;
         dictionary.Remove(p1.point);
         dictionary.Remove(p2.point);
-        dictionary.Add(addPeace1.point, addPeace1);
-        dictionary.Add(addPeace2.point, addPeace2);
+
+        try
+        {
+            dictionary.Add(addPeace1.point, addPeace1);
+            dictionary.Add(addPeace2.point, addPeace2);
+        }
+        catch
+        {
+            MyDebug.DrawError("dictionary.Add Error");
+            Debug.LogError("dictionary.Add Error");
+        }
+
     }
+
 
     public void AddDrop(Peace peace)
     {

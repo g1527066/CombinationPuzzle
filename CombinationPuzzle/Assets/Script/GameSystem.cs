@@ -4,9 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+static class MyDebug
+{
+   public static  Text text = null;
+
+    public static void DrawError(string  drawText)
+    {
+        text.text = drawText;
+    }
+}
+
+
 public class GameSystem : MonoBehaviour
 {
     public static GameSystem I = null;
+
+
 
     [SerializeField]
     private float SetLimitTime = 10f;
@@ -47,7 +60,7 @@ public class GameSystem : MonoBehaviour
     void Start()
     {
         I = this;
-
+        MyDebug.text = ResultText;
         remainingTime = SetLimitTime;
         isGameOver = false;
 

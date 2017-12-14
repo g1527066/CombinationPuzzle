@@ -138,12 +138,12 @@ public class PeaceManager : MonoBehaviour
 
             if (testP == peaceTable[new POINT(2, 0)])
             {
-                Debug.Log("20の状態   前回と一緒");
+             //   Debug.Log("20の状態   前回と一緒");
             }
             else
             {
-                Debug.Log("20の状態   変わりました");
-                Debug.Break();
+             ////   Debug.Log("20の状態   変わりました");
+              ///  Debug.Break();
                 testP = peaceTable[new POINT(2, 0)];
 
             }
@@ -174,6 +174,7 @@ public class PeaceManager : MonoBehaviour
 
     public void SetHoldPeace(Peace peace)
     {
+        if (peace.isMatching) return;
         nowHoldPeace = peace;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;
     }
@@ -276,7 +277,6 @@ public class PeaceManager : MonoBehaviour
     {
         peaceGenerator.AddToTopPeace(peaceTable, deletePeace);
         //場所移動
-        Debug.Log("今" + deletePeace.point.X + "  " + deletePeace.point.Y);
         peaceOperator.ResetPosition(deletePeace);
         //落下付与する
         peaceOperator.AddDrop(deletePeace);
