@@ -123,7 +123,7 @@ public class PeaceGenerator : MonoBehaviour
         p.point = newPoint;
         //リストにセットしなおす
         PeaceManager.I.GetPeaceTabel.Add(newPoint,p);
-        Debug.Log("セットしなおし"+ "次は X=" + newPoint.X + " Y=" + newPoint.Y + "に代入しました");
+    //    Debug.Log("セットしなおし"+ "次は X=" + newPoint.X + " Y=" + newPoint.Y + "に代入しました");
 
         return true;
     }

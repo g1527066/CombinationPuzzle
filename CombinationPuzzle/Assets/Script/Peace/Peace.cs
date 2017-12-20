@@ -128,7 +128,7 @@ public abstract class Peace : MonoBehaviour
         if (IsDuringFall == true) return;
         IsDuringFall = true;
         downPosition = yPosition;
-        StartCoroutine(DownMovePeace());
+        StartCoroutine(DownMovePeace());//erorrたくさん消した時？
         if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
         {
             //    Debug.Log("目標地点=" + yPosition);
@@ -180,7 +180,7 @@ public abstract class Peace : MonoBehaviour
     {
         while (true)
         {
-             Debug.Log("NextCheckコルーチン内");
+           ///  Debug.Log("NextCheckコルーチン内");
             if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
                 //   Debug.Log("NextCheckコルーチン内　見つかりました");

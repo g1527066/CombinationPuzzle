@@ -164,6 +164,7 @@ public class PeaceManager : MonoBehaviour
         //前回とピースがちがかったら入れ替え
         if (hitPeace != null)
         {
+            Debug.Log("前回と違います X="+hitPeace.point.X+" Y=" + hitPeace.point.Y);
             AudioManager.I.PlaySound("Trade");//一旦
 
             peaceOperator.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);

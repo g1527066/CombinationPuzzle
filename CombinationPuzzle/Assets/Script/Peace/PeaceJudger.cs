@@ -257,7 +257,7 @@ public class PeaceJudger : MonoBehaviour
         if (nowDeletePoint.deleteCounter == nowDeletePoint.deletePeaceList.Count)//全て削除済みだったら、上から追加、判定する（両方）、ずらす
         {
             Peace changeGenerationPeace = null;
-            Debug.Log("全て削除済み");
+           // Debug.Log("全て削除済み");
             //生成するありなら
             if (nowDeletePoint.nextGenerationPeace != null)
             {
@@ -289,7 +289,7 @@ public class PeaceJudger : MonoBehaviour
             {
                 for (int j = downTargetPoint[i].Y; j >= 0; j--)
                 {
-                    Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
+                   // Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
                     if (PeaceManager.I.GetPeaceTabel.ContainsKey(new POINT(downTargetPoint[i].X, j)))
                         PeaceOperator.I.AddDrop(PeaceManager.I.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)]);
                 }
