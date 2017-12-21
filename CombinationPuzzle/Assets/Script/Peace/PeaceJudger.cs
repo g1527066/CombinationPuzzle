@@ -257,10 +257,11 @@ public class PeaceJudger : MonoBehaviour
         if (nowDeletePoint.deleteCounter == nowDeletePoint.deletePeaceList.Count)//全て削除済みだったら、上から追加、判定する（両方）、ずらす
         {
             Peace changeGenerationPeace = null;
-           // Debug.Log("全て削除済み");
+            // Debug.Log("全て削除済み");
             //生成するありなら
             if (nowDeletePoint.nextGenerationPeace != null)
             {
+                EffectManager.I.PlayEffect(nowDeletePoint.nextGenerationPeace.gameObject.transform.position, "生成");
                 changeGenerationPeace = PeaceManager.I.ChangeForm(nowDeletePoint.nextGenerationPeace);
             }
 
@@ -274,11 +275,17 @@ public class PeaceJudger : MonoBehaviour
             List<Peace> SetChangeList = new List<Peace>();
             for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
             {
-                EffectManager.I.StartEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "");
+                if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Triangle)
+                    EffectManager.I.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, nowDeletePoint.deletePeaceList[i].peaceColor.DisplayName());
+                else if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Square)
+                    EffectManager.I.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "黒");
+                else
+                    EffectManager.I.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "白");
+
 
                 if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace) continue;
 
-               
+
                 SetChangeList.Add(PeaceGenerator.I.ChangeForm(nowDeletePoint.deletePeaceList[i]));
                 peaceTable.Remove(nowDeletePoint.deletePeaceList[i].point);
                 PeaceManager.I.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
@@ -289,7 +296,7 @@ public class PeaceJudger : MonoBehaviour
             {
                 for (int j = downTargetPoint[i].Y; j >= 0; j--)
                 {
-                   // Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
+                    // Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
                     if (PeaceManager.I.GetPeaceTabel.ContainsKey(new POINT(downTargetPoint[i].X, j)))
                         PeaceOperator.I.AddDrop(PeaceManager.I.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)]);
                 }
@@ -365,7 +372,7 @@ public class PeaceJudger : MonoBehaviour
     private bool CheckSameElement(Peace p1, Peace p2)
     {
         if (p1.GetPeaceForm != p2.GetPeaceForm) return false;
-        if (p1.GetPeaceForm != PeaceForm.triangle) return true;
+        if (p1.GetPeaceForm != PeaceForm.Triangle) return true;
 
         if (p1.GetPeaceColor == p2.GetPeaceColor)
             return true;
@@ -482,19 +489,19 @@ public class PeaceJudger : MonoBehaviour
     private IEnumerator WaitJudge()
     {
         int waitFrame = 5;
-        for (int waitCount = 0;waitCount< waitFrame;waitCount++)
+        for (int waitCount = 0; waitCount < waitFrame; waitCount++)
         {
-            if(waitCount< waitFrame)
-            yield return null;
+            if (waitCount < waitFrame)
+                yield return null;
         }
 
-        for(int i=0;i<JudgeList.Count;i++)
+        for (int i = 0; i < JudgeList.Count; i++)
         {
-            JudgePeace(PeaceManager.I.GetPeaceTabel,JudgeList[i],PeaceManager.I.nowHoldPeace);
+            JudgePeace(PeaceManager.I.GetPeaceTabel, JudgeList[i], PeaceManager.I.nowHoldPeace);
         }
         JudgeList.Clear();
     }
 
-  
+
 
 }

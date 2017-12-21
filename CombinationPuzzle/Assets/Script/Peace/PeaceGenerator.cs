@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+static class PeaceColorExt
+{
+    // Gender に対する拡張メソッドの定義
+    public static string DisplayName(this PeaceColor peaceColor)
+    {
+        string[] names = { "赤", "青", "黄","緑", "紫", "橙"};
+        return names[(int)peaceColor];
+    }
+}
+
+
 public class PeaceGenerator : MonoBehaviour
 {
 

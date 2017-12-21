@@ -7,7 +7,7 @@ public class TrianglePeace : Peace
 
     public override PeaceForm GetPeaceForm
     {
-        get { return PeaceForm.triangle; }
+        get { return PeaceForm.Triangle; }
     }
     public override PeaceColor GetPeaceColor
     {

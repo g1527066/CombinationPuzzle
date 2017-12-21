@@ -17,17 +17,18 @@ public enum PeaceColor
 
 public enum PeaceForm
 {
-    triangle,
+    Triangle,
     Square,
     Pentagon,
     None,
 }
 
+
+
 public abstract class Peace : MonoBehaviour
 {
 
     public PeaceColor peaceColor;
-    public PeaceForm nowPeaceForm;
 
     public abstract PeaceForm GetPeaceForm
     {

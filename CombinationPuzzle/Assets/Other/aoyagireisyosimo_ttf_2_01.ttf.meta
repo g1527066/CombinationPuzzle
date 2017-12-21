@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 92a3dc8fc5dd1f04eaa3e00b89113471
+timeCreated: 1513854679
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: aoyagireisyosimo2
+  fontNames:
+  - aoyagireisyosimo2
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

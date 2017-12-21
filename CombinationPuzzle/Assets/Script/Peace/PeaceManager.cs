@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using System;
 
 
 public class PeaceManager : MonoBehaviour
@@ -51,32 +49,6 @@ public class PeaceManager : MonoBehaviour
     [SerializeField]
     UnityEngine.UI.Text text = null;
 
-
-    //public void ChangeDrop()
-    //{
-
-    //    Sequence sequence = DOTween.Sequence().
-    //        Append(
-
-    //            peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(
-    //               new Vector3(stratPosition.X + 0 * onePeaceSize, stratPosition.Y - 1 * onePeaceSize, 0), 0.1f)
-    //        )
-    //        .Append(
-    //        peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(
-    //               new Vector3(stratPosition.X + 0 * onePeaceSize, stratPosition.Y - 2 * onePeaceSize, 0), 0.1f)
-
-    //        )
-    //        .Append(
-    //        peaceTable[new POINT(0, 0)].RectTransform.DOLocalMove(
-    //               new Vector3(stratPosition.X + 0 * onePeaceSize, stratPosition.Y - 3 * onePeaceSize, 0), 0.1f)
-
-    //        )
-    //        .InsertCallback(2, () => text.text = "down");
-    //    testSpriteCount++;
-    //  }
-    //まとめてポイント代入できなかったっけ？、new必要？
-
-    // Use this for initialization
     void Start()
     {
         I = this;
@@ -164,7 +136,7 @@ public class PeaceManager : MonoBehaviour
         //前回とピースがちがかったら入れ替え
         if (hitPeace != null)
         {
-            Debug.Log("前回と違います X="+hitPeace.point.X+" Y=" + hitPeace.point.Y);
+          //  Debug.Log("前回と違います X="+hitPeace.point.X+" Y=" + hitPeace.point.Y);
             AudioManager.I.PlaySound("Trade");//一旦
 
             peaceOperator.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
