@@ -110,12 +110,12 @@ public class PeaceManager : MonoBehaviour
 
             if (testP == peaceTable[new POINT(2, 0)])
             {
-             //   Debug.Log("20の状態   前回と一緒");
+                //   Debug.Log("20の状態   前回と一緒");
             }
             else
             {
-             ////   Debug.Log("20の状態   変わりました");
-              ///  Debug.Break();
+                ////   Debug.Log("20の状態   変わりました");
+                ///  Debug.Break();
                 testP = peaceTable[new POINT(2, 0)];
 
             }
@@ -136,7 +136,7 @@ public class PeaceManager : MonoBehaviour
         //前回とピースがちがかったら入れ替え
         if (hitPeace != null)
         {
-          //  Debug.Log("前回と違います X="+hitPeace.point.X+" Y=" + hitPeace.point.Y);
+            //  Debug.Log("前回と違います X="+hitPeace.point.X+" Y=" + hitPeace.point.Y);
             AudioManager.I.PlaySound("Trade");//一旦
 
             peaceOperator.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
@@ -147,6 +147,7 @@ public class PeaceManager : MonoBehaviour
 
     public void SetHoldPeace(Peace peace)
     {
+        Debug.Log("ピースの位置　X=" + peace.point.X + " Y=" + peace.point.Y);
         if (peace.isMatching) return;
         nowHoldPeace = peace;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;
@@ -158,7 +159,13 @@ public class PeaceManager : MonoBehaviour
         if (nowHoldPeace == null) return;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = true;
         peaceOperator.ResetPosition(nowHoldPeace);
-        peaceJudger.JudgePeace(peaceTable, nowHoldPeace, nowHoldPeace);
+
+        //もし下に間があるなら
+        //落下付け、無ければ判定
+        if (PeaceJudger.I.CheckPossibleDown(peaceTable, nowHoldPeace))
+            PeaceOperator.I.AddDrop(nowHoldPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
+        else
+            peaceJudger.JudgePeace(peaceTable, nowHoldPeace, nowHoldPeace);
         nowHoldPeace = null;
     }
 

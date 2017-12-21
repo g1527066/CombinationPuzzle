@@ -181,10 +181,10 @@ public abstract class Peace : MonoBehaviour
     {
         while (true)
         {
-           ///  Debug.Log("NextCheckコルーチン内");
+             Debug.Log("NextCheckコルーチン内");
             if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
-                //   Debug.Log("NextCheckコルーチン内　見つかりました");
+                  Debug.Log("NextCheckコルーチン内　見つかりました  X="+point.X+" Y="+point.Y);
                 break;
             }
             yield return null;
