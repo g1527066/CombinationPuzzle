@@ -1426,7 +1426,7 @@ MonoBehaviour:
     type: 2}
   PeacePool: {fileID: 1285013652}
   PeaceSprites:
-  - {fileID: 21300000, guid: 3378d6530ebe33c4086dd4c7124a6e0d, type: 3}
+  - {fileID: 21300000, guid: e3d3c8168d4e82f448b4f2234a7721bb, type: 3}
   - {fileID: 21300000, guid: 8705217f3fdec1241b54d5a12c4fb51b, type: 3}
   - {fileID: 21300000, guid: e67a655be9a86a1409a1f735270c32ab, type: 3}
   - {fileID: 21300000, guid: 731b9eb272250864d9cbec8392384774, type: 3}
@@ -1445,7 +1445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8feedbd7c0d5b4f9eece0d574da4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  downSpeed: 2
+  downSpeed: 20
 --- !u!114 &576598421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2035,8 +2035,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -765, y: 213}
-  m_SizeDelta: {x: 204.8, y: 204.8}
+  m_AnchoredPosition: {x: -780.15, y: 214}
+  m_SizeDelta: {x: 174.5, y: 174.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &983849558
 MonoBehaviour:
@@ -2057,7 +2057,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: aa63b83584c5d45488dbcbf1cda5a6e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4bc5537ffa4efaf4b9cc4d35a7c87658, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

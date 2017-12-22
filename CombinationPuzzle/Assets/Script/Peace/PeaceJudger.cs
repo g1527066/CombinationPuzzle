@@ -263,6 +263,7 @@ public class PeaceJudger : MonoBehaviour
             {
                 EffectManager.I.PlayEffect(nowDeletePoint.nextGenerationPeace.gameObject.transform.position, "生成");
                 changeGenerationPeace = PeaceManager.I.ChangeForm(nowDeletePoint.nextGenerationPeace);
+
             }
 
             //削除した場所以降のピースを落下させる//TODO:生成がnullだと、、？
@@ -276,15 +277,25 @@ public class PeaceJudger : MonoBehaviour
             for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
             {
                 if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Triangle)
+                {
+                    //error↓
                     EffectManager.I.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, nowDeletePoint.deletePeaceList[i].peaceColor.DisplayName());
+                }
                 else if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Square)
                     EffectManager.I.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "黒");
                 else
                     EffectManager.I.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "白");
 
 
-                if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace) continue;
-
+                if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace)
+                {
+                    if (PeaceJudger.I.CheckPossibleDown(peaceTable, nowDeletePoint.nextGenerationPeace))
+                    {
+                        Debug.Log("生成を落下させます");
+                        PeaceOperator.I.AddDrop(nowDeletePoint.nextGenerationPeace);
+                    }
+                    continue;
+                }
 
                 SetChangeList.Add(PeaceGenerator.I.ChangeForm(nowDeletePoint.deletePeaceList[i]));
                 peaceTable.Remove(nowDeletePoint.deletePeaceList[i].point);
@@ -386,17 +397,10 @@ public class PeaceJudger : MonoBehaviour
         POINT returnPoint = checkList[0];
         for (int i = 1; i < checkList.Count; i++)
         {
-            if (returnPoint.X <= checkList[i].X &&
-                    checkList[i].X - returnPoint.X < checkList[i].Y - returnPoint.Y)
-            {
-
+            if (checkList[i].X < returnPoint.X)
                 returnPoint = checkList[i];
-            }
-            else if (returnPoint.X > checkList[i].X &&
-                returnPoint.X - checkList[i].X >= returnPoint.Y - checkList[i].Y)
-            {
+            else if(checkList[i].X==returnPoint.X&& returnPoint.Y < checkList[i].Y)
                 returnPoint = checkList[i];
-            }
         }
         return returnPoint;
     }

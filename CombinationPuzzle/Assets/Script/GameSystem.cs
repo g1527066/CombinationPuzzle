@@ -73,11 +73,12 @@ public class GameSystem : MonoBehaviour
     {
         if (isGameOver == false&& isTimeStop==false)
         {
-            if (remainingTime < 0)
-            {
-                isGameOver = true;
-                ResultText.text = "TimeOver!";
-            }
+            //一旦タイム制限無し
+            //if (remainingTime < 0)
+            //{
+            //    isGameOver = true;
+            //    ResultText.text = "TimeOver!";
+            //}
             remainingTime -= Time.deltaTime;
             TimeText.text = (int)remainingTime / 60 + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
 

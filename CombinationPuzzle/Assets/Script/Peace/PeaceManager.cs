@@ -141,7 +141,11 @@ public class PeaceManager : MonoBehaviour
 
             peaceOperator.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
             peaceOperator.ResetPosition(hitPeace);
-            peaceJudger.JudgePeace(peaceTable, hitPeace, nowHoldPeace);
+
+            if (PeaceJudger.I.CheckPossibleDown(peaceTable, hitPeace))
+                PeaceOperator.I.AddDrop(hitPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
+            else
+                peaceJudger.JudgePeace(peaceTable, hitPeace, nowHoldPeace);
         }
     }
 
