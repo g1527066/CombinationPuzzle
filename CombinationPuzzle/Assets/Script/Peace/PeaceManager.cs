@@ -116,7 +116,7 @@ public class PeaceManager : MonoBehaviour
         if (hitPeace != null)
         {
             //  Debug.Log("前回と違います X="+hitPeace.point.X+" Y=" + hitPeace.point.Y);
-            AudioManager.I.PlaySound("Trade");//一旦
+            AudioManager.I.PlayTrade();
             if (hitPeace.IsDuringFall)
             {
                 //下に行くようにする、もしその下に空きがなければ予約するように

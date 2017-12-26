@@ -256,6 +256,25 @@ public class PeaceJudger : MonoBehaviour
         //全て削除済みで、生成も変わっていたら
         if (nowDeletePoint.deleteCounter == nowDeletePoint.deletePeaceList.Count)//全て削除済みだったら、上から追加、判定する（両方）、ずらす
         {
+            if (nowDeletePoint.nextGenerationPeace != null)
+            {
+                if (nowDeletePoint.nextGenerationPeace.GetPeaceForm == PeaceForm.Triangle)
+                    AudioManager.I.PlaySound("1StageDelete");
+                else
+                    AudioManager.I.PlaySound("2StageDelete");
+            }
+            else
+                AudioManager.I.PlaySound("3StageDelete");
+
+            int summaryCount = 0,bestCount=0;
+            if (nowDeletePoint.deleteCounter >= GameSystem.I.SummaryDeleteAddCount)
+                summaryCount = nowDeletePoint.deleteCounter;
+            if(nowDeletePoint.deletePeaceList[0].GetPeaceForm==PeaceForm.Pentagon)
+                bestCount = nowDeletePoint.deleteCounter;
+            GameSystem.I.TimerControl(summaryCount,bestCount);
+
+
+
             Peace changeGenerationPeace = null;
             // Debug.Log("全て削除済み");
             //生成するありなら

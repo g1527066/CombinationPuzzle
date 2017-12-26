@@ -99,7 +99,7 @@ public abstract class Peace : MonoBehaviour
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                 PeaceJudger.I.DeletePeace(PeaceManager.I.GetPeaceTabel, this);
-                AudioManager.I.PlaySound("DeletePeace");
+                //AudioManager.I.PlaySound("DeletePeace");
             }
         }
     }

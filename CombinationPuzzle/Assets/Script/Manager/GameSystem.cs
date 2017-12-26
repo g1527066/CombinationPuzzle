@@ -6,12 +6,18 @@ using UnityEngine.SceneManagement;
 
 static class MyDebug
 {
-   public static  Text text = null;
+    public static Text text = null;
 
-    public static void DrawError(string  drawText)
+    public static void DrawError(string drawText)
     {
         text.text = drawText;
     }
+}
+
+public enum Mode
+{
+    Mission,
+    Marathon,
 }
 
 
@@ -23,6 +29,18 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     private float SetLimitTime = 10f;
+
+    [SerializeField]
+    public float CompleteAddTime = 10f;
+    [SerializeField]
+    private float BestDeleteAddTime = 1f;
+    [SerializeField]
+    private float SummaryDeleteAddTime = 0.3f;
+    [SerializeField]
+    public int SummaryDeleteAddCount = 4;
+
+    public Mode gameMode = Mode.Marathon;
+
 
     private float remainingTime = 0;
 
@@ -66,12 +84,17 @@ public class GameSystem : MonoBehaviour
 
         TimeSlider.maxValue = SetLimitTime;
         TimeSlider.value = 0;
+
+        if (PlayerPrefs.GetString("GameMode") == "Mission")
+            gameMode = Mode.Mission;
+        else
+            gameMode = Mode.Marathon;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isGameOver == false&& isTimeStop==false)
+        if (isGameOver == false && isTimeStop == false)
         {
             //一旦タイム制限無し
             //if (remainingTime < 0)
@@ -80,20 +103,25 @@ public class GameSystem : MonoBehaviour
             //    ResultText.text = "TimeOver!";
             //}
             remainingTime -= Time.deltaTime;
-            TimeText.text = (int)remainingTime / 60 + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
-
-            TimeSlider.value = remainingTime;
+            TimerControl(0, 0,0);
         }
+    }
+
+    public void TimerControl(int SummaryCount, int BestCount,float addTime)
+    {
+        remainingTime += SummaryCount * SummaryDeleteAddTime + BestDeleteAddTime * BestCount+addTime;
+        TimeText.text = (int)remainingTime / 60 + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
+        TimeSlider.value = remainingTime;
     }
 
     public void ResetScene()
     {
-      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Clear()
     {
-       // isGameOver = true;
+        // isGameOver = true;
         ResultText.text = "Clear!";
     }
 
