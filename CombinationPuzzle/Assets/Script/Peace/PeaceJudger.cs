@@ -292,6 +292,7 @@ public class PeaceJudger : MonoBehaviour
                     if (PeaceJudger.I.CheckPossibleDown(peaceTable, nowDeletePoint.nextGenerationPeace))
                     {
                         Debug.Log("生成を落下させます");
+
                         PeaceOperator.I.AddDrop(nowDeletePoint.nextGenerationPeace);
                     }
                     continue;
@@ -309,7 +310,10 @@ public class PeaceJudger : MonoBehaviour
                 {
                     // Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
                     if (PeaceManager.I.GetPeaceTabel.ContainsKey(new POINT(downTargetPoint[i].X, j)))
-                        PeaceOperator.I.AddDrop(PeaceManager.I.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)]);
+                    {
+                        if (PeaceManager.I.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)] != PeaceManager.I.nowHoldPeace)
+                            PeaceOperator.I.AddDrop(PeaceManager.I.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)]);
+                    }
                 }
             }
 
@@ -399,7 +403,7 @@ public class PeaceJudger : MonoBehaviour
         {
             if (checkList[i].X < returnPoint.X)
                 returnPoint = checkList[i];
-            else if(checkList[i].X==returnPoint.X&& returnPoint.Y < checkList[i].Y)
+            else if (checkList[i].X == returnPoint.X && returnPoint.Y < checkList[i].Y)
                 returnPoint = checkList[i];
         }
         return returnPoint;

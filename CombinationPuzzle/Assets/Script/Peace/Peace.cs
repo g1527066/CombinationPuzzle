@@ -126,7 +126,7 @@ public abstract class Peace : MonoBehaviour
     {
         //    Debug.Log("最初の位置" + RectTransform.anchoredPosition);
         //    Debug.Log("目標地点=" + yPosition);
-        if (IsDuringFall == true) return;
+      //  if (IsDuringFall == true) return;
         IsDuringFall = true;
         downPosition = yPosition;
         StartCoroutine(DownMovePeace());//erorrたくさん消した時？
@@ -179,12 +179,12 @@ public abstract class Peace : MonoBehaviour
 
     private IEnumerator NextCheck()
     {
-        while (true)
+        while (true&&IsDuringFall==true)
         {
              Debug.Log("NextCheckコルーチン内");
             if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
-                  Debug.Log("NextCheckコルーチン内　見つかりました  X="+point.X+" Y="+point.Y);
+                 // Debug.Log("NextCheckコルーチン内　見つかりました  X="+point.X+" Y="+point.Y);
                 break;
             }
             yield return null;

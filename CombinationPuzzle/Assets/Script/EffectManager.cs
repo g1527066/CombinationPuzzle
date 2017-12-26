@@ -65,7 +65,8 @@ public class EffectManager : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("エフェクト名が指定されていません");
+                Debug.LogError("エフェクト名が指定されていません");
+                return;
                 break;
 
         }

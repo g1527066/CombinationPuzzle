@@ -98,32 +98,11 @@ public class PeaceManager : MonoBehaviour
         return true;
     }
 
-    public Peace testP = null;
 
     // Update is called once per frame
     void Update()
     {
-        if (peaceTable.ContainsKey(new POINT(2, 0)))
-        {
-            if (testP == null)
-                testP = peaceTable[new POINT(2, 0)];
 
-            if (testP == peaceTable[new POINT(2, 0)])
-            {
-                //   Debug.Log("20の状態   前回と一緒");
-            }
-            else
-            {
-                ////   Debug.Log("20の状態   変わりました");
-                ///  Debug.Break();
-                testP = peaceTable[new POINT(2, 0)];
-
-            }
-        }
-        else
-        {
-            Debug.Log("キーがありません");
-        }
     }
 
     public void MoveHoldPeace(Vector2 difference, Peace hitPeace)
@@ -138,14 +117,33 @@ public class PeaceManager : MonoBehaviour
         {
             //  Debug.Log("前回と違います X="+hitPeace.point.X+" Y=" + hitPeace.point.Y);
             AudioManager.I.PlaySound("Trade");//一旦
-
-            peaceOperator.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
-            peaceOperator.ResetPosition(hitPeace);
-
-            if (PeaceJudger.I.CheckPossibleDown(peaceTable, hitPeace))
-                PeaceOperator.I.AddDrop(hitPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
+            if (hitPeace.IsDuringFall)
+            {
+                //下に行くようにする、もしその下に空きがなければ予約するように
+                if (peaceTable.ContainsKey(new POINT(nowHoldPeace.point.X, nowHoldPeace.point.Y + 1)))
+                {
+                    PeaceOperator.I.AddDrop(hitPeace);//ここらえん変える！！
+                }
+                else
+                {
+                    PeaceGenerator.I.SetPeaceList(hitPeace, new POINT(nowHoldPeace.point.X, nowHoldPeace.point.Y + 1));
+                    PeaceOperator.I.ResetPosition(hitPeace);
+                    if (PeaceJudger.I.CheckPossibleDown(peaceTable, hitPeace))
+                        PeaceOperator.I.AddDrop(hitPeace);
+                    else
+                        hitPeace.IsDuringFall = false;
+                }
+            }
             else
-                peaceJudger.JudgePeace(peaceTable, hitPeace, nowHoldPeace);
+            {
+                peaceOperator.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
+                peaceOperator.ResetPosition(hitPeace);
+
+                if (PeaceJudger.I.CheckPossibleDown(peaceTable, hitPeace))
+                    PeaceOperator.I.AddDrop(hitPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
+                else
+                    peaceJudger.JudgePeace(peaceTable, hitPeace, nowHoldPeace);
+            }
         }
     }
 

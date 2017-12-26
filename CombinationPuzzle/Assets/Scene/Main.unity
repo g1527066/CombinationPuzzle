@@ -77,15 +77,17 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -1001,14 +1003,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deletePeaceEffect:
-  - {fileID: 1835053700113672, guid: 1adb1d16de6388a47b65e93e6a7fb1c2, type: 2}
-  - {fileID: 1835053700113672, guid: 1adb1d16de6388a47b65e93e6a7fb1c2, type: 2}
+  - {fileID: 1491542241594552, guid: e3fc3a3fa239aae439f0d4089972bd46, type: 2}
+  - {fileID: 1073583290145734, guid: 41399dd3084b3e848badabcede0644f3, type: 2}
   - {fileID: 1835053700113672, guid: 1adb1d16de6388a47b65e93e6a7fb1c2, type: 2}
   - {fileID: 1250758912591800, guid: fe3db9a876626e54a9460b2c5a403f4b, type: 2}
-  - {fileID: 1835053700113672, guid: 1adb1d16de6388a47b65e93e6a7fb1c2, type: 2}
+  - {fileID: 1473055731724010, guid: 285d59c729755994692a1ba86c8e7590, type: 2}
   - {fileID: 1243721306208830, guid: 0aaaf2cb75cf4124ca7cee00dc680d5a, type: 2}
   - {fileID: 1644619571504584, guid: 84198bf2bf474c34cb8ba37e1294956a, type: 2}
-  - {fileID: 1835053700113672, guid: 1adb1d16de6388a47b65e93e6a7fb1c2, type: 2}
+  - {fileID: 1977351788716570, guid: 4e06d7ab52d9ae042b6619fdc901beb4, type: 2}
   generationEffectPrefab: {fileID: 1372844539601046, guid: cd4322c30f0143a4bb65ea34d24333b7,
     type: 2}
 --- !u!4 &329647250
@@ -1410,7 +1412,6 @@ MonoBehaviour:
   peaceOperator: {fileID: 576598420}
   peaceParent: {fileID: 1285013652}
   text: {fileID: 0}
-  testP: {fileID: 0}
 --- !u!114 &576598419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1445,7 +1446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8feedbd7c0d5b4f9eece0d574da4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  downSpeed: 20
+  downSpeed: 1.66
 --- !u!114 &576598421
 MonoBehaviour:
   m_ObjectHideFlags: 0
