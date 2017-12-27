@@ -18,6 +18,9 @@ public class PeaceJudger : MonoBehaviour
     const int DeleteCount = 3;
     List<DeletePoint> DeletionTargetList = new List<DeletePoint>();
 
+    [SerializeField]
+    Mission mission=null;
+
 
     // Use this for initialization
     void Awake()
@@ -256,6 +259,7 @@ public class PeaceJudger : MonoBehaviour
         //全て削除済みで、生成も変わっていたら
         if (nowDeletePoint.deleteCounter == nowDeletePoint.deletePeaceList.Count)//全て削除済みだったら、上から追加、判定する（両方）、ずらす
         {
+            //サウンド
             if (nowDeletePoint.nextGenerationPeace != null)
             {
                 if (nowDeletePoint.nextGenerationPeace.GetPeaceForm == PeaceForm.Triangle)
@@ -266,13 +270,16 @@ public class PeaceJudger : MonoBehaviour
             else
                 AudioManager.I.PlaySound("3StageDelete");
 
+            //時間追加
             int summaryCount = 0,bestCount=0;
             if (nowDeletePoint.deleteCounter >= GameSystem.I.SummaryDeleteAddCount)
                 summaryCount = nowDeletePoint.deleteCounter;
             if(nowDeletePoint.deletePeaceList[0].GetPeaceForm==PeaceForm.Pentagon)
                 bestCount = nowDeletePoint.deleteCounter;
-            GameSystem.I.TimerControl(summaryCount,bestCount);
+            GameSystem.I.TimerControl(summaryCount,bestCount,0);
 
+            //判定
+            mission.CheckMission(nowDeletePoint.deletePeaceList,nowDeletePoint.nextGenerationPeace);
 
 
             Peace changeGenerationPeace = null;
@@ -295,6 +302,9 @@ public class PeaceJudger : MonoBehaviour
             List<Peace> SetChangeList = new List<Peace>();
             for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
             {
+
+
+
                 if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Triangle)
                 {
                     //error↓

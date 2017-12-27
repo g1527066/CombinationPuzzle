@@ -89,6 +89,10 @@ public class GameSystem : MonoBehaviour
             gameMode = Mode.Mission;
         else
             gameMode = Mode.Marathon;
+
+        //いったん
+        gameMode = Mode.Mission;
+
     }
 
     // Update is called once per frame
@@ -123,6 +127,7 @@ public class GameSystem : MonoBehaviour
     {
         // isGameOver = true;
         ResultText.text = "Clear!";
+        StopTime();
     }
 
     //いったん操作できてしまう

@@ -28,7 +28,7 @@ public class PeaceGenerator : MonoBehaviour
 
     //カラーの後は形
     [SerializeField]
-    List<Sprite> PeaceSprites = new List<Sprite>();
+    public List<Sprite> PeaceSprites = new List<Sprite>();
 
 
 
