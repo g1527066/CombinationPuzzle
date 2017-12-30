@@ -14,7 +14,8 @@ public class EffectManager : MonoBehaviour
     List<GameObject> deletePeaceEffect = new List<GameObject>();
     [SerializeField]
     GameObject generationEffectPrefab = null;
-
+    [SerializeField]
+    GameObject effectPool = null;
 
     // Use this for initialization
     void Start()
@@ -70,7 +71,9 @@ public class EffectManager : MonoBehaviour
                 break;
 
         }
+        //obj.transform.SetParent(effectPool.transform, false);
         obj.transform.position = new Vector3(generationPotision.x, generationPotision.y, FromtY);
+    
     }
 
 }

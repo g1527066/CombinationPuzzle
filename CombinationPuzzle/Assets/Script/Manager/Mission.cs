@@ -47,6 +47,12 @@ public class Mission : MonoBehaviour
     [SerializeField]
     Sprite AllPeace = null;
 
+    [SerializeField]
+    CutMission cutMission = null;
+
+    [SerializeField]
+    GameObject CharaPool = null;
+
     [Header("生成系------([0]個から～[1]個の中から)")]
 
 
@@ -264,6 +270,9 @@ public class Mission : MonoBehaviour
     private void ClearMisstion(int missionNum)
     {
 
+        SpriteSlicer2D.SliceSprite(MissionImage[0].gameObject.transform.position+new Vector3(-1000, 0), MissionImage[0].gameObject.transform.position +new Vector3(1000, 0), MissionImage[0].gameObject);
+        SpriteSlicer2D.ShatterSprite(MissionImage[0].gameObject,100);
+        cutMission.SetCutEffect(AllPeace,missionNum,missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
         if (GameSystem.I.gameMode == Mode.Mission)
         {
             MissionImage[missionNum].gameObject.SetActive(false);
@@ -271,7 +280,9 @@ public class Mission : MonoBehaviour
         }
         else
         {
-            //Marathonなら補充
+            SetMission(missionNum);
+                //Marathonなら補充
+
         }
 
         GameSystem.I.TimerControl(0, 0, GameSystem.I.CompleteAddTime);

@@ -280,7 +280,8 @@ public class PeaceJudger : MonoBehaviour
 
             //判定
             mission.CheckMission(nowDeletePoint.deletePeaceList,nowDeletePoint.nextGenerationPeace);
-
+            //得点追加
+            GameSystem.I.AddScorePoint(nowDeletePoint.deletePeaceList.Count,nowDeletePoint.deletePeaceList[0].GetPeaceForm);
 
             Peace changeGenerationPeace = null;
             // Debug.Log("全て削除済み");

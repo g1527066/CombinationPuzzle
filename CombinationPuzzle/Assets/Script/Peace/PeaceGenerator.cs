@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 static class PeaceColorExt
 {
     // Gender に対する拡張メソッドの定義

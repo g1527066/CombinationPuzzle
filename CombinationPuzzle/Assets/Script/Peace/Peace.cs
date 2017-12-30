@@ -179,8 +179,11 @@ public abstract class Peace : MonoBehaviour
 
     private IEnumerator NextCheck()
     {
+        int test = 0;//削除
         while (true&&IsDuringFall==true)
         {
+            test++;
+            if(test>100)
              Debug.Log("NextCheckコルーチン内");
             if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
