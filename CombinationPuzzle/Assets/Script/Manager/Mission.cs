@@ -45,7 +45,7 @@ public class Mission : MonoBehaviour
     Text[] MissionDescriptionText = null;
 
     [SerializeField]
-    Sprite AllPeace = null;
+    Sprite AllPeaceSprite = null;
 
     [SerializeField]
     CutMission cutMission = null;
@@ -141,19 +141,20 @@ public class Mission : MonoBehaviour
                 MissionDescriptionText[missionNum].text = "まとめて消去";
                 missionData[missionNum].MissionNum = Random.Range(0, CollectNum.Length);
                 MissionCountText[missionNum].text = missionData[missionNum].MissionNum + "個";
-                MissionImage[missionNum].sprite = AllPeace;
+                MissionImage[missionNum].sprite = AllPeaceSprite;
                 break;
             case MissionType.DeleteCount:
 
                 MissionDescriptionText[missionNum].text = "回数消去";
                 missionData[missionNum].MissionNum = Random.Range(DeleteCount[0], DeleteCount[1]);
                 UpdateCreateBestText(missionNum);
-                MissionImage[missionNum].sprite = AllPeace;
+                MissionImage[missionNum].sprite = AllPeaceSprite;
                 break;
             case MissionType.DeleteBestNum:
                 MissionDescriptionText[missionNum].text = "消去";
                 MissionCountText[missionNum].text = DeleteBestNum + "個";
                 MissionImage[missionNum].sprite = PeaceGenerator.I.PeaceSprites[(int)PeaceColor.None + 1];
+                missionData[missionNum].peaceForm = PeaceForm.Pentagon;
                 break;
         }
 
@@ -272,7 +273,7 @@ public class Mission : MonoBehaviour
 
         SpriteSlicer2D.SliceSprite(MissionImage[0].gameObject.transform.position+new Vector3(-1000, 0), MissionImage[0].gameObject.transform.position +new Vector3(1000, 0), MissionImage[0].gameObject);
         SpriteSlicer2D.ShatterSprite(MissionImage[0].gameObject,100);
-        cutMission.SetCutEffect(AllPeace,missionNum,missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
+        cutMission.SetCutEffect(AllPeaceSprite,missionNum,missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
         if (GameSystem.I.gameMode == Mode.Mission)
         {
             MissionImage[missionNum].gameObject.SetActive(false);

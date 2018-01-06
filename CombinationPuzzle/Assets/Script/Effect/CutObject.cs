@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class CutObject : MonoBehaviour
 {
-    //imageは切れるのかのてすと
-
-    //[SerializeField]
     Vector3 startPosition;
     Vector3 endPosition;
     float totalTime = 0;
     float cutTime = 0;
-
-
-    //[SerializeField]
-    //Vector3 e;
 
     //斬撃用（カット後に）
     protected List<GameObject> cutedObject = new List<GameObject>();
@@ -57,7 +50,7 @@ public class CutObject : MonoBehaviour
                 Destroy(gameObject);
                 MyDebug.DrawError("CutObject Out of Range Error");
             }
-                SavePosition = cutObject[0].SlicedObject.transform.position;
+            SavePosition = cutObject[0].SlicedObject.transform.position;
             syosokudo = new Vector3[cutedObject.Count];
             syosokudo[0] = Vector3.zero;
             kakudoRadian = new float[cutedObject.Count];
@@ -74,7 +67,7 @@ public class CutObject : MonoBehaviour
                 //初回一回目に初速度、角度求める
                 if (syosokudo[0] == Vector3.zero)
                 {
-                    float moveSpeed = 4.5f;
+                    float moveSpeed = 10;// 4.5f;
                     for (int i = 0; i < cutedObject.Count; i++)
                     {
                         Vector3 selectPosition = cutedObject[i].transform.position;

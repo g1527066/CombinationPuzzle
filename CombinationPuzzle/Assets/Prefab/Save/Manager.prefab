@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183eebf2573eb8c4e8cc2cceb4c6142e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetLimitTime: 90
+  SetLimitTime: 30
   CompleteAddTime: 10
   BestDeleteAddTime: 1
   SummaryDeleteAddTime: 0.3
@@ -571,7 +571,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  AllPeace: {fileID: 21300000, guid: 4bc5537ffa4efaf4b9cc4d35a7c87658, type: 3}
+  AllPeaceSprite: {fileID: 21300000, guid: d41e97359043e004189774862368a665, type: 3}
   cutMission: {fileID: 114463885023618424}
   CharaPool: {fileID: 0}
   CreateBest: 0100000003000000
@@ -630,7 +630,9 @@ MonoBehaviour:
   StartPos: {x: -327, y: 475}
   EndPos: {x: -785, y: -1100}
   ShiftY: 210
-  CharacterSpeed: 0.7
+  CharacterSpeed: 1.2
+  StayTimingTime: 0.5
+  StayTime: 0.2
   SDcharacterPrefab: {fileID: 114222711907673930, guid: fb8a7fb8a0ffbcf40bc3ff889525caaa,
     type: 2}
   CharacterMoveParticle: {fileID: 1243721306208830, guid: 0aaaf2cb75cf4124ca7cee00dc680d5a,
@@ -640,7 +642,7 @@ MonoBehaviour:
   cutStartPostion: {x: -4.1, y: 3.3}
   CutEndVector: {x: -6.1, y: -3.1}
   CutShiftY: 2.1
-  cutTime: 0.3
+  cutTime: 0.45
   CutPeacePosition: {x: -780, y: 214}
   CutPeacePositionShiftY: 250.5
   cutPeacePool: {fileID: 0}
@@ -720,14 +722,14 @@ MonoBehaviour:
     type: 2}
   PeacePool: {fileID: 0}
   PeaceSprites:
-  - {fileID: 21300000, guid: e3d3c8168d4e82f448b4f2234a7721bb, type: 3}
-  - {fileID: 21300000, guid: 8705217f3fdec1241b54d5a12c4fb51b, type: 3}
-  - {fileID: 21300000, guid: e67a655be9a86a1409a1f735270c32ab, type: 3}
-  - {fileID: 21300000, guid: 731b9eb272250864d9cbec8392384774, type: 3}
-  - {fileID: 21300000, guid: dcbbad52e4d51704b903bdfb90665ba8, type: 3}
-  - {fileID: 21300000, guid: 80594f00dfe07ad4d9388f971999fff3, type: 3}
-  - {fileID: 21300000, guid: 8cb69fa0f42166f49b8fe78038009b56, type: 3}
-  - {fileID: 21300000, guid: 335b45716dc7bc147971c73b392ec46c, type: 3}
+  - {fileID: 21300000, guid: a12f10dda05f50343898b41052f0c5fb, type: 3}
+  - {fileID: 21300000, guid: acd40702cc7273e4a9cea122cad87e4f, type: 3}
+  - {fileID: 21300000, guid: 6360bc951e3725242b76aef0e609427c, type: 3}
+  - {fileID: 21300000, guid: ea0cfb6a2b53f3c45b3d0867d2e178ae, type: 3}
+  - {fileID: 21300000, guid: 3b7330396d7b22f41aada4f541c249da, type: 3}
+  - {fileID: 21300000, guid: 11d0693c8b4a3804fa3cae49b08aae21, type: 3}
+  - {fileID: 21300000, guid: ea1928924a3d1fc47bea7371f83d69e0, type: 3}
+  - {fileID: 21300000, guid: ba974328d00e0484b8fdc58da490262f, type: 3}
 --- !u!114 &114890183071378770
 MonoBehaviour:
   m_ObjectHideFlags: 1

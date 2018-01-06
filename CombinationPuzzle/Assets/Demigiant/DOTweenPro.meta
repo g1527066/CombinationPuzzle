@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af55cfd0e7084ab4884c5a4f29b62d9f
+guid: 43998c5375b720340a6e52c7d04ba1da
 labels:
 - Tween
 - Tweening
@@ -21,3 +21,5 @@ labels:
 folderAsset: yes
 DefaultImporter:
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

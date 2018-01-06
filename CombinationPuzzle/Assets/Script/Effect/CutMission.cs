@@ -17,6 +17,10 @@ public class CutMission : MonoBehaviour
     float ShiftY = 252;
     [SerializeField]
     float CharacterSpeed = 1.0f;
+    [SerializeField]
+    float StayTimingTime = 1f;
+    [SerializeField]
+    float StayTime = 1f;
 
     [SerializeField]
     CutCharacter SDcharacterPrefab = null;
@@ -43,33 +47,30 @@ public class CutMission : MonoBehaviour
 
     [SerializeField]
     GameObject cutPeacePool = null;
-    [SerializeField]
-    float PurpuseSize = 9.75f;
-    [SerializeField]
-    float ColorPeaceSize = 9.75f;
 
     private void SetCutObject(Sprite AllSprite, int num, PeaceColor peaceColor, PeaceForm peaceForm)
     {
         CutObject cutObject = Instantiate(CutPrefab);
         cutObject.gameObject.transform.SetParent(cutPeacePool.transform, false);
+        int a = (int)PeaceColor.None + (int)peaceForm - 1;
+        Debug.Log("スプライトの番号="+a);
+        Debug.Log("カラー"+(int)peaceColor);
+        Debug.Log("フォーム" + (int)peaceForm);
 
         if (peaceColor != PeaceColor.None)
         {
-            cutObject.transform.localScale = new Vector3(ColorPeaceSize, ColorPeaceSize, 1);
             cutObject.SetCut(new Vector3(CutPeacePosition.x, CutPeacePosition.y - (num * CutPeacePositionShiftY), 0), PeaceGenerator.I.PeaceSprites[(int)peaceColor],
                 cutTime, new Vector2(cutStartPostion.x, cutStartPostion.y - (CutShiftY * num)), CutEndVector);
 
         }
         else if (peaceForm != PeaceForm.None)
         {
-            cutObject.transform.localScale = new Vector3(ColorPeaceSize, ColorPeaceSize, 1);
             cutObject.SetCut(new Vector3(CutPeacePosition.x, CutPeacePosition.y - (num * CutPeacePositionShiftY), 0), PeaceGenerator.I.PeaceSprites[(int)PeaceColor.None + (int)peaceForm - 1],
                 cutTime, new Vector2(cutStartPostion.x, cutStartPostion.y - (CutShiftY * num)), CutEndVector);
 
         }
-        else//おっきいのだけサイズちがう
+        else
         {
-            cutObject.transform.localScale = new Vector3(PurpuseSize, PurpuseSize, 1);
             cutObject.SetCut(new Vector3(CutPeacePosition.x, CutPeacePosition.y - (num * CutPeacePositionShiftY), 0), AllSprite,
                 cutTime, new Vector2(cutStartPostion.x, cutStartPostion.y - (CutShiftY * num)), CutEndVector);
         }
@@ -78,7 +79,7 @@ public class CutMission : MonoBehaviour
     private void SetCutCharacter(int num)
     {
         CutCharacter chara = Instantiate(SDcharacterPrefab, EffctPool.transform);
-        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed);
+        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed,StayTimingTime,StayTime);
     }
 
     public void SetCutEffect(Sprite AllSprite, int num, PeaceColor peaceColor, PeaceForm peaceForm)

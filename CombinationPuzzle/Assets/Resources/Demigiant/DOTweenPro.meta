@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1fa8b7130389434c98e9d27d95501e7
+guid: af55cfd0e7084ab4884c5a4f29b62d9f
 labels:
 - Tween
 - Tweening
@@ -15,6 +15,9 @@ labels:
 - Easing
 - Shake
 - Punch
+- 2DToolkit
+- TextMeshPro
+- Text
 folderAsset: yes
 DefaultImporter:
   userData: 

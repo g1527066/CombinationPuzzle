@@ -5,15 +5,20 @@ using UnityEngine;
 public class CutCharacter : MonoBehaviour {
 
 
-    private float speed = 1.5f;//
+    private float speed = 1.5f;
     private float nowTime = 0.0f;
+    private float StayTimingTime = 0;
+    private float StayTime = 0;
+    private bool isStay = false;
 
     Vector2 stratPosition;
 
     Vector2 addVector = Vector2.zero;
 
-    public void SetCharacter(Vector2 strat,Vector2 end,float Speed)
+    public void SetCharacter(Vector2 strat,Vector2 end,float Speed,float stayTiming,float stayTime)
     {
+        StayTimingTime = stayTiming;
+        StayTime = stayTime;
         speed = Speed;
         stratPosition = strat;
         gameObject.GetComponent<RectTransform>().anchoredPosition = strat;
@@ -27,7 +32,12 @@ public class CutCharacter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (nowTime < speed)
+
+        if(nowTime> StayTimingTime&&isStay==false)
+        {
+            StartCoroutine(StayProsess());
+        }
+        else if (nowTime < speed+StayTime)
         {
             nowTime += Time.deltaTime;
             gameObject.GetComponent<RectTransform>().anchoredPosition =stratPosition + addVector * nowTime;
@@ -37,5 +47,10 @@ public class CutCharacter : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+    }
+    private IEnumerator StayProsess()
+    {
+        yield return new WaitForSeconds(StayTime);
+        isStay = true;
     }
 }
