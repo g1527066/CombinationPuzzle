@@ -89,12 +89,6 @@ public class Mission : MonoBehaviour
     }
 
 
-
-    //miissionType
-    //public int completeNum;
-    //public int MissionNum;
-    //public PeaceForm peaceForm;
-    //public PeaceColor peaceColor;
     private void SetMission(int missionNum)
     {
         while (true)
@@ -139,7 +133,8 @@ public class Mission : MonoBehaviour
                 break;
             case MissionType.CollectNum:
                 MissionDescriptionText[missionNum].text = "まとめて消去";
-                missionData[missionNum].MissionNum = Random.Range(0, CollectNum.Length);
+                int num= Random.Range(0, CollectNum.Length);
+                missionData[missionNum].MissionNum = CollectNum[num];
                 MissionCountText[missionNum].text = missionData[missionNum].MissionNum + "個";
                 MissionImage[missionNum].sprite = AllPeaceSprite;
                 break;

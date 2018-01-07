@@ -26,7 +26,6 @@ public class InputManager : MonoBehaviour
     //Rayの長さ
     float maxDistance = 10;
 
-
     // Use this for initialization
     void Start()
     {
@@ -58,11 +57,11 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
+
             Vector2 d = new Vector2(Input.mousePosition.x - oldPosition.x, Input.mousePosition.y - oldPosition.y);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit2D hit = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, maxDistance, 100);
-
             Peace peace = null;
             if (hit.collider != null)
                 peace = hit.collider.gameObject.GetComponent<Peace>();

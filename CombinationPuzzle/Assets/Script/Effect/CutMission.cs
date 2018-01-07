@@ -6,6 +6,31 @@ public class CutMission : MonoBehaviour
 {
 
     [SerializeField]
+    Sprite startSprite = null;
+
+    [SerializeField]
+    float drawStayTime = 1f;
+    [SerializeField]
+    float drawStartTime = 1f;
+
+    float totalTime = 0f;
+    [SerializeField]
+    UnityEngine.UI.Image stringImage = null;
+
+
+    public void Updateaaaa()
+    {
+        totalTime += Time.deltaTime;
+        if(totalTime>drawStayTime)
+        {
+            stringImage.sprite = startSprite;
+        }
+    }
+
+    //-----------------------------
+
+
+    [SerializeField]
     GameObject EffctPool = null;
 
     //SDキャラの動き
@@ -53,9 +78,7 @@ public class CutMission : MonoBehaviour
         CutObject cutObject = Instantiate(CutPrefab);
         cutObject.gameObject.transform.SetParent(cutPeacePool.transform, false);
         int a = (int)PeaceColor.None + (int)peaceForm - 1;
-        Debug.Log("スプライトの番号="+a);
-        Debug.Log("カラー"+(int)peaceColor);
-        Debug.Log("フォーム" + (int)peaceForm);
+
 
         if (peaceColor != PeaceColor.None)
         {
@@ -79,7 +102,7 @@ public class CutMission : MonoBehaviour
     private void SetCutCharacter(int num)
     {
         CutCharacter chara = Instantiate(SDcharacterPrefab, EffctPool.transform);
-        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed,StayTimingTime,StayTime);
+        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed, StayTimingTime, StayTime);
     }
 
     public void SetCutEffect(Sprite AllSprite, int num, PeaceColor peaceColor, PeaceForm peaceForm)
@@ -90,7 +113,7 @@ public class CutMission : MonoBehaviour
     public void Test(int num)
     {
         SetCutCharacter(num);
-        SetCutObject(null, num, PeaceColor.Blue,PeaceForm.None);
+        SetCutObject(null, num, PeaceColor.Blue, PeaceForm.None);
     }
 
     // Use this for initialization

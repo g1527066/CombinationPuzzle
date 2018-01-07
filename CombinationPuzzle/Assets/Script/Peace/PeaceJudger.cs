@@ -10,29 +10,16 @@ public struct DeletePoint
 }
 
 
-
-public class PeaceJudger : MonoBehaviour
+//public class GameManager : SingletonMonoBehaviour<GameManager>
+//{
+public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
 {
-    public static PeaceJudger I = null;
 
     const int DeleteCount = 3;
     List<DeletePoint> DeletionTargetList = new List<DeletePoint>();
 
     [SerializeField]
-    Mission mission=null;
-
-
-    // Use this for initialization
-    void Awake()
-    {
-        I = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    Mission mission = null;
 
     public bool CurrentDeletable(Dictionary<POINT, Peace> dictionary, Peace judgeAddPeace)
     {
@@ -271,17 +258,17 @@ public class PeaceJudger : MonoBehaviour
                 AudioManager.I.PlaySound("3StageDelete");
 
             //時間追加
-            int summaryCount = 0,bestCount=0;
+            int summaryCount = 0, bestCount = 0;
             if (nowDeletePoint.deleteCounter >= GameSystem.I.SummaryDeleteAddCount)
                 summaryCount = nowDeletePoint.deleteCounter;
-            if(nowDeletePoint.deletePeaceList[0].GetPeaceForm==PeaceForm.Pentagon)
+            if (nowDeletePoint.deletePeaceList[0].GetPeaceForm == PeaceForm.Pentagon)
                 bestCount = nowDeletePoint.deleteCounter;
-            GameSystem.I.TimerControl(summaryCount,bestCount,0);
+            GameSystem.I.TimerControl(summaryCount, bestCount, 0);
 
             //判定
-            mission.CheckMission(nowDeletePoint.deletePeaceList,nowDeletePoint.nextGenerationPeace);
+            mission.CheckMission(nowDeletePoint.deletePeaceList, nowDeletePoint.nextGenerationPeace);
             //得点追加
-            GameSystem.I.AddScorePoint(nowDeletePoint.deletePeaceList.Count,nowDeletePoint.deletePeaceList[0].GetPeaceForm);
+            GameSystem.I.AddScorePoint(nowDeletePoint.deletePeaceList.Count, nowDeletePoint.deletePeaceList[0].GetPeaceForm);
 
             Peace changeGenerationPeace = null;
             // Debug.Log("全て削除済み");
@@ -319,7 +306,7 @@ public class PeaceJudger : MonoBehaviour
 
                 if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace)
                 {
-                    if (PeaceJudger.I.CheckPossibleDown(peaceTable, nowDeletePoint.nextGenerationPeace))
+                    if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, nowDeletePoint.nextGenerationPeace))
                     {
                         Debug.Log("生成を落下させます");
 

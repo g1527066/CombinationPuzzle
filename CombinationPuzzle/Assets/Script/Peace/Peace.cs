@@ -98,7 +98,7 @@ public abstract class Peace : MonoBehaviour
             {
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
-                PeaceJudger.I.DeletePeace(PeaceManager.I.GetPeaceTabel, this);
+                PeaceJudger.Instance.DeletePeace(PeaceManager.I.GetPeaceTabel, this);
                 //AudioManager.I.PlaySound("DeletePeace");
             }
         }
@@ -152,7 +152,7 @@ public abstract class Peace : MonoBehaviour
                 //場所戻す
                 PeaceOperator.I.ResetPosition(this);
                 //審査して下がなければ落ちるように設定
-                if (PeaceJudger.I.CheckPossibleDown(PeaceManager.I.GetPeaceTabel, this))
+                if (PeaceJudger.Instance.CheckPossibleDown(PeaceManager.I.GetPeaceTabel, this))
                 {
                     //ポイント更新//もし無理だったら次のフレームで審査する
                     if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
@@ -168,7 +168,7 @@ public abstract class Peace : MonoBehaviour
                 else
                 {
                     IsDuringFall = false;
-                    PeaceJudger.I.DownJudge(this);
+                    PeaceJudger.Instance.DownJudge(this);
                     break;
                 }
             }

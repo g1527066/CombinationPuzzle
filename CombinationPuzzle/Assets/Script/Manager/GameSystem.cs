@@ -65,9 +65,6 @@ public class GameSystem : MonoBehaviour
     }
     private bool isTimeStop = false;
 
-    //後で削除
-    [SerializeField]
-    JudgeManager judgeManager = null;
 
     //得点
     private int score = 0;
@@ -81,7 +78,8 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     Text ScoreText = null;
-
+    [SerializeField]
+    GameObject ChallengeWindow = null;
 
     // Use this for initialization
     void Start()
@@ -100,7 +98,7 @@ public class GameSystem : MonoBehaviour
             gameMode = Mode.Marathon;
 
         //いったん
-       // gameMode = Mode.Marathon;
+        // gameMode = Mode.Marathon;
 
     }
 
@@ -144,7 +142,7 @@ public class GameSystem : MonoBehaviour
     public void StopTime()
     {
         isTimeStop = !isTimeStop;
-        judgeManager.ChallengeWindowActive();
+        ChallengeWindowActive();
         // ResultText.gameObject.SetActive(false);
     }
 
@@ -168,4 +166,13 @@ public class GameSystem : MonoBehaviour
         UpdateScore();
     }
 
+    //表示する
+    public void ChallengeWindowActive()
+    {
+        Debug.Log(ChallengeWindow.activeInHierarchy);
+        if (ChallengeWindow.activeInHierarchy == false)
+            ChallengeWindow.SetActive(true);
+        else
+            ChallengeWindow.SetActive(false);
+    }
 }

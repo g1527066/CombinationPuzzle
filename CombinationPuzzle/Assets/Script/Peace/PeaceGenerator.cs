@@ -59,7 +59,7 @@ public class PeaceGenerator : MonoBehaviour
                 Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
                 peace.peaceColor = addPeaceType;
                 peace.point = new POINT(j, i);
-                if (PeaceJudger.I.CurrentDeletable(dictionary, peace))
+                if (PeaceJudger.Instance.CurrentDeletable(dictionary, peace))
                 {
                     j--;
                     continue;

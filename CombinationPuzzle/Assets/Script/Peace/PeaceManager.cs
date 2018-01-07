@@ -39,16 +39,6 @@ public class PeaceManager : MonoBehaviour
         get { return peaceOperator; }
     }
 
-
-    [SerializeField]
-    GameObject peaceParent = null;
-
-
-
-    //-------test
-    [SerializeField]
-    UnityEngine.UI.Text text = null;
-
     void Start()
     {
         I = this;
@@ -108,8 +98,7 @@ public class PeaceManager : MonoBehaviour
     public void MoveHoldPeace(Vector2 difference, Peace hitPeace)
     {
         if (nowHoldPeace == null) return;
-        peaceOperator.MovePeace(difference, nowHoldPeace);
-
+         peaceOperator.MovePeace(difference*1920/Screen.width, nowHoldPeace);
         if (hitPeace == null) return;
 
         //前回とピースがちがかったら入れ替え
@@ -128,7 +117,7 @@ public class PeaceManager : MonoBehaviour
                 {
                     PeaceGenerator.I.SetPeaceList(hitPeace, new POINT(nowHoldPeace.point.X, nowHoldPeace.point.Y + 1));
                     PeaceOperator.I.ResetPosition(hitPeace);
-                    if (PeaceJudger.I.CheckPossibleDown(peaceTable, hitPeace))
+                    if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, hitPeace))
                         PeaceOperator.I.AddDrop(hitPeace);
                     else
                         hitPeace.IsDuringFall = false;
@@ -136,10 +125,10 @@ public class PeaceManager : MonoBehaviour
             }
             else
             {
-                peaceOperator.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
-                peaceOperator.ResetPosition(hitPeace);
+                PeaceOperator.I.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
+                PeaceOperator.I.ResetPosition(hitPeace);
 
-                if (PeaceJudger.I.CheckPossibleDown(peaceTable, hitPeace))
+                if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, hitPeace))
                     PeaceOperator.I.AddDrop(hitPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
                 else
                     peaceJudger.JudgePeace(peaceTable, hitPeace, nowHoldPeace);
@@ -164,7 +153,7 @@ public class PeaceManager : MonoBehaviour
 
         //もし下に間があるなら
         //落下付け、無ければ判定
-        if (PeaceJudger.I.CheckPossibleDown(peaceTable, nowHoldPeace))
+        if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, nowHoldPeace))
             PeaceOperator.I.AddDrop(nowHoldPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
         else
             peaceJudger.JudgePeace(peaceTable, nowHoldPeace, nowHoldPeace);
