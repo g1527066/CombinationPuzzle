@@ -246,37 +246,38 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         //全て削除済みで、生成も変わっていたら
         if (nowDeletePoint.deleteCounter == nowDeletePoint.deletePeaceList.Count)//全て削除済みだったら、上から追加、判定する（両方）、ずらす
         {
+
             //サウンド
             if (nowDeletePoint.nextGenerationPeace != null)
             {
                 if (nowDeletePoint.nextGenerationPeace.GetPeaceForm == PeaceForm.Triangle)
-                    AudioManager.I.PlaySound("1StageDelete");
+                    AudioManager.Instance.PlaySE("PAZ_SE_EraseSt");
                 else
-                    AudioManager.I.PlaySound("2StageDelete");
+                    AudioManager.Instance.PlaySE("PAZ_SE_EraseNd");
             }
             else
-                AudioManager.I.PlaySound("3StageDelete");
+                AudioManager.Instance.PlaySE("PAZ_SE_EraseRd");
 
             //時間追加
             int summaryCount = 0, bestCount = 0;
-            if (nowDeletePoint.deleteCounter >= GameSystem.I.SummaryDeleteAddCount)
+            if (nowDeletePoint.deleteCounter >= GameSystem.Instance.SummaryDeleteAddCount)
                 summaryCount = nowDeletePoint.deleteCounter;
             if (nowDeletePoint.deletePeaceList[0].GetPeaceForm == PeaceForm.Pentagon)
                 bestCount = nowDeletePoint.deleteCounter;
-            GameSystem.I.TimerControl(summaryCount, bestCount, 0);
+            GameSystem.Instance.TimerControl(summaryCount, bestCount, 0);
 
             //判定
             mission.CheckMission(nowDeletePoint.deletePeaceList, nowDeletePoint.nextGenerationPeace);
             //得点追加
-            GameSystem.I.AddScorePoint(nowDeletePoint.deletePeaceList.Count, nowDeletePoint.deletePeaceList[0].GetPeaceForm);
+            GameSystem.Instance.AddScorePoint(nowDeletePoint.deletePeaceList.Count, nowDeletePoint.deletePeaceList[0].GetPeaceForm);
 
             Peace changeGenerationPeace = null;
             // Debug.Log("全て削除済み");
             //生成するありなら
             if (nowDeletePoint.nextGenerationPeace != null)
             {
-                EffectManager.I.PlayEffect(nowDeletePoint.nextGenerationPeace.gameObject.transform.position, "生成");
-                changeGenerationPeace = PeaceManager.I.ChangeForm(nowDeletePoint.nextGenerationPeace);
+                EffectManager.Instance.PlayEffect(nowDeletePoint.nextGenerationPeace.gameObject.transform.position, "生成");
+                changeGenerationPeace = PeaceManager.Instance.ChangeForm(nowDeletePoint.nextGenerationPeace);
 
             }
 
@@ -296,12 +297,12 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                 if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Triangle)
                 {
                     //error↓
-                    EffectManager.I.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, nowDeletePoint.deletePeaceList[i].peaceColor.DisplayName());
+                    EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, nowDeletePoint.deletePeaceList[i].peaceColor.DisplayName());
                 }
                 else if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Square)
-                    EffectManager.I.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "黒");
+                    EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "黒");
                 else
-                    EffectManager.I.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "白");
+                    EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "白");
 
 
                 if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace)
@@ -310,14 +311,14 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                     {
                         Debug.Log("生成を落下させます");
 
-                        PeaceOperator.I.AddDrop(nowDeletePoint.nextGenerationPeace);
+                        PeaceOperator.Instance.AddDrop(nowDeletePoint.nextGenerationPeace);
                     }
                     continue;
                 }
 
-                SetChangeList.Add(PeaceGenerator.I.ChangeForm(nowDeletePoint.deletePeaceList[i]));
+                SetChangeList.Add(PeaceGenerator.Instance.ChangeForm(nowDeletePoint.deletePeaceList[i]));
                 peaceTable.Remove(nowDeletePoint.deletePeaceList[i].point);
-                PeaceManager.I.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
+                PeaceManager.Instance.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
             }
 
             //  動かすのはあと、場所がずれるため
@@ -326,10 +327,10 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                 for (int j = downTargetPoint[i].Y; j >= 0; j--)
                 {
                     // Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
-                    if (PeaceManager.I.GetPeaceTabel.ContainsKey(new POINT(downTargetPoint[i].X, j)))
+                    if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(downTargetPoint[i].X, j)))
                     {
-                        if (PeaceManager.I.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)] != PeaceManager.I.nowHoldPeace)
-                            PeaceOperator.I.AddDrop(PeaceManager.I.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)]);
+                        if (PeaceManager.Instance.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)] != PeaceManager.Instance.nowHoldPeace)
+                            PeaceOperator.Instance.AddDrop(PeaceManager.Instance.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)]);
                     }
                 }
             }
@@ -338,7 +339,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             DeletionTargetList.Remove(DeletionTargetList[delteListNumber]);
             //生成後のみ審査??TODO:変える
             if (changeGenerationPeace != null)
-                JudgePeace(peaceTable, changeGenerationPeace, PeaceManager.I.nowHoldPeace);
+                JudgePeace(peaceTable, changeGenerationPeace, PeaceManager.Instance.nowHoldPeace);
 
         }
     }
@@ -522,7 +523,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
 
         for (int i = 0; i < JudgeList.Count; i++)
         {
-            JudgePeace(PeaceManager.I.GetPeaceTabel, JudgeList[i], PeaceManager.I.nowHoldPeace);
+            JudgePeace(PeaceManager.Instance.GetPeaceTabel, JudgeList[i], PeaceManager.Instance.nowHoldPeace);
         }
         JudgeList.Clear();
     }

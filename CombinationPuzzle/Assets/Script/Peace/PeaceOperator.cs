@@ -13,10 +13,8 @@ public struct POINT
     }
 }
 
-public class PeaceOperator : MonoBehaviour
+public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
 {
-
-    public static PeaceOperator I = null;
 
     [SerializeField]
     POINT stratPosition = new POINT(-718, 290);
@@ -24,19 +22,6 @@ public class PeaceOperator : MonoBehaviour
 
     [SerializeField]
     public float downSpeed = 1.5f;
-
-
-    // Use this for initialization
-    void Awake()
-    {
-        I = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
 
     public void ReSetAllPosition(Dictionary<POINT, Peace> dictionary)

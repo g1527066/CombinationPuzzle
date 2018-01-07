@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EffectManager : MonoBehaviour
+public class EffectManager : SingletonMonoBehaviour<EffectManager>
 {
-
-    public static EffectManager I = null;
 
     private const float FromtY = -5;
 
@@ -16,20 +14,6 @@ public class EffectManager : MonoBehaviour
     GameObject generationEffectPrefab = null;
     [SerializeField]
     GameObject effectPool = null;
-
-    // Use this for initialization
-    void Start()
-    {
-        I = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
 
     public void PlayEffect(Vector3 generationPotision, string effectName)
     {

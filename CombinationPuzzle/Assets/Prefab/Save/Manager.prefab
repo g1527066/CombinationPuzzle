@@ -94,18 +94,18 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1596293160259882
+  m_IsActive: 0
+--- !u!1 &1751461721261074
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4027825742302980}
-  - component: {fileID: 114347672372453754}
+  - component: {fileID: 4089719193378904}
+  - component: {fileID: 114470191041277464}
   m_Layer: 0
-  m_Name: JudgeManager
+  m_Name: OnlyMoment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1989677295452484
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,19 +178,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4027825742302980
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1596293160259882}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4307972582437106}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4038849294801730
 Transform:
   m_ObjectHideFlags: 1
@@ -202,7 +189,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4307972582437106}
-  m_RootOrder: 3
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4089719193378904
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1751461721261074}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4307972582437106}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4274665788674760
 Transform:
@@ -216,7 +216,7 @@ Transform:
   m_Children:
   - {fileID: 4619588232268220}
   m_Father: {fileID: 4307972582437106}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4307972582437106
 Transform:
@@ -229,13 +229,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4591964357485288}
-  - {fileID: 4027825742302980}
   - {fileID: 4552220915544264}
   - {fileID: 4038849294801730}
   - {fileID: 4656576411326310}
   - {fileID: 4437699103323504}
   - {fileID: 4621408073099790}
   - {fileID: 4274665788674760}
+  - {fileID: 4089719193378904}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -250,7 +250,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4307972582437106}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4552220915544264
 Transform:
@@ -263,7 +263,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4307972582437106}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4591964357485288
 Transform:
@@ -302,7 +302,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4307972582437106}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4656576411326310
 Transform:
@@ -315,7 +315,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4307972582437106}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &82365562674798956
 AudioSource:
@@ -510,11 +510,11 @@ MonoBehaviour:
   flashingTime: 0.2
   gameMode: 1
   ResultText: {fileID: 0}
-  judgeManager: {fileID: 114347672372453754}
   CompleteMissionPoint: 100
   CollectDoublePoint: 0200000004000000
   CollectDeletePoint: 10
   ScoreText: {fileID: 0}
+  ChallengeWindow: {fileID: 0}
 --- !u!114 &114278940958658030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -527,27 +527,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   downSpeed: 20
---- !u!114 &114347672372453754
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1596293160259882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d30c011aa676c2478db283d42a08e7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  titleText: {fileID: 0}
-  ChallengeText: {fileID: 0}
-  ChallengeWindow: {fileID: 0}
-  MaxCreateCount: 7
-  MinCreateCount: 1
-  MaxConclusionCount: 8
-  MinConclusionCount: 4
-  MaxDeleteCount: 8
-  MinDeleteCount: 5
-  MaxMultipleCount: 2
 --- !u!114 &114354335812174344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -603,18 +582,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48719edd48988ef4b9b6e88e325448c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tradeAudioSource: {fileID: 82637860732114358}
-  audioSource: {fileID: 82365562674798956}
-  Trade: {fileID: 8300000, guid: 9c4cfd8fa07a65448a9583e26620e874, type: 3}
-  DeletePeace: {fileID: 8300000, guid: d71f002e6ded9944b9c04f4466728d3e, type: 3}
-  CutSuccess: {fileID: 8300000, guid: 3fab197b22706984d9ae6a466e8ac821, type: 3}
-  EndSound: {fileID: 8300000, guid: b15ede06adee68e4fab0f2ac970e97ce, type: 3}
-  StageDelete1: {fileID: 8300000, guid: d71f002e6ded9944b9c04f4466728d3e, type: 3}
-  StageDelete2: {fileID: 8300000, guid: 4b56193cdac8e06418810c59da4f2c85, type: 3}
-  StageDelete3: {fileID: 8300000, guid: 859d344a62f1e8d4693d648b677c0664, type: 3}
-  StartSE: {fileID: 8300000, guid: aa68757761f87f34fbd78bf2ed6edad3, type: 3}
-  Decision: {fileID: 8300000, guid: 86cd85de554fc694aa353bbaf91d2e21, type: 3}
-  LessTime: {fileID: 8300000, guid: 3f917a59731ab0748a756dbb9e4fdaa1, type: 3}
+  tradeAudioSource: {fileID: 0}
+  audioSource: {fileID: 0}
+  Trade: {fileID: 0}
+  DeletePeace: {fileID: 0}
+  CutSuccess: {fileID: 0}
+  EndSound: {fileID: 0}
+  StageDelete1: {fileID: 0}
+  StageDelete2: {fileID: 0}
+  StageDelete3: {fileID: 0}
+  StartSE: {fileID: 0}
+  Decision: {fileID: 0}
+  LessTime: {fileID: 0}
 --- !u!114 &114463885023618424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -626,12 +605,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df98b4c568780c42bd13a6cc4f9e24b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startSprite: {fileID: 0}
+  drawStayTime: 1
+  drawStartTime: 1
+  stringImage: {fileID: 0}
   EffctPool: {fileID: 0}
   StartPos: {x: -327, y: 475}
   EndPos: {x: -785, y: -1100}
   ShiftY: 210
   CharacterSpeed: 1.2
-  StayTimingTime: 0.5
+  StayTimingTime: 0.42
   StayTime: 0.2
   SDcharacterPrefab: {fileID: 114222711907673930, guid: fb8a7fb8a0ffbcf40bc3ff889525caaa,
     type: 2}
@@ -646,8 +629,24 @@ MonoBehaviour:
   CutPeacePosition: {x: -780, y: 214}
   CutPeacePositionShiftY: 250.5
   cutPeacePool: {fileID: 0}
-  PurpuseSize: 9.75
-  ColorPeaceSize: 40
+--- !u!114 &114470191041277464
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1751461721261074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ddbfe8fe62ae7f44b0b0e58ed82e9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startSprite: {fileID: 21300000, guid: 57307d4d219afd3428a677334bbf06cb, type: 3}
+  drawStayTime: 1
+  drawStartTime: 1
+  stringImage: {fileID: 0}
+  PeaceManager: {fileID: 1542192822860072}
+  MissionManager: {fileID: 1826493894546322}
+  MissionImage: {fileID: 0}
 --- !u!114 &114490820552496618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -677,7 +676,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b41ccfb87da3c84cb65bd7314be8cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peaceManager: {fileID: 114638391945765142}
 --- !u!114 &114638391945765142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -693,8 +691,6 @@ MonoBehaviour:
   peaceJudger: {fileID: 114407880178012168}
   peaceGenerator: {fileID: 114848406771347216}
   peaceOperator: {fileID: 114278940958658030}
-  peaceParent: {fileID: 0}
-  text: {fileID: 0}
 --- !u!114 &114697209816751444
 MonoBehaviour:
   m_ObjectHideFlags: 1

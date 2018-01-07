@@ -1,92 +1,96 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//http://naichilab.blogspot.jp/2013/11/unityaudiomanager.html
 using UnityEngine;
+using System;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : SingletonMonoBehaviour<AudioManager>
+{
 
-    public static AudioManager I = null;
-  
+    public List<AudioClip> BGMList;
+    public List<AudioClip> SEList;
+    public int MaxSE = 10;
 
+    private AudioSource bgmSource = null;
+    private List<AudioSource> seSources = null;
+    private Dictionary<string, AudioClip> bgmDict = null;
+    private Dictionary<string, AudioClip> seDict = null;
 
-    [SerializeField]
-    AudioSource tradeAudioSource;
-
-    [SerializeField]
-    AudioSource audioSource;
-
-
-
-
-    [SerializeField]
-    AudioClip Trade = null;
-    [SerializeField]
-    AudioClip DeletePeace = null;
-
-    [SerializeField]
-    AudioClip CutSuccess = null;
-    [SerializeField]
-    AudioClip EndSound = null;
-    [SerializeField]
-    AudioClip StageDelete1 = null;
-    [SerializeField]
-    AudioClip StageDelete2 = null;
-    [SerializeField]
-    AudioClip StageDelete3 = null;
-    [SerializeField]
-    AudioClip StartSE = null;
-    [SerializeField]
-    AudioClip Decision = null;
-    [SerializeField]
-    AudioClip LessTime = null;
-
-
-    // Use this for initialization
-    void Start () {
-        I = this;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void PlayTrade()
+    public void Awake()
     {
-        tradeAudioSource.clip = Trade;
-        tradeAudioSource.Play();
-    }
-
-
-    //いったんてきとう、生成でやらないと被った時聞こえない
-    public  void PlaySound(string SEName)
-    {
-        switch(SEName)
+        if (this != Instance)
         {
-            case "CutSuccess":
-                audioSource.clip = CutSuccess;
-                break;
-            case "EndSound"://そこまで！のとき
-                audioSource.clip =EndSound;
-                break;
-            case "1StageDelete":
-                audioSource.clip =StageDelete1;
-                break;
-            case "2StageDelete":
-                audioSource.clip =StageDelete2;
-                break;
-            case "3StageDelete":
-                audioSource.clip =StageDelete3;
-                break;
-            case "Start":
-                audioSource.clip =StartSE;
-                break;
-            case "Decision":
-                audioSource.clip = Decision;
-                break;
-            case "LessTime"://残り５秒
-                audioSource.clip =LessTime;
-                break;
+            Destroy(this);
+            return;
         }
-        audioSource.Play();
+
+        DontDestroyOnLoad(this.gameObject);
+
+        //create listener
+        if (FindObjectsOfType(typeof(AudioListener)).All(o => !((AudioListener)o).enabled))
+        {
+            this.gameObject.AddComponent<AudioListener>();
+        }
+        //create audio sources
+        this.bgmSource = this.gameObject.AddComponent<AudioSource>();
+        this.seSources = new List<AudioSource>();
+
+        //create clip dictionaries
+        this.bgmDict = new Dictionary<string, AudioClip>();
+        this.seDict = new Dictionary<string, AudioClip>();
+
+        Action<Dictionary<string, AudioClip>, AudioClip> addClipDict = (dict, c) => {
+            if (!dict.ContainsKey(c.name))
+            {
+                dict.Add(c.name, c);
+            }
+        };
+
+        this.BGMList.ForEach(bgm => addClipDict(this.bgmDict, bgm));
+        this.SEList.ForEach(se => addClipDict(this.seDict, se));
     }
+
+    public void PlaySE(string seName)
+    {
+        if (!this.seDict.ContainsKey(seName)) throw new ArgumentException(seName + " not found", "seName");
+
+        AudioSource source = this.seSources.FirstOrDefault(s => !s.isPlaying);
+        if (source == null)
+        {
+            if (this.seSources.Count >= this.MaxSE)
+            {
+                Debug.Log("SE AudioSource is full");
+                return;
+            }
+
+            source = this.gameObject.AddComponent<AudioSource>();
+            this.seSources.Add(source);
+        }
+
+        source.clip = this.seDict[seName];
+        source.Play();
+    }
+
+    public void StopSE()
+    {
+        this.seSources.ForEach(s => s.Stop());
+    }
+
+    public void PlayBGM(string bgmName)
+    {
+        if (!this.bgmDict.ContainsKey(bgmName)) throw new ArgumentException(bgmName + " not found", "bgmName");
+        if (this.bgmSource.clip == this.bgmDict[bgmName]) return;
+        this.bgmSource.Stop();
+        this.bgmSource.clip = this.bgmDict[bgmName];
+        this.bgmSource.Play();
+    }
+
+    public void StopBGM()
+    {
+        this.bgmSource.Stop();
+        this.bgmSource.clip = null;
+    }
+
+
 }

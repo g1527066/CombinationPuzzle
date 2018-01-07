@@ -15,11 +15,8 @@ static class PeaceColorExt
 }
 
 
-public class PeaceGenerator : MonoBehaviour
+public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 {
-
-    public static PeaceGenerator I = null;
-
 
     [SerializeField]
     public GameObject peacePrefab = null;
@@ -31,22 +28,6 @@ public class PeaceGenerator : MonoBehaviour
     //カラーの後は形
     [SerializeField]
     public List<Sprite> PeaceSprites = new List<Sprite>();
-
-
-
-
-    // Use this for initialization
-    void Awake()
-    {
-        I = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 
     public void AllGeneration(Dictionary<POINT, Peace> dictionary, PeaceJudger peaceJudger)
     {
@@ -92,13 +73,13 @@ public class PeaceGenerator : MonoBehaviour
     //TODO:いったん三角のみにする
     public Peace ChangeForm(Peace changePeace)
     {
-        PeaceManager.I.GetPeaceTabel.Remove(changePeace.point);
+        PeaceManager.Instance.GetPeaceTabel.Remove(changePeace.point);
         Peace newPeace = null;
         newPeace = changePeace.gameObject.AddComponent<TrianglePeace>();
         changePeace.SetSprite(PeaceSprites[(int)changePeace.peaceColor]);
         newPeace.point = changePeace.point;
         
-        PeaceManager.I.GetPeaceTabel.Add(newPeace.point, newPeace);
+        PeaceManager.Instance.GetPeaceTabel.Add(newPeace.point, newPeace);
         Destroy(changePeace);
         return newPeace;
     }
@@ -129,13 +110,13 @@ public class PeaceGenerator : MonoBehaviour
         //Debug.Log("次は X=" + newPoint.X + " Y=" + newPoint.Y + "に代入");
         //Debug.Log("現在 X=" + peace.point.X + " Y=" + peace.point.Y + "に代入");
 
-        if (PeaceManager.I.GetPeaceTabel.ContainsKey(newPoint)) return false;
+        if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(newPoint)) return false;
         //ポイント更新
         Peace p = peace;
-        PeaceManager.I.GetPeaceTabel.Remove(peace.point);
+        PeaceManager.Instance.GetPeaceTabel.Remove(peace.point);
         p.point = newPoint;
         //リストにセットしなおす
-        PeaceManager.I.GetPeaceTabel.Add(newPoint,p);
+        PeaceManager.Instance.GetPeaceTabel.Add(newPoint,p);
     //    Debug.Log("セットしなおし"+ "次は X=" + newPoint.X + " Y=" + newPoint.Y + "に代入しました");
 
         return true;

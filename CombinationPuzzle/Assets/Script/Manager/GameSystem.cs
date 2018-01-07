@@ -21,10 +21,8 @@ public enum Mode
 }
 
 
-public class GameSystem : MonoBehaviour
+public class GameSystem : SingletonMonoBehaviour<GameSystem>
 {
-    public static GameSystem I = null;
-
     //タイム関係
     [SerializeField]
     private float SetLimitTime = 10f;
@@ -48,9 +46,6 @@ public class GameSystem : MonoBehaviour
     public float DeleteTime = 1.6f;
     //peace削除の点滅の時間
     public float flashingTime = 0.2f;
-
-
-
 
 
     public Mode gameMode = Mode.Marathon;
@@ -84,7 +79,6 @@ public class GameSystem : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        I = this;
         MyDebug.text = ResultText;
         remainingTime = SetLimitTime;
         isGameOver = false;

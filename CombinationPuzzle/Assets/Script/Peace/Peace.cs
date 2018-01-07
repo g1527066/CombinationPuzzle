@@ -82,7 +82,7 @@ public abstract class Peace : MonoBehaviour
         {
             deleteTime += Time.deltaTime;
             flashingTime += Time.deltaTime;
-            if (flashingTime > GameSystem.I.flashingTime)
+            if (flashingTime > GameSystem.Instance.flashingTime)
             {
                 flashingTime = 0;
 
@@ -94,12 +94,11 @@ public abstract class Peace : MonoBehaviour
                 isNoColor = !isNoColor;
             }
 
-            if (deleteTime > GameSystem.I.DeleteTime)
+            if (deleteTime > GameSystem.Instance.DeleteTime)
             {
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
-                PeaceJudger.Instance.DeletePeace(PeaceManager.I.GetPeaceTabel, this);
-                //AudioManager.I.PlaySound("DeletePeace");
+                PeaceJudger.Instance.DeletePeace(PeaceManager.Instance.GetPeaceTabel, this);
             }
         }
     }
@@ -130,7 +129,7 @@ public abstract class Peace : MonoBehaviour
         IsDuringFall = true;
         downPosition = yPosition;
         StartCoroutine(DownMovePeace());//erorrたくさん消した時？
-        if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
+        if (PeaceGenerator.Instance.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
         {
             //    Debug.Log("目標地点=" + yPosition);
             StartCoroutine(NextCheck());
@@ -143,25 +142,25 @@ public abstract class Peace : MonoBehaviour
 
         while (IsDuringFall)
         {
-            RectTransform.anchoredPosition -= new Vector2(0, PeaceOperator.I.downSpeed);
+            RectTransform.anchoredPosition -= new Vector2(0, PeaceOperator.Instance.downSpeed);
 
             if (downPosition >= RectTransform.anchoredPosition.y)
             {
                 // Debug.Log("セットしなおし");
                 //Debug.Break();
                 //場所戻す
-                PeaceOperator.I.ResetPosition(this);
+                PeaceOperator.Instance.ResetPosition(this);
                 //審査して下がなければ落ちるように設定
-                if (PeaceJudger.Instance.CheckPossibleDown(PeaceManager.I.GetPeaceTabel, this))
+                if (PeaceJudger.Instance.CheckPossibleDown(PeaceManager.Instance.GetPeaceTabel, this))
                 {
                     //ポイント更新//もし無理だったら次のフレームで審査する
-                    if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
+                    if (PeaceGenerator.Instance.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
                     {
                         yield return NextCheck();
                     }
                     //新しく座標設定
                     //   Debug.Log("前downPosition" + downPosition);
-                    downPosition = PeaceOperator.I.DownPosition(new POINT(point.X, point.Y));
+                    downPosition = PeaceOperator.Instance.DownPosition(new POINT(point.X, point.Y));
                     // Debug.Log("現在downPosition" + downPosition);
 
                 }
@@ -185,7 +184,7 @@ public abstract class Peace : MonoBehaviour
             test++;
             if(test>100)
              Debug.Log("NextCheckコルーチン内");
-            if (PeaceGenerator.I.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
+            if (PeaceGenerator.Instance.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
                  // Debug.Log("NextCheckコルーチン内　見つかりました  X="+point.X+" Y="+point.Y);
                 break;

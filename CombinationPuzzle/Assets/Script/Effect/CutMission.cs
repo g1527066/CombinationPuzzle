@@ -82,13 +82,13 @@ public class CutMission : MonoBehaviour
 
         if (peaceColor != PeaceColor.None)
         {
-            cutObject.SetCut(new Vector3(CutPeacePosition.x, CutPeacePosition.y - (num * CutPeacePositionShiftY), 0), PeaceGenerator.I.PeaceSprites[(int)peaceColor],
+            cutObject.SetCut(new Vector3(CutPeacePosition.x, CutPeacePosition.y - (num * CutPeacePositionShiftY), 0), PeaceGenerator.Instance.PeaceSprites[(int)peaceColor],
                 cutTime, new Vector2(cutStartPostion.x, cutStartPostion.y - (CutShiftY * num)), CutEndVector);
 
         }
         else if (peaceForm != PeaceForm.None)
         {
-            cutObject.SetCut(new Vector3(CutPeacePosition.x, CutPeacePosition.y - (num * CutPeacePositionShiftY), 0), PeaceGenerator.I.PeaceSprites[(int)PeaceColor.None + (int)peaceForm - 1],
+            cutObject.SetCut(new Vector3(CutPeacePosition.x, CutPeacePosition.y - (num * CutPeacePositionShiftY), 0), PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + (int)peaceForm - 1],
                 cutTime, new Vector2(cutStartPostion.x, cutStartPostion.y - (CutShiftY * num)), CutEndVector);
 
         }

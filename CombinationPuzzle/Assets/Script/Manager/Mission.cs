@@ -106,14 +106,14 @@ public class Mission : MonoBehaviour
                 missionData[missionNum].MissionNum = Random.Range(CreateBest[0], CreateBest[1] + 1);
                 UpdateCreateBestText(missionNum);
                 missionData[missionNum].peaceForm = PeaceForm.Pentagon;
-                MissionImage[missionNum].sprite = PeaceGenerator.I.PeaceSprites[(int)PeaceColor.None + 1];
+                MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + 1];
                 break;
             case MissionType.CreateAdvanced:
                 MissionDescriptionText[missionNum].text = generationStr;
                 missionData[missionNum].MissionNum = Random.Range(CreateAdvanced[0], CreateAdvanced[1] + 1);
                 UpdateCreateBestText(missionNum);
                 missionData[missionNum].peaceForm = PeaceForm.Square;
-                MissionImage[missionNum].sprite = PeaceGenerator.I.PeaceSprites[(int)PeaceColor.None];
+                MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None];
                 break;
             case MissionType.DeletePeace:
                 MissionDescriptionText[missionNum].text = deleteStr;
@@ -123,11 +123,11 @@ public class Mission : MonoBehaviour
                 if (r != (int)PeaceColor.None)
                 {
                     missionData[missionNum].peaceColor = (PeaceColor)r;
-                    MissionImage[missionNum].sprite = PeaceGenerator.I.PeaceSprites[r];
+                    MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[r];
                 }
                 else
                 {
-                    MissionImage[missionNum].sprite = PeaceGenerator.I.PeaceSprites[(int)PeaceColor.None];
+                    MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None];
                     missionData[missionNum].peaceForm = PeaceForm.Square;
                 }
                 break;
@@ -148,7 +148,7 @@ public class Mission : MonoBehaviour
             case MissionType.DeleteBestNum:
                 MissionDescriptionText[missionNum].text = "消去";
                 MissionCountText[missionNum].text = DeleteBestNum + "個";
-                MissionImage[missionNum].sprite = PeaceGenerator.I.PeaceSprites[(int)PeaceColor.None + 1];
+                MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + 1];
                 missionData[missionNum].peaceForm = PeaceForm.Pentagon;
                 break;
         }
@@ -269,7 +269,7 @@ public class Mission : MonoBehaviour
         SpriteSlicer2D.SliceSprite(MissionImage[0].gameObject.transform.position+new Vector3(-1000, 0), MissionImage[0].gameObject.transform.position +new Vector3(1000, 0), MissionImage[0].gameObject);
         SpriteSlicer2D.ShatterSprite(MissionImage[0].gameObject,100);
         cutMission.SetCutEffect(AllPeaceSprite,missionNum,missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
-        if (GameSystem.I.gameMode == Mode.Mission)
+        if (GameSystem.Instance.gameMode == Mode.Mission)
         {
             MissionImage[missionNum].gameObject.SetActive(false);
             missionData[missionNum].missionType = MissionType.None;
@@ -281,7 +281,7 @@ public class Mission : MonoBehaviour
 
         }
 
-        GameSystem.I.TimerControl(0, 0, GameSystem.I.CompleteAddTime);
+        GameSystem.Instance.TimerControl(0, 0, GameSystem.Instance.CompleteAddTime);
 
         for (int i = 0; i < MissionNum; i++)
         {
@@ -289,6 +289,6 @@ public class Mission : MonoBehaviour
 
         }
         //すべてNoneだったらクリア
-        GameSystem.I.Clear();
+        GameSystem.Instance.Clear();
     }
 }

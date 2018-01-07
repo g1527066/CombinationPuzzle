@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PeaceManager : MonoBehaviour
+public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
 {
-    public static PeaceManager I = null;
 
     //------設定用
     public const int BoardSizeX = 10;
@@ -41,7 +40,6 @@ public class PeaceManager : MonoBehaviour
 
     void Start()
     {
-        I = this;
         peaceGenerator.AllGeneration(peaceTable, peaceJudger);
         peaceOperator.ReSetAllPosition(peaceTable);
     }
@@ -105,31 +103,31 @@ public class PeaceManager : MonoBehaviour
         if (hitPeace != null)
         {
             //  Debug.Log("前回と違います X="+hitPeace.point.X+" Y=" + hitPeace.point.Y);
-            AudioManager.I.PlayTrade();
+            AudioManager.Instance.PlaySE("testTrade");
             if (hitPeace.IsDuringFall)
             {
                 //下に行くようにする、もしその下に空きがなければ予約するように
                 if (peaceTable.ContainsKey(new POINT(nowHoldPeace.point.X, nowHoldPeace.point.Y + 1)))
                 {
-                    PeaceOperator.I.AddDrop(hitPeace);//ここらえん変える！！
+                    PeaceOperator.Instance.AddDrop(hitPeace);//ここらえん変える！！
                 }
                 else
                 {
-                    PeaceGenerator.I.SetPeaceList(hitPeace, new POINT(nowHoldPeace.point.X, nowHoldPeace.point.Y + 1));
-                    PeaceOperator.I.ResetPosition(hitPeace);
+                    PeaceGenerator.Instance.SetPeaceList(hitPeace, new POINT(nowHoldPeace.point.X, nowHoldPeace.point.Y + 1));
+                    PeaceOperator.Instance.ResetPosition(hitPeace);
                     if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, hitPeace))
-                        PeaceOperator.I.AddDrop(hitPeace);
+                        PeaceOperator.Instance.AddDrop(hitPeace);
                     else
                         hitPeace.IsDuringFall = false;
                 }
             }
             else
             {
-                PeaceOperator.I.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
-                PeaceOperator.I.ResetPosition(hitPeace);
+                PeaceOperator.Instance.TradeDictionaryPeace(peaceTable, nowHoldPeace, hitPeace);
+                PeaceOperator.Instance.ResetPosition(hitPeace);
 
                 if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, hitPeace))
-                    PeaceOperator.I.AddDrop(hitPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
+                    PeaceOperator.Instance.AddDrop(hitPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
                 else
                     peaceJudger.JudgePeace(peaceTable, hitPeace, nowHoldPeace);
             }
@@ -154,7 +152,7 @@ public class PeaceManager : MonoBehaviour
         //もし下に間があるなら
         //落下付け、無ければ判定
         if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, nowHoldPeace))
-            PeaceOperator.I.AddDrop(nowHoldPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
+            PeaceOperator.Instance.AddDrop(nowHoldPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
         else
             peaceJudger.JudgePeace(peaceTable, nowHoldPeace, nowHoldPeace);
         nowHoldPeace = null;
@@ -296,7 +294,7 @@ public class PeaceManager : MonoBehaviour
             count++;
         }
         if (count >= 2)
-            GameSystem.I.Clear();
+            GameSystem.Instance.Clear();
     }
 
 

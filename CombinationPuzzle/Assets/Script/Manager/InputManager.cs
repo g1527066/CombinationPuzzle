@@ -13,11 +13,6 @@ public enum Direction
 
 public class InputManager : MonoBehaviour
 {
-
-
-    [SerializeField]
-    PeaceManager peaceManager = null;
-   // bool noePeaceMove = false;
     Vector2 savePosition;
     string[] MaskNameList;
 
@@ -26,18 +21,10 @@ public class InputManager : MonoBehaviour
     //Rayの長さ
     float maxDistance = 10;
 
-    // Use this for initialization
-    void Start()
-    {
-
-
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (GameSystem.I.IsGameOver == true) return;
+        if (GameSystem.Instance.IsGameOver == true) return;
 
 
 
@@ -49,7 +36,7 @@ public class InputManager : MonoBehaviour
 
             if (hit.collider != null)
             {
-                peaceManager.SetHoldPeace(hit.collider.gameObject.GetComponent<Peace>());
+                PeaceManager.Instance.SetHoldPeace(hit.collider.gameObject.GetComponent<Peace>());
             }
 
             oldPosition = Input.mousePosition;
@@ -66,14 +53,14 @@ public class InputManager : MonoBehaviour
             if (hit.collider != null)
                 peace = hit.collider.gameObject.GetComponent<Peace>();
 
-                    peaceManager.MoveHoldPeace(d, peace);
+            PeaceManager.Instance.MoveHoldPeace(d, peace);
 
             oldPosition = Input.mousePosition;
           
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            peaceManager.ReleasePeace();
+            PeaceManager.Instance.ReleasePeace();
         }
     }
 

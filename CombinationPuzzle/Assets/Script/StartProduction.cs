@@ -39,6 +39,7 @@ public class StartProduction : MonoBehaviour {
         {
             overStayTime = true;
             stringImage.sprite = startSprite;
+            AudioManager.Instance.PlaySE("PAZ_SE_Start");
         }
         else if (totalTime > drawStartTime + drawStayTime)
         {
