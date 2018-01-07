@@ -291,7 +291,11 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             List<Peace> SetChangeList = new List<Peace>();
             for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
             {
-
+                if(nowDeletePoint.deletePeaceList[i].gameObject==null)
+                {
+                    Debug.Break();
+                    Debug.LogError("nowDeletePoint.deletePeaceList[i].gameObject==null");
+                }
 
 
                 if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Triangle)

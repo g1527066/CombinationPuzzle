@@ -42,6 +42,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 peace.point = new POINT(j, i);
                 if (PeaceJudger.Instance.CurrentDeletable(dictionary, peace))
                 {
+                    Destroy(peace.gameObject);
                     j--;
                     continue;
                 }

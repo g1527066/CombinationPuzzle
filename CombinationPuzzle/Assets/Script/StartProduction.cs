@@ -26,11 +26,18 @@ public class StartProduction : MonoBehaviour {
     GameObject MissionManager = null;
     [SerializeField]
     GameObject MissionImage = null;
+    [SerializeField]
+    GameObject Input = null;
+    [SerializeField]
+    UnityEngine.UI.Button stopButton = null;
+
+    public float stringSize = 2.0f;
 
     // Use this for initialization
     void Start () {
-		
-	}
+        stringImage.SetNativeSize();
+        stringImage.gameObject.GetComponent<RectTransform>().sizeDelta *= stringSize;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -40,6 +47,8 @@ public class StartProduction : MonoBehaviour {
             overStayTime = true;
             stringImage.sprite = startSprite;
             AudioManager.Instance.PlaySE("PAZ_SE_Start");
+            stringImage.SetNativeSize();
+            stringImage.gameObject.GetComponent<RectTransform>().sizeDelta *= stringSize;
         }
         else if (totalTime > drawStartTime + drawStayTime)
         {
@@ -47,6 +56,9 @@ public class StartProduction : MonoBehaviour {
             MissionImage.SetActive(true);
             MissionManager.SetActive(true);
             stringImage.gameObject.SetActive(false);
+            stopButton.interactable = true;
+            Input.SetActive(true);
+
             Destroy(this);
         }
     }

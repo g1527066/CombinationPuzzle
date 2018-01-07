@@ -17,5 +17,7 @@ public class DeletingAfterAnimation : MonoBehaviour {
 	void Update () {
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             Destroy(this.gameObject);
+
+        Debug.Log(GetComponent<RectTransform>().anchoredPosition);
 	}
 }
