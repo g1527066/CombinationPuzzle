@@ -17,31 +17,31 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
         get { return peaceTable; }
     }
 
-
-    List<Peace> stockPeaceList = new List<Peace>();
+    [HideInInspector]
+    public List<Peace> stockPeaceList = new List<Peace>();
     //移動用の変数
     public Peace nowHoldPeace = null;
 
     //ToDo:判定に入らないようにする！
 
 
-    //各機能
-    [SerializeField]
-    PeaceJudger peaceJudger = null;
-    [SerializeField]
-    PeaceGenerator peaceGenerator = null;
+    ////各機能
+    //[SerializeField]
+    //PeaceJudger peaceJudger = null;
+    //[SerializeField]
+    //PeaceGenerator peaceGenerator = null;
 
-    [SerializeField]
-    PeaceOperator peaceOperator = null;
-    public PeaceOperator PeaceOperator
-    {
-        get { return peaceOperator; }
-    }
+    //[SerializeField]
+    //PeaceOperator peaceOperator = null;
+    //public PeaceOperator PeaceOperator
+    //{
+    //    get { return peaceOperator; }
+    //}
 
     void Start()
     {
-        peaceGenerator.AllGeneration(peaceTable, peaceJudger);
-        peaceOperator.ReSetAllPosition(peaceTable);
+        PeaceGenerator.Instance.AllGeneration();
+        PeaceOperator.Instance.ReSetAllPosition(peaceTable);
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
     public void MoveHoldPeace(Vector2 difference, Peace hitPeace)
     {
         if (nowHoldPeace == null) return;
-         peaceOperator.MovePeace(difference*1920/Screen.width, nowHoldPeace);
+         PeaceOperator.Instance.MovePeace(difference*1920/Screen.width, nowHoldPeace);
         if (hitPeace == null) return;
 
         //前回とピースがちがかったら入れ替え
@@ -129,7 +129,7 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
                 if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, hitPeace))
                     PeaceOperator.Instance.AddDrop(hitPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
                 else
-                    peaceJudger.JudgePeace(peaceTable, hitPeace, nowHoldPeace);
+                    PeaceJudger.Instance.JudgePeace(peaceTable, hitPeace, nowHoldPeace);
             }
         }
     }
@@ -147,20 +147,20 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
     {
         if (nowHoldPeace == null) return;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = true;
-        peaceOperator.ResetPosition(nowHoldPeace);
+        PeaceOperator.Instance.ResetPosition(nowHoldPeace);
 
         //もし下に間があるなら
         //落下付け、無ければ判定
         if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, nowHoldPeace))
             PeaceOperator.Instance.AddDrop(nowHoldPeace);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑
         else
-            peaceJudger.JudgePeace(peaceTable, nowHoldPeace, nowHoldPeace);
+            PeaceJudger.Instance.JudgePeace(peaceTable, nowHoldPeace, nowHoldPeace);
         nowHoldPeace = null;
     }
 
     public GameObject GetPeacePrefab()
     {
-        return peaceGenerator.peacePrefab;
+        return PeaceGenerator.Instance.peacePrefab;
     }
 
 
@@ -225,7 +225,7 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
 
     public Peace ChangeForm(Peace peace)
     {
-        return peaceGenerator.ChangeNextForm(peaceTable, peace);
+        return PeaceGenerator.Instance.ChangeNextForm(peaceTable, peace);
     }
 
 
@@ -234,7 +234,7 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
     //TODO:いったん一瞬で詰める
     public void DeletePeace(Peace deletePeace)
     {
-        peaceJudger.DeletePeace(peaceTable, deletePeace);
+        PeaceJudger.Instance.DeletePeace(peaceTable, deletePeace);
     }
 
 
@@ -244,11 +244,11 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
     /// <param name="deletePeace"></param>
     public void AddToTopPeace(Peace deletePeace)
     {
-        peaceGenerator.AddToTopPeace(peaceTable, deletePeace);
+        PeaceGenerator.Instance.AddToTopPeace(peaceTable, deletePeace);
         //場所移動
-        peaceOperator.ResetPosition(deletePeace);
+        PeaceOperator.Instance.ResetPosition(deletePeace);
         //落下付与する
-        peaceOperator.AddDrop(deletePeace);
+        PeaceOperator.Instance.AddDrop(deletePeace);
     }
 
     //今の場所の一つ下がなかったら動かす

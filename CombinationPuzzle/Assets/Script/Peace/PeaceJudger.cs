@@ -14,8 +14,8 @@ public struct DeletePoint
 //{
 public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
 {
-
     const int DeleteCount = 3;
+
     List<DeletePoint> DeletionTargetList = new List<DeletePoint>();
 
     [SerializeField]
@@ -28,6 +28,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         POINT p = judgeAddPeace.point;
         for (int i = p.Y - 1; i >= 0; i--)
         {
+            if (dictionary.ContainsKey(new POINT(p.X, i)) == false) break;
             if (dictionary[new POINT(p.X, i)].peaceColor == judgeAddPeace.peaceColor)
             {
                 count++;
@@ -44,6 +45,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         count = 0;
         for (int i = p.X - 1; i >= 0; i--)
         {
+            if (dictionary.ContainsKey(new POINT(p.X, i)) == false) break;
             if (dictionary[new POINT(i, p.Y)].peaceColor == judgeAddPeace.peaceColor)
             {
                 count++;
@@ -291,11 +293,11 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             List<Peace> SetChangeList = new List<Peace>();
             for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
             {
-                if(nowDeletePoint.deletePeaceList[i].gameObject==null)
-                {
-                    Debug.Break();
-                    Debug.LogError("nowDeletePoint.deletePeaceList[i].gameObject==null");
-                }
+                //if(nowDeletePoint.deletePeaceList[i].gameObject==null)//error
+                //{
+                //    Debug.Break();
+                //    Debug.LogError("nowDeletePoint.deletePeaceList[i].gameObject==null");
+                //}
 
 
                 if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Triangle)
@@ -311,7 +313,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
 
                 if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace)
                 {
-                    if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, nowDeletePoint.nextGenerationPeace))
+                    if (CheckPossibleDown(peaceTable, nowDeletePoint.nextGenerationPeace))
                     {
                         Debug.Log("生成を落下させます");
 
@@ -320,9 +322,14 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                     continue;
                 }
 
-                SetChangeList.Add(PeaceGenerator.Instance.ChangeForm(nowDeletePoint.deletePeaceList[i]));
+                //SetChangeList.Add();
+                //リストから削除
+                PeaceManager.Instance.stockPeaceList.Add(PeaceGenerator.Instance.ChangeForm(nowDeletePoint.deletePeaceList[i]));
                 peaceTable.Remove(nowDeletePoint.deletePeaceList[i].point);
-                PeaceManager.Instance.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
+
+                //見えない位置に移動
+                PeaceOperator.Instance.HidePeace(PeaceManager.Instance.stockPeaceList[PeaceManager.Instance.stockPeaceList.Count-1]);
+                //PeaceManager.Instance.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
             }
 
             //  動かすのはあと、場所がずれるため
@@ -347,8 +354,6 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
 
         }
     }
-
-
 
     private void SetDeletePoint(Dictionary<POINT, Peace> peaceTable, List<POINT> deleteList)
     {
@@ -382,9 +387,6 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         }
         DeletionTargetList.Add(d);
     }
-
-
-
 
     private bool IsDeletable(Peace peace, Peace nowHoldPeace)
     {
@@ -459,8 +461,6 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         return false;
     }
 
-
-
     private void SetDownUnderList(List<POINT> ResultList, List<Peace> deleteList, Peace ignorePoint)
     {
         //foreach (var p in deleteList)
@@ -509,6 +509,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
     }
 
     List<Peace> JudgeList = new List<Peace>();
+
     public void DownJudge(Peace peace)
     {
         JudgeList.Add(peace);
@@ -532,6 +533,19 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         JudgeList.Clear();
     }
 
+    //上から落下を生成するときの
+    public int  GenerationPositionX()
+    {
+        //ピースが90%なら処理を分ける
+
+        //もし少なかったら
+            //ランダムでどこのXに生成するか決め、そこに空きがあったら決定、無かったらやり直し    
 
 
+        //もし多かったら
+            //無いXのリストを作りそこから抽出
+
+
+        return 0;
+    }
 }

@@ -78,4 +78,12 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
         return stratPosition.Y - targetPoint.Y * onePeaceSize;
     }
 
+
+    public void HidePeace(Peace peace)
+    {
+        int HideX = -999, HideY = -999;
+        peace.point = new POINT(HideX,HideY);
+        ResetPosition(peace);
+    } 
+
 }
