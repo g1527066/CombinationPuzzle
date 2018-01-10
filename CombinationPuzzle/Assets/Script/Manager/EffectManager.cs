@@ -56,7 +56,9 @@ public class EffectManager : SingletonMonoBehaviour<EffectManager>
 
         }
         //Debug.Log("前　　Z="+ obj.GetComponent<RectTransform>().position.z);
-        obj.transform.parent = effectPool.transform;
+
+        obj.transform.SetParent(effectPool.transform);
+        
         //TODO:位置設定がわからないのでZの位置調整のため２回
         obj.transform.position = new Vector3(generationPotision.x, generationPotision.y, FromtY);
         obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, FromtY);

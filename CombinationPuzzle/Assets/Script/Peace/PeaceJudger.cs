@@ -328,7 +328,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                 peaceTable.Remove(nowDeletePoint.deletePeaceList[i].point);
 
                 //見えない位置に移動
-                PeaceOperator.Instance.HidePeace(PeaceManager.Instance.stockPeaceList[PeaceManager.Instance.stockPeaceList.Count-1]);
+                PeaceOperator.Instance.HidePeace(PeaceManager.Instance.stockPeaceList[PeaceManager.Instance.stockPeaceList.Count - 1]);
                 //PeaceManager.Instance.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
             }
 
@@ -352,6 +352,8 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             if (changeGenerationPeace != null)
                 JudgePeace(peaceTable, changeGenerationPeace, PeaceManager.Instance.nowHoldPeace);
 
+            Debug.Log(PeaceManager.Instance.GetPeaceTabel.Count+"   総数");
+            Debug.Break();
         }
     }
 
@@ -534,18 +536,49 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
     }
 
     //上から落下を生成するときの
-    public int  GenerationPositionX()
+    public int GenerationPositionX()
     {
-        //ピースが90%なら処理を分ける
+        int JudgeProportion = 90;//判定方法を分ける、ピース個数の％で
+        int MaxPeace = PeaceManager.BoardSizeX * PeaceManager.BoardSizeY;
+        int NowProportion = PeaceManager.Instance.GetPeaceTabel.Count / MaxPeace * 100;
 
-        //もし少なかったら
+        if (NowProportion < JudgeProportion)
+        {
+            //もし少なかったら
             //ランダムでどこのXに生成するか決め、そこに空きがあったら決定、無かったらやり直し    
-
-
-        //もし多かったら
+            while (true)
+            {
+                int generarX = Random.Range(0, PeaceManager.BoardSizeX);
+                for (int countY = 0; countY < PeaceManager.BoardSizeY; countY++)
+                {
+                    if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(generarX, countY)) == false)
+                    {
+                        return generarX;
+                    }
+                }
+            }
+        }
+        else//多かったら
+        {
             //無いXのリストを作りそこから抽出
-
-
-        return 0;
+            List<int> Xcollection = new List<int>();
+            for (int countX = 0; countX < PeaceManager.BoardSizeX; countX++)
+            {
+                for (int countY = 0; countY < PeaceManager.BoardSizeY; countY++)
+                {
+                    if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(countX, countY)) == false)
+                    {
+                        Xcollection.Add(countX);
+                        break;
+                    }
+                }
+            }
+            if(Xcollection.Count>0)
+            {
+                int r = Random.Range(0,Xcollection.Count);
+                return Xcollection[r];
+            }
+        }
+        return -1;
     }
 }

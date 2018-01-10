@@ -7,7 +7,7 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
 {
 
     //------設定用
-    public const int BoardSizeX = 10;
+    public const int BoardSizeX = 4;
     public const int BoardSizeY = 6;
 
 

@@ -169,4 +169,18 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         else
             ChallengeWindow.SetActive(false);
     }
+
+
+
+
+    public void TestDebugPeace()
+    {
+        Debug.Log("---------------------------------------------------");
+        foreach (var key in PeaceManager.Instance.GetPeaceTabel.Keys)
+        {
+            Debug.Log("X="+key.X+"  Y="+key.Y);
+        }
+        Debug.Break();
+    }
+
 }

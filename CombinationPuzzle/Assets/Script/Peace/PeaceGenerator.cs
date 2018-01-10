@@ -29,7 +29,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
     [SerializeField]
     public List<Sprite> PeaceSprites = new List<Sprite>();
 
-    
+
     public void Start()
     {
         generationFrequencyTime = InitialGenerationSpeed;
@@ -123,6 +123,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
         return newPeace;
     }
 
+    //同じXに初期化して入れる
     public void AddToTopPeace(Dictionary<POINT, Peace> peaceTable, Peace deletePeace)
     {
         for (int i = -1; i >= -PeaceManager.BoardSizeY; i--)
@@ -141,9 +142,15 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 return;
             }
         }
-        Debug.LogError("上に追加できません");
+        Debug.LogError("上に追加できません  "+deletePeace.point.X+ "  Y="+deletePeace.point.Y);
     }
 
+    /// <summary>
+    /// PeaceTabelにnewPointが無ければ追加
+    /// </summary>
+    /// <param name="peace"></param>
+    /// <param name="newPoint"></param>
+    /// <returns></returns>
     public bool SetPeaceList(Peace peace, POINT newPoint)
     {
         //Debug.Log("次は X=" + newPoint.X + " Y=" + newPoint.Y + "に代入");
@@ -173,7 +180,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
     float generationFrequencyTime = 2;//初期化する
 
     float generationTotalTime = 0f;
-    float speedUpTotalTime = 0f; 
+    float speedUpTotalTime = 0f;
 
     private void GenerationDropPeace()
     {
@@ -182,17 +189,32 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 
         if (generationTotalTime > generationFrequencyTime)
         {
-            //
-            //生成
-            AddToTopPeace(PeaceManager.Instance.GetPeaceTabel, Peace )
-            //ランダムに落下させる
+            int generationX = PeaceJudger.Instance.GenerationPositionX();
+            Debug.Log("生成　X="+generationX+"   全体数="+PeaceManager.Instance.GetPeaceTabel.Count);
+            ////生成
+            if (PeaceManager.Instance.stockPeaceList.Count > 0)
+            {
+                PeaceManager.Instance.stockPeaceList[0].point = new POINT(generationX, 0);
+                AddToTopPeace(PeaceManager.Instance.GetPeaceTabel, PeaceManager.Instance.stockPeaceList[0]);
+                PeaceOperator.Instance.AddDrop(PeaceManager.Instance.stockPeaceList[0]);
+                PeaceManager.Instance.stockPeaceList.RemoveAt(0);
+             
+            }
+            else
+            {
+                Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
+                peace.transform.SetParent(PeacePool.transform, false);
+                peace.point = new POINT(generationX,0);
+                AddToTopPeace(PeaceManager.Instance.GetPeaceTabel, peace);
+                PeaceOperator.Instance.AddDrop(peace);
+            }
             generationTotalTime = 0;
         }
-        if(speedUpTotalTime>SpeedUpInterval)
+        if (speedUpTotalTime > SpeedUpInterval)
         {
             speedUpTotalTime = 0;
             generationFrequencyTime -= SpeedUpTime;
-           
+
         }
     }
 

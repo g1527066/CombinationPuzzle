@@ -132,7 +132,7 @@ public abstract class Peace : MonoBehaviour
         if (PeaceGenerator.Instance.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == false)
         {
             //    Debug.Log("目標地点=" + yPosition);
-            StartCoroutine(NextCheck());
+            StartCoroutine(NextCheck());//まだ下にいるかもしれないから、移動はするがPOINTは変えない
         }
     }
 
@@ -179,11 +179,24 @@ public abstract class Peace : MonoBehaviour
     private IEnumerator NextCheck()
     {
         int test = 0;//削除
-        while (true&&IsDuringFall==true)
+        while (IsDuringFall==true)
         {
             test++;
             if(test>100)
-             Debug.Log("NextCheckコルーチン内");
+             Debug.Log("NextCheckコルーチン内　　X="+point.X+"  Y="+point.Y);
+
+     bool tes=       PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(point.X, point.Y + 1));
+            if(tes==true)
+            {
+                Debug.Log("X="+point.X+ "  Y=" + point.Y +"の下有り");
+            }
+            else
+            {
+                Debug.Log("X=" + point.X + "  Y=" + point.Y + "の下無し");
+
+            }
+
+
             if (PeaceGenerator.Instance.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
                  // Debug.Log("NextCheckコルーチン内　見つかりました  X="+point.X+" Y="+point.Y);
