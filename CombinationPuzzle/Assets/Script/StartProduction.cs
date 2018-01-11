@@ -20,14 +20,14 @@ public class StartProduction : MonoBehaviour {
     bool overStayTime = false;
 
     //activeではいけないもの
-    [SerializeField]
-    GameObject PeaceManager = null;
-    [SerializeField]
-    GameObject MissionManager = null;
-    [SerializeField]
-    GameObject MissionImage = null;
-    [SerializeField]
-    GameObject Input = null;
+    //[SerializeField]
+    //GameObject PeaceManager = null;
+    //[SerializeField]
+    //GameObject MissionManager = null;
+    //[SerializeField]
+    //GameObject MissionImage = null;
+    //[SerializeField]
+    //GameObject Input = null;
     [SerializeField]
     UnityEngine.UI.Button stopButton = null;
 
@@ -52,12 +52,12 @@ public class StartProduction : MonoBehaviour {
         }
         else if (totalTime > drawStartTime + drawStayTime)
         {
-            PeaceManager.SetActive(true);
-            MissionImage.SetActive(true);
-            MissionManager.SetActive(true);
+            //PeaceManager.SetActive(true);
+            //MissionImage.SetActive(true);
+            //MissionManager.SetActive(true);
             stringImage.gameObject.SetActive(false);
             stopButton.interactable = true;
-            Input.SetActive(true);
+            //Input.SetActive(true);
 
             Destroy(this);
         }

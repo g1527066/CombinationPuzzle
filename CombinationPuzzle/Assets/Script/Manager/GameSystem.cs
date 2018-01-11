@@ -104,9 +104,7 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
             //一旦タイム制限無し
             if (remainingTime < 0)
             {
-                isGameOver = true;
-                StopTime();
-                ResultText.text = "GameOver!";
+                GameOver();
             }
             remainingTime -= Time.deltaTime;
             TimerControl(0, 0, 0);
@@ -183,4 +181,11 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         Debug.Break();
     }
 
+    public void GameOver()
+    {
+        //isGameOver = true;
+        //if(isTimeStop==false)
+        //StopTime();//一旦テスト用にコメント
+        //ResultText.text = "GameOver!";
+    }
 }

@@ -17,7 +17,7 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
 {
 
     [SerializeField]
-    POINT stratPosition = new POINT(-718, 290);
+    POINT stratPosition = new POINT(-718 + 53, 290 + 77);
     public const int onePeaceSize = 148;
 
     [SerializeField]
@@ -34,7 +34,12 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
 
     public void ResetPosition(Peace peace)
     {
-        peace.GetComponent<RectTransform>().anchoredPosition = new Vector2(stratPosition.X + peace.point.X * onePeaceSize, stratPosition.Y - peace.point.Y * onePeaceSize);
+        peace.GetComponent<RectTransform>().anchoredPosition = PeacePosition(peace.point);
+    }
+
+    public Vector2 PeacePosition(POINT p)
+    {
+        return new Vector2(stratPosition.X + p.X * onePeaceSize, stratPosition.Y - p.Y * onePeaceSize);
     }
 
     public void MovePeace(Vector2 difference, Peace peace)
@@ -82,8 +87,8 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
     public void HidePeace(Peace peace)
     {
         int HideX = -999, HideY = -999;
-        peace.point = new POINT(HideX,HideY);
+        peace.point = new POINT(HideX, HideY);
         ResetPosition(peace);
-    } 
+    }
 
 }

@@ -38,7 +38,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
     //トローゼ方式初期化
     public void AllGeneration()
     {
-        const int StartY = 3;//下からこの番号まで入れておく、被り無し
+        const int StartY = 1;//下からこの番号まで入れておく、被り無し
 
         PeaceColor addPeaceType;
         for (int countY = PeaceManager.BoardSizeY - StartY; countY < PeaceManager.BoardSizeY; countY++)
@@ -190,25 +190,32 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
         if (generationTotalTime > generationFrequencyTime)
         {
             int generationX = PeaceJudger.Instance.GenerationPositionX();
-            Debug.Log("生成　X="+generationX+"   全体数="+PeaceManager.Instance.GetPeaceTabel.Count);
-            ////生成
+            if (generationX == -1)
+                return;
+
+            ////ストックから生成
             if (PeaceManager.Instance.stockPeaceList.Count > 0)
             {
                 PeaceManager.Instance.stockPeaceList[0].point = new POINT(generationX, 0);
                 AddToTopPeace(PeaceManager.Instance.GetPeaceTabel, PeaceManager.Instance.stockPeaceList[0]);
+                PeaceOperator.Instance.ResetPosition(PeaceManager.Instance.stockPeaceList[0]);
                 PeaceOperator.Instance.AddDrop(PeaceManager.Instance.stockPeaceList[0]);
                 PeaceManager.Instance.stockPeaceList.RemoveAt(0);
-             
+                
             }
-            else
+            else//新しく生成
             {
                 Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
                 peace.transform.SetParent(PeacePool.transform, false);
                 peace.point = new POINT(generationX,0);
                 AddToTopPeace(PeaceManager.Instance.GetPeaceTabel, peace);
+                PeaceOperator.Instance.ResetPosition(peace);
                 PeaceOperator.Instance.AddDrop(peace);
             }
+    
+
             generationTotalTime = 0;
+            //Debug.Log("生成　X=" + generationX + "   全体数=" + PeaceManager.Instance.GetPeaceTabel.Count);
         }
         if (speedUpTotalTime > SpeedUpInterval)
         {

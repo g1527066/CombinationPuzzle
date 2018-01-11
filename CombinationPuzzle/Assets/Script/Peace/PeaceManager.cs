@@ -7,7 +7,7 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
 {
 
     //------設定用
-    public const int BoardSizeX = 4;
+    public const int BoardSizeX = 10;
     public const int BoardSizeY = 6;
 
 
@@ -136,7 +136,7 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
 
     public void SetHoldPeace(Peace peace)
     {
-        Debug.Log("ピースの位置　X=" + peace.point.X + " Y=" + peace.point.Y);
+       // Debug.Log("ピースの位置　X=" + peace.point.X + " Y=" + peace.point.Y);
         if (peace.isMatching) return;
         nowHoldPeace = peace;
         nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;

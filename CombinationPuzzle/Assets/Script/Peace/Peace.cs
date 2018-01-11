@@ -168,6 +168,8 @@ public abstract class Peace : MonoBehaviour
                 {
                     IsDuringFall = false;
                     PeaceJudger.Instance.DownJudge(this);
+
+
                     break;
                 }
             }

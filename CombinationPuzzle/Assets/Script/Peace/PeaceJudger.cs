@@ -353,7 +353,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                 JudgePeace(peaceTable, changeGenerationPeace, PeaceManager.Instance.nowHoldPeace);
 
             Debug.Log(PeaceManager.Instance.GetPeaceTabel.Count+"   総数");
-            Debug.Break();
+           // Debug.Break();
         }
     }
 
@@ -517,6 +517,8 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         JudgeList.Add(peace);
         //落下したら　リストに格納、数フレーム待ってから判定
         StartCoroutine(WaitJudge());
+        if (PeaceManager.Instance.GetPeaceTabel.Count >= PeaceManager.BoardSizeX * PeaceManager.BoardSizeY)
+            GameSystem.Instance.GameOver();
     }
 
     private IEnumerator WaitJudge()
