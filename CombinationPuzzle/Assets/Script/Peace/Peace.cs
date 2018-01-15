@@ -188,15 +188,15 @@ public abstract class Peace : MonoBehaviour
              Debug.Log("NextCheckコルーチン内　　X="+point.X+"  Y="+point.Y);
 
      bool tes=       PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(point.X, point.Y + 1));
-            if(tes==true)
-            {
-                Debug.Log("X="+point.X+ "  Y=" + point.Y +"の下有り");
-            }
-            else
-            {
-                Debug.Log("X=" + point.X + "  Y=" + point.Y + "の下無し");
+            //if(tes==true)
+            //{
+            //    Debug.Log("X="+point.X+ "  Y=" + point.Y +"の下有り");
+            //}
+            //else
+            //{
+            //    Debug.Log("X=" + point.X + "  Y=" + point.Y + "の下無し");
 
-            }
+            //}
 
 
             if (PeaceGenerator.Instance.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)

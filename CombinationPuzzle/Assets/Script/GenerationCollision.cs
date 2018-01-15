@@ -28,16 +28,22 @@ public class GenerationCollision : MonoBehaviour {
                 pointCollition.transform.SetParent(transform, false);
                 pointCollition.GetComponent<RectTransform>().anchoredPosition =
                     PeaceOperator.Instance.PeacePosition(pointCollition.point);
+
+            //    pointCollition.GetComponent<BoxCollider2D>().enabled = false;
                 collistionList.Add(pointCollition);
+
             }
         }
     }
 
    
-    public void SetCollision()
-    {
-
-    }
+    //public void SetCollisionActive(bool flag)
+    //{
+    //    foreach(var coll in collistionList)
+    //    {
+    //        coll.GetComponent<BoxCollider2D>().enabled = flag;
+    //    }
+    //}
 
 	// Update is called once per frame
 	void Update () {

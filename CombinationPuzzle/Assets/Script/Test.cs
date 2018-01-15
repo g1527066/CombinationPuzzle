@@ -17,9 +17,9 @@ public class Test : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GetComponent<RectTransform>().sizeDelta = new Vector2(200,200);
+        //GetComponent<RectTransform>().sizeDelta = new Vector2(200,200);
 
-        GetComponent<BoxCollider2D>().size=new Vector2(200, 200);
+        //GetComponent<BoxCollider2D>().size=new Vector2(200, 200);
 
 
 
@@ -29,7 +29,17 @@ public class Test : MonoBehaviour
     void Update()
     {
 
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, 10, 100);
+
+        if (hit.collider.gameObject==this.gameObject)
+        {
+
+            Debug.Log("hit white");
+
+        //    PeaceManager.Instance.SetHoldPeace(hit.collider.gameObject.GetComponent<PointCollision>());
+        }
 
     }
 }
