@@ -24,7 +24,7 @@ public enum Mode
 public class GameSystem : SingletonMonoBehaviour<GameSystem>
 {
     //タイム関係
-    [SerializeField]
+    [SerializeField]//
     private float SetLimitTime = 10f;
 
     [SerializeField]
@@ -35,7 +35,17 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     private float SummaryDeleteAddTime = 0.3f;
     [SerializeField]
     public int SummaryDeleteAddCount = 4;
+
+    //残り時間
     private float remainingTime = 0;
+    public float RemainingTime
+    {
+        get
+        {
+            return remainingTime;
+        }
+    }
+
     [SerializeField]
     private Text TimeText = null;
     [SerializeField]
@@ -76,6 +86,9 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     [SerializeField]
     GameObject ChallengeWindow = null;
 
+
+
+
     // Use this for initialization
     void Start()
     {
@@ -87,10 +100,17 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         TimeSlider.value = 0;
 
         if (PlayerPrefs.GetString("GameMode") == "Mission")
+        {
             gameMode = Mode.Mission;
-        else
-            gameMode = Mode.Marathon;
 
+
+        }
+        else
+        {
+            //制限時間消す
+
+            gameMode = Mode.Marathon;
+        }
         //いったん
         // gameMode = Mode.Marathon;
 
@@ -176,7 +196,7 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         Debug.Log("---------------------------------------------------");
         foreach (var key in PeaceManager.Instance.GetPeaceTabel.Keys)
         {
-            Debug.Log("X="+key.X+"  Y="+key.Y);
+            Debug.Log("X=" + key.X + "  Y=" + key.Y);
         }
         Debug.Break();
     }

@@ -32,19 +32,13 @@ public class TitleScene : MonoBehaviour {
        
     }
 
-
-    public void PushMissionMode()
-    {
-        PlayerPrefs.SetString("GameMode", "Mission");
-        SceneManager.LoadScene("Main");
-    }
-    public void PushMarathonMode()
-    {
-        PlayerPrefs.SetString("GameMode", "Marathon");
-        SceneManager.LoadScene("Main");
-    }
     public void PushReturn()
     {
         SelectObject.SetActive(false);
     }
+
+
+
+
+ 
 }

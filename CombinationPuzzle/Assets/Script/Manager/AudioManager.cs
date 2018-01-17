@@ -5,6 +5,15 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum VolumeType
+{
+    None = 0,
+    Small = 33,
+    Middle = 66,
+    Big = 100,
+}
+
+
 public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
 
@@ -12,18 +21,18 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     public List<AudioClip> SEList;
     public int MaxSE = 10;
 
+    float SEVolume = 1;
+    float BGMVolume = 1;
+
     private AudioSource bgmSource = null;
+    [SerializeField]
     private List<AudioSource> seSources = null;
     private Dictionary<string, AudioClip> bgmDict = null;
     private Dictionary<string, AudioClip> seDict = null;
 
-    public void Awake()
+    protected override void Awake()
     {
-        if (this != Instance)
-        {
-            Destroy(this);
-            return;
-        }
+        base.Awake();
 
         DontDestroyOnLoad(this.gameObject);
 
@@ -35,12 +44,14 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         //create audio sources
         this.bgmSource = this.gameObject.AddComponent<AudioSource>();
         this.seSources = new List<AudioSource>();
+        this.bgmSource.loop = true;
 
         //create clip dictionaries
         this.bgmDict = new Dictionary<string, AudioClip>();
         this.seDict = new Dictionary<string, AudioClip>();
 
-        Action<Dictionary<string, AudioClip>, AudioClip> addClipDict = (dict, c) => {
+        Action<Dictionary<string, AudioClip>, AudioClip> addClipDict = (dict, c) =>
+        {
             if (!dict.ContainsKey(c.name))
             {
                 dict.Add(c.name, c);
@@ -65,6 +76,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             }
 
             source = this.gameObject.AddComponent<AudioSource>();
+            source.volume = SEVolume;
             this.seSources.Add(source);
         }
 
@@ -90,6 +102,24 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     {
         this.bgmSource.Stop();
         this.bgmSource.clip = null;
+    }
+
+
+    //新規のもその音量にする
+    public void SetSEVolume(VolumeType volumeType)
+    {
+        for (int i = 0; i < seSources.Count; i++)
+        {
+            seSources[i].volume = (int)volumeType * 0.01f;
+            Debug.Log("volume = " + (int)volumeType * 0.01f);
+        }
+        SEVolume = (int)volumeType * 0.01f;
+    }
+    
+    public void SetBGMVolume(VolumeType volumeType)
+    {
+        bgmSource.volume = (int)volumeType * 0.01f;
+        BGMVolume = (int)volumeType * 0.01f;
     }
 
 

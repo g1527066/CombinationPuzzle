@@ -35,6 +35,7 @@ public class StartProduction : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        AudioManager.Instance.PlayBGM("PAZ_BGM_Game");
         stringImage.SetNativeSize();
         stringImage.gameObject.GetComponent<RectTransform>().sizeDelta *= stringSize;
     }
