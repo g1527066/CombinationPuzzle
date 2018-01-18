@@ -702,9 +702,83 @@ Prefab:
       propertyPath: generationCollirion
       value: 
       objectReference: {fileID: 1930723171}
+    - target: {fileID: 114093884623703826, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: Timer
+      value: 
+      objectReference: {fileID: 1018428004}
+    - target: {fileID: 114093884623703826, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: generationCollision
+      value: 
+      objectReference: {fileID: 1930723171}
+    - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: DrawTopWindow
+      value: 
+      objectReference: {fileID: 901840795}
+    - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: MissionSet
+      value: 
+      objectReference: {fileID: 1554222295}
+    - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: MarathonSet
+      value: 
+      objectReference: {fileID: 2044751366}
+    - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: tapStart
+      value: 
+      objectReference: {fileID: 2032001942}
+    - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 92091989}
+    - target: {fileID: 1770187780015114, guid: 08556e839f585354f93e50a767ea7a83, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: MissionManager
+      value: 
+      objectReference: {fileID: 92091990}
+    - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: PeaceManager
+      value: 
+      objectReference: {fileID: 92091991}
+    - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: MissionImage
+      value: 
+      objectReference: {fileID: 2035577660}
+    - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: startImage
+      value: 
+      objectReference: {fileID: 1376127670}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08556e839f585354f93e50a767ea7a83, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &92091989 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1770187780015114, guid: 08556e839f585354f93e50a767ea7a83,
+    type: 2}
+  m_PrefabInternal: {fileID: 92091988}
+--- !u!1 &92091990 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1826493894546322, guid: 08556e839f585354f93e50a767ea7a83,
+    type: 2}
+  m_PrefabInternal: {fileID: 92091988}
+--- !u!1 &92091991 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1542192822860072, guid: 08556e839f585354f93e50a767ea7a83,
+    type: 2}
+  m_PrefabInternal: {fileID: 92091988}
 --- !u!114 &106842918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1579,7 +1653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2914,7 +2988,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 772383464}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -2927,7 +3001,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b44f37a6a40f75e4b8f70f2cc768c2aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3b674f572a060f45a57aecc96402901, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3328,7 +3402,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 320, y: 523}
+  m_AnchoredPosition: {x: 320, y: 605}
   m_SizeDelta: {x: 169.8, y: 79.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &896901449
@@ -3452,7 +3526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &901840796
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3581,7 +3655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9.99995, y: -5}
+  m_AnchoredPosition: {x: -3.630085, y: -5}
   m_SizeDelta: {x: 289.6, y: 77}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &914304290
@@ -5235,7 +5309,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 19d916506ba14d5479274761229b0128, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57307d4d219afd3428a677334bbf06cb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5987,7 +6061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1554222296
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6194,7 +6268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -14.369999, y: -5}
+  m_AnchoredPosition: {x: -28, y: -5}
   m_SizeDelta: {x: 240.86, y: 77}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1639696891
