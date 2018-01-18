@@ -89,23 +89,10 @@ public class MissionSelect : MonoBehaviour
     }
     public void ClickRightMission()//一旦
     {
-        PlayerPrefs.SetString("GameMode", "Mission");
+        SaveDataManager.Instance.SetMode = Mode.Mission;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
-
-    public void ClickMiddleMission()
-    {
-        PlayerPrefs.SetString("GameMode", "Mission");
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
-
-    }
-
-    public void ClickLeftMission()
-    {
-        PlayerPrefs.SetString("GameMode", "Mission");
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
-
-    }
+    
 
     public void ClickMissionButtone(int num)
     {

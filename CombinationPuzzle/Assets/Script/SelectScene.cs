@@ -36,7 +36,7 @@ public class SelectScene : MonoBehaviour {
 
     public void PushMarathonMode()
     {
-        PlayerPrefs.SetString("GameMode", "Marathon");
+        SaveDataManager.Instance.SetMode = Mode.Marathon;
         SceneManager.LoadScene("Main");
     }
     public void ClickReturnButton()

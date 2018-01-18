@@ -511,7 +511,6 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
     }
 
     List<Peace> JudgeList = new List<Peace>();
-
     public void DownJudge(Peace peace)
     {
         JudgeList.Add(peace);
@@ -536,6 +535,27 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         }
         JudgeList.Clear();
     }
+
+
+    //ゲームオーバー判定
+    public void CheckGameOver()
+    {
+        //落下したら　50上ですべてリストにいたら
+        if (PeaceManager.Instance.GetPeaceTabel.Count < PeaceManager.BoardSizeX * PeaceManager.BoardSizeY)
+            return;
+
+        for (int x = 0; x < PeaceManager.BoardSizeX; x++)
+        {
+            for (int y = 0; y < PeaceManager.BoardSizeY; y++)
+            {
+                if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(x, y)) == false)
+                    return;
+            }
+        }
+
+        GameSystem.Instance.GameOver();
+    }
+
 
     //上から落下を生成するときの
     public int GenerationPositionX()

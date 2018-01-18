@@ -15,16 +15,19 @@ public class Flashing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Destroy(this.gameObject);
+        }
+
         totaleTime += Time.deltaTime;
         if(changeSpeed<totaleTime)
         {
             totaleTime = 0;
-            Debug.Log("超えた");
 
 
             if (FlashingText[0].gameObject.activeSelf == true)
             {
-                Debug.Log("falseにします");
 
                 for (int i=0;i<FlashingText.Count;i++)
                 {
@@ -33,7 +36,6 @@ public class Flashing : MonoBehaviour
             }
             else
             {
-                Debug.Log("trueにします");
 
                 for (int i = 0; i < FlashingText.Count; i++)
                 {

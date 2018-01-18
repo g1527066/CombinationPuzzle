@@ -14,7 +14,7 @@ public class GenerationCollision : MonoBehaviour {
     List<PointCollision> collistionList = new List<PointCollision>();
 
   //  public void GenerationCollistion()
-    void Start()
+    public void GenerationCol()
     {
         //XYが同じサイズであること前提
         float size = GetComponent<RectTransform>().sizeDelta.x / PeaceManager.BoardSizeX;
@@ -35,18 +35,4 @@ public class GenerationCollision : MonoBehaviour {
             }
         }
     }
-
-   
-    //public void SetCollisionActive(bool flag)
-    //{
-    //    foreach(var coll in collistionList)
-    //    {
-    //        coll.GetComponent<BoxCollider2D>().enabled = flag;
-    //    }
-    //}
-
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

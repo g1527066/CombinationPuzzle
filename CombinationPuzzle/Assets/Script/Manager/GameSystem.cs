@@ -14,11 +14,6 @@ static class MyDebug
     }
 }
 
-public enum Mode
-{
-    Mission,
-    Marathon,
-}
 
 
 public class GameSystem : SingletonMonoBehaviour<GameSystem>
@@ -58,8 +53,6 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     public float flashingTime = 0.2f;
 
 
-    public Mode gameMode = Mode.Marathon;
-
     [SerializeField]
     private Text ResultText = null;
 
@@ -87,39 +80,33 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     GameObject ChallengeWindow = null;
 
 
+    [SerializeField]
+    GameObject Timer = null;
 
+    float totalTime = 0;
+
+    [SerializeField]
+    GenerationCollision generationCollision = null;
 
     // Use this for initialization
     void Start()
     {
+
         MyDebug.text = ResultText;
         remainingTime = SetLimitTime;
         isGameOver = false;
 
         TimeSlider.maxValue = SetLimitTime;
         TimeSlider.value = 0;
-
-        if (PlayerPrefs.GetString("GameMode") == "Mission")
-        {
-            gameMode = Mode.Mission;
-
-
-        }
-        else
-        {
-            //制限時間消す
-
-            gameMode = Mode.Marathon;
-        }
-        //いったん
-        // gameMode = Mode.Marathon;
-
+        if (SaveDataManager.Instance.GetMode == Mode.Marathon)
+            Timer.SetActive(false);
+        generationCollision.GenerationCol();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isGameOver == false && isTimeStop == false)
+        if (SaveDataManager.Instance.GetMode == Mode.Mission && isGameOver == false && isTimeStop == false)
         {
             //一旦タイム制限無し
             if (remainingTime < 0)
@@ -129,6 +116,9 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
             remainingTime -= Time.deltaTime;
             TimerControl(0, 0, 0);
         }
+
+        if(isTimeStop==false)
+        totalTime += Time.deltaTime;
     }
 
     public void TimerControl(int SummaryCount, int BestCount, float addTime)
@@ -203,9 +193,11 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
 
     public void GameOver()
     {
-        //isGameOver = true;
-        //if(isTimeStop==false)
-        //StopTime();//一旦テスト用にコメント
-        //ResultText.text = "GameOver!";
+        isGameOver = true;
+        if (isTimeStop == false)
+            StopTime();//一旦テスト用にコメント
+        ResultText.text = "GameOver!";
+
+    
     }
 }

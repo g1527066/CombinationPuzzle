@@ -61,7 +61,7 @@ public abstract class Peace : MonoBehaviour
     {
         get
         {
-            if(rectTransform == null)
+            if (rectTransform == null)
             {
                 rectTransform = transform as RectTransform;
             }
@@ -125,7 +125,7 @@ public abstract class Peace : MonoBehaviour
     {
         //    Debug.Log("最初の位置" + RectTransform.anchoredPosition);
         //    Debug.Log("目標地点=" + yPosition);
-      //  if (IsDuringFall == true) return;
+        //  if (IsDuringFall == true) return;
         IsDuringFall = true;
         downPosition = yPosition;
         StartCoroutine(DownMovePeace());//erorrたくさん消した時？
@@ -168,8 +168,7 @@ public abstract class Peace : MonoBehaviour
                 {
                     IsDuringFall = false;
                     PeaceJudger.Instance.DownJudge(this);
-
-
+                    PeaceJudger.Instance.CheckGameOver();
                     break;
                 }
             }
@@ -181,13 +180,13 @@ public abstract class Peace : MonoBehaviour
     private IEnumerator NextCheck()
     {
         int test = 0;//削除
-        while (IsDuringFall==true)
+        while (IsDuringFall == true)
         {
             test++;
-            if(test>100)
-             Debug.Log("NextCheckコルーチン内　　X="+point.X+"  Y="+point.Y);
+            if (test > 100)
+                Debug.Log("NextCheckコルーチン内　　X=" + point.X + "  Y=" + point.Y);
 
-     bool tes=       PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(point.X, point.Y + 1));
+            bool tes = PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(point.X, point.Y + 1));
             //if(tes==true)
             //{
             //    Debug.Log("X="+point.X+ "  Y=" + point.Y +"の下有り");
@@ -201,7 +200,7 @@ public abstract class Peace : MonoBehaviour
 
             if (PeaceGenerator.Instance.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
-                 // Debug.Log("NextCheckコルーチン内　見つかりました  X="+point.X+" Y="+point.Y);
+                // Debug.Log("NextCheckコルーチン内　見つかりました  X="+point.X+" Y="+point.Y);
                 break;
             }
             yield return null;

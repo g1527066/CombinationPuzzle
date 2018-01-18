@@ -156,7 +156,6 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
                 }
                 else//行先にピースがないなら番号のみ交換
                 {
-                    Debug.Log("ピースがありません");
                     POINT oldPoint = nowHoldPeace.point;
                     peaceTable.Remove(nowHoldPeace.point);
                     nowHoldPeace.point = new POINT(pointCollision.point.X, pointCollision.point.Y);

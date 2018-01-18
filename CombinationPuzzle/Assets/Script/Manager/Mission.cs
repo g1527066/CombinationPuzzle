@@ -269,7 +269,7 @@ public class Mission : MonoBehaviour
         SpriteSlicer2D.SliceSprite(MissionImage[0].gameObject.transform.position+new Vector3(-1000, 0), MissionImage[0].gameObject.transform.position +new Vector3(1000, 0), MissionImage[0].gameObject);
         SpriteSlicer2D.ShatterSprite(MissionImage[0].gameObject,100);
         cutMission.SetCutEffect(AllPeaceSprite,missionNum,missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
-        if (GameSystem.Instance.gameMode == Mode.Mission)
+        if (SaveDataManager.Instance.GetMode == Mode.Mission)
         {
             MissionImage[missionNum].gameObject.SetActive(false);
             missionData[missionNum].missionType = MissionType.None;

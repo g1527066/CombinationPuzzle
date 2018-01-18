@@ -1,66 +1,87 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class StartProduction : MonoBehaviour {
-
-
-    [SerializeField]
-    Sprite startSprite = null;
-
-    [SerializeField]
-    float drawStayTime = 1f;
-    [SerializeField]
-    float drawStartTime = 1f;
-
-    float totalTime = 0f;
-    [SerializeField]
-    UnityEngine.UI.Image stringImage = null;
-
-    bool overStayTime = false;
-
+public class StartProduction : MonoBehaviour
+{
     //activeではいけないもの
-    //[SerializeField]
-    //GameObject PeaceManager = null;
-    //[SerializeField]
-    //GameObject MissionManager = null;
-    //[SerializeField]
-    //GameObject MissionImage = null;
-    //[SerializeField]
-    //GameObject Input = null;
     [SerializeField]
-    UnityEngine.UI.Button stopButton = null;
+    GameObject PeaceManager = null;
+    [SerializeField]
+    GameObject MissionManager = null;
+    [SerializeField]
+    GameObject MissionImage = null;
+    [SerializeField]
+    GameObject inputManager = null;
+    [SerializeField]
+    Button stopButton = null;
 
-    public float stringSize = 2.0f;
 
-    // Use this for initialization
-    void Start () {
-        AudioManager.Instance.PlayBGM("PAZ_BGM_Game");
-        stringImage.SetNativeSize();
-        stringImage.gameObject.GetComponent<RectTransform>().sizeDelta *= stringSize;
+
+    //始め！,表示する時間
+    [SerializeField]
+    Image startImage = null;
+    float DrawTime = 2.0f;
+
+    [SerializeField]
+    Flashing tapStart = null;
+    bool tapFlag = false;
+
+    //表示するミッション、マラソン
+    [SerializeField]
+    GameObject DrawTopWindow = null;
+
+    [SerializeField]
+    GameObject MissionSet = null;
+    [SerializeField]
+    GameObject MarathonSet = null;
+
+
+    private void Start()
+    {
+
+
+        if (SaveDataManager.Instance.GetMode == Mode.Mission)
+        {
+            MissionSet.SetActive(true);
+        }
+        else
+        {
+            MarathonSet.SetActive(true);
+            //制限時間消す
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
-        totalTime += Time.deltaTime;
-        if (overStayTime == false && totalTime > drawStayTime)
-        {
-            overStayTime = true;
-            stringImage.sprite = startSprite;
-            AudioManager.Instance.PlaySE("PAZ_SE_Start");
-            stringImage.SetNativeSize();
-            stringImage.gameObject.GetComponent<RectTransform>().sizeDelta *= stringSize;
-        }
-        else if (totalTime > drawStartTime + drawStayTime)
-        {
-            //PeaceManager.SetActive(true);
-            //MissionImage.SetActive(true);
-            //MissionManager.SetActive(true);
-            stringImage.gameObject.SetActive(false);
-            stopButton.interactable = true;
-            //Input.SetActive(true);
 
-            Destroy(this);
+
+    private void Update()
+    {
+        if (tapFlag == false && null == tapStart)
+        {
+            tapFlag = true;
+            StartCoroutine(DeleteStart());
         }
+    }
+
+    private IEnumerator DeleteStart()
+    {
+        AudioManager.Instance.PlayBGM("PAZ_BGM_Game");
+
+        //Activeにしなければならないのをする
+        DrawTopWindow.SetActive(false);
+
+        PeaceManager.SetActive(true);
+        MissionManager.SetActive(true);
+        MissionImage.SetActive(true);
+        inputManager.SetActive(true);
+
+        ////////////
+        yield return new WaitForSeconds(DrawTime);
+        stopButton.interactable = true;
+
+        Destroy(startImage);
+
+
+        Destroy(this.gameObject);
     }
 }

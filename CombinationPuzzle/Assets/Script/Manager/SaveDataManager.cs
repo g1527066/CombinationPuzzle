@@ -2,9 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Mode
+{
+    Mission,
+    Marathon,
+}
 
 public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
 {
+
+    private Mode mode;
+    public Mode GetMode
+    {
+        get { return mode; }
+    }
+    public Mode SetMode
+    {
+        set { mode = value; }
+    }
+
 
     //マラソンモード----------------
 
