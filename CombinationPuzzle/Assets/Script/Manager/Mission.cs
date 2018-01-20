@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum MissionType
+enum MissionTypeOld
 {
     CreateBest,
     CreateAdvanced,
@@ -17,14 +17,14 @@ enum MissionType
 //どのタイプか、何個達成、目標
 struct MisstionData
 {
-    public MissionType missionType;
+    public MissionTypeOld missionType;
     public int completeNum;
     public int MissionNum;
     public PeaceForm peaceForm;
     public PeaceColor peaceColor;
     public void Init()
     {
-        missionType = MissionType.None;
+        missionType = MissionTypeOld.None;
         completeNum = 0;
         MissionNum = 0;
         peaceForm = PeaceForm.None;
@@ -94,13 +94,13 @@ public class Mission : MonoBehaviour
         while (true)
         {
             missionData[missionNum].Init();
-            missionData[missionNum].missionType = (MissionType)Random.Range(0, (int)MissionType.None);
+            missionData[missionNum].missionType = (MissionTypeOld)Random.Range(0, (int)MissionTypeOld.None);
             if (CheckSuffering(missionNum) == true)
                 break;
         }
         switch (missionData[missionNum].missionType)
         {
-            case MissionType.CreateBest:
+            case MissionTypeOld.CreateBest:
                 //文字とスプライトセット
                 MissionDescriptionText[missionNum].text = generationStr;
                 missionData[missionNum].MissionNum = Random.Range(CreateBest[0], CreateBest[1] + 1);
@@ -108,14 +108,14 @@ public class Mission : MonoBehaviour
                 missionData[missionNum].peaceForm = PeaceForm.Pentagon;
                 MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + 1];
                 break;
-            case MissionType.CreateAdvanced:
+            case MissionTypeOld.CreateAdvanced:
                 MissionDescriptionText[missionNum].text = generationStr;
                 missionData[missionNum].MissionNum = Random.Range(CreateAdvanced[0], CreateAdvanced[1] + 1);
                 UpdateCreateBestText(missionNum);
                 missionData[missionNum].peaceForm = PeaceForm.Square;
                 MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None];
                 break;
-            case MissionType.DeletePeace:
+            case MissionTypeOld.DeletePeace:
                 MissionDescriptionText[missionNum].text = deleteStr;
                 missionData[missionNum].MissionNum = Random.Range(DeletePeace[0], DeletePeace[1] + 1);
                 UpdateCreateBestText(missionNum);
@@ -131,21 +131,21 @@ public class Mission : MonoBehaviour
                     missionData[missionNum].peaceForm = PeaceForm.Square;
                 }
                 break;
-            case MissionType.CollectNum:
+            case MissionTypeOld.CollectNum:
                 MissionDescriptionText[missionNum].text = "まとめて消去";
                 int num= Random.Range(0, CollectNum.Length);
                 missionData[missionNum].MissionNum = CollectNum[num];
                 MissionCountText[missionNum].text = missionData[missionNum].MissionNum + "個";
                 MissionImage[missionNum].sprite = AllPeaceSprite;
                 break;
-            case MissionType.DeleteCount:
+            case MissionTypeOld.DeleteCount:
 
                 MissionDescriptionText[missionNum].text = "回数消去";
                 missionData[missionNum].MissionNum = Random.Range(DeleteCount[0], DeleteCount[1]);
                 UpdateCreateBestText(missionNum);
                 MissionImage[missionNum].sprite = AllPeaceSprite;
                 break;
-            case MissionType.DeleteBestNum:
+            case MissionTypeOld.DeleteBestNum:
                 MissionDescriptionText[missionNum].text = "消去";
                 MissionCountText[missionNum].text = DeleteBestNum + "個";
                 MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + 1];
@@ -186,7 +186,7 @@ public class Mission : MonoBehaviour
             switch (missionData[i].missionType)
             {
                 #region 生成
-                case MissionType.CreateBest:
+                case MissionTypeOld.CreateBest:
                     if (generationPeace != null)
                     {
                         if (generationPeace.GetPeaceForm == PeaceForm.Square)
@@ -200,7 +200,7 @@ public class Mission : MonoBehaviour
                         }
                     }
                     break;
-                case MissionType.CreateAdvanced:
+                case MissionTypeOld.CreateAdvanced:
                     if (generationPeace != null)
                     {
                         if (generationPeace.GetPeaceForm == PeaceForm.Triangle)
@@ -216,7 +216,7 @@ public class Mission : MonoBehaviour
                     break;
                 #endregion
                 #region 削除
-                case MissionType.DeletePeace:
+                case MissionTypeOld.DeletePeace:
                     if (missionData[i].peaceColor == deletePeaceList[0].peaceColor && deletePeaceList[0].GetPeaceForm == PeaceForm.Triangle
                         || missionData[i].peaceForm == deletePeaceList[0].GetPeaceForm)
                     {
@@ -229,13 +229,13 @@ public class Mission : MonoBehaviour
                     }
 
                     break;
-                case MissionType.CollectNum:
+                case MissionTypeOld.CollectNum:
                     if(deletePeaceList.Count>=missionData[i].MissionNum)
                     {
                         ClearMisstion(i);
                     }
                     break;
-                case MissionType.DeleteCount:
+                case MissionTypeOld.DeleteCount:
                     missionData[i].completeNum++;
                     UpdateCreateBestText(i);
                     if (missionData[i].completeNum >= missionData[i].MissionNum)
@@ -243,7 +243,7 @@ public class Mission : MonoBehaviour
                         ClearMisstion(i);
                     }
                     break;
-                case MissionType.DeleteBestNum://TODO:4個以上に対応してない
+                case MissionTypeOld.DeleteBestNum://TODO:4個以上に対応してない
                     if(deletePeaceList[0].GetPeaceForm==PeaceForm.Pentagon)
                     {
                         ClearMisstion(i);
@@ -272,7 +272,7 @@ public class Mission : MonoBehaviour
         if (SaveDataManager.Instance.GetMode == Mode.Mission)
         {
             MissionImage[missionNum].gameObject.SetActive(false);
-            missionData[missionNum].missionType = MissionType.None;
+            missionData[missionNum].missionType = MissionTypeOld.None;
         }
         else
         {
@@ -285,7 +285,7 @@ public class Mission : MonoBehaviour
 
         for (int i = 0; i < MissionNum; i++)
         {
-            if (missionData[i].missionType != MissionType.None) return;
+            if (missionData[i].missionType != MissionTypeOld.None) return;
 
         }
         //すべてNoneだったらクリア

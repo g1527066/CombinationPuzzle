@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2930ab7f13cc7be46a2927f2a961c009, type: 3}
+  m_Name: MissionData
+  m_EditorClassIdentifier: 
+  Elements:
+  - MissionName: "\u96FB\u5149\u77F3\u706B"
+    LmiteTime: 60
+    FallFrequency: 5
+    MissionList:
+    - missionType: 0
+      peaceColor: 6
+      peaceForm: 2
+      number: 3
+  - MissionName: "\u4E00\u7DB2\u6253\u5C3D"
+    LmiteTime: 90
+    FallFrequency: 5
+    MissionList:
+    - missionType: 1
+      peaceColor: 6
+      peaceForm: 1
+      number: 7
+  - MissionName: "\u4E00\u65E5\u5343\u79CB"
+    LmiteTime: 60
+    FallFrequency: 10
+    MissionList:
+    - missionType: 2
+      peaceColor: 6
+      peaceForm: 3
+      number: 15
+  - MissionName: "\u767E\u82B1\u7E5A\u4E71"
+    LmiteTime: 180
+    FallFrequency: 5
+    MissionList:
+    - missionType: 1
+      peaceColor: 0
+      peaceForm: 0
+      number: 6
+  - MissionName: "\u767E\u6226\u932C\u78E8"
+    LmiteTime: 90
+    FallFrequency: 5
+    MissionList:
+    - missionType: 0
+      peaceColor: 0
+      peaceForm: 0
+      number: 20
+  - MissionName: "\u4E00\u9A0E\u5F53\u5343"
+    LmiteTime: 90
+    FallFrequency: 5
+    MissionList:
+    - missionType: 0
+      peaceColor: 0
+      peaceForm: 0
+      number: 5
+  - MissionName: "\u68EE\u7F85\u4E07\u8C61"
+    LmiteTime: 90
+    FallFrequency: 5
+    MissionList:
+    - missionType: 0
+      peaceColor: 0
+      peaceForm: 0
+      number: 10
+  - MissionName: "\u5B9F\u9A13\u4E4B\u516B"
+    LmiteTime: 70
+    FallFrequency: 5
+    MissionList:
+    - missionType: 0
+      peaceColor: 0
+      peaceForm: 0
+      number: 5
+  - MissionName: "\u5B9F\u9A13\u4E4B\u4E5D"
+    LmiteTime: 90
+    FallFrequency: 5
+    MissionList:
+    - missionType: 0
+      peaceColor: 0
+      peaceForm: 0
+      number: 5
+  - MissionName: "\u5B9F\u9A13\u4E4B\u5341"
+    LmiteTime: 90
+    FallFrequency: 5
+    MissionList:
+    - missionType: 0
+      peaceColor: 0
+      peaceForm: 0
+      number: 5
