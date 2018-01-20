@@ -66,6 +66,13 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
 
     //得点
     private int score = 0;
+    public int GetScore
+    {
+        get
+        {
+            return score;
+        }
+    }
     [SerializeField, Header("通常消し加算ポイント")]
     private int CompleteMissionPoint = 100;
     [SerializeField, Header("一気削除得点倍[0四[1五")]
@@ -84,6 +91,13 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     GameObject Timer = null;
 
     float totalTime = 0;
+    public float GetTotalTime
+    {
+        get
+        {
+            return totalTime;
+        }
+    }
 
     [SerializeField]
     GenerationCollision generationCollision = null;
@@ -100,6 +114,12 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         TimeSlider.value = 0;
         if (SaveDataManager.Instance.GetMode == Mode.Marathon)
             Timer.SetActive(false);
+        isTimeStop = true;
+    }
+
+    public void StartGame()
+    {
+        isTimeStop = false;
         generationCollision.GenerationCol();
     }
 
@@ -117,8 +137,8 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
             TimerControl(0, 0, 0);
         }
 
-        if(isTimeStop==false)
-        totalTime += Time.deltaTime;
+        if (isTimeStop == false)
+            totalTime += Time.deltaTime;
     }
 
     public void TimerControl(int SummaryCount, int BestCount, float addTime)
@@ -191,13 +211,38 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         Debug.Break();
     }
 
+    [SerializeField]
+    Image EndImage = null;
+    [SerializeField]
+    GameObject ResultObject = null;
+    [SerializeField]
+    Sprite EndSprite = null;
+
     public void GameOver()
     {
         isGameOver = true;
-        if (isTimeStop == false)
-            StopTime();//一旦テスト用にコメント
-        ResultText.text = "GameOver!";
+        //if (isTimeStop == false)
+        //    StopTime();//一旦テスト用にコメント
+        //  ResultText.text = "GameOver!";
 
-    
+        EndImage.gameObject.SetActive(true);
+
+        EndImage.sprite = EndSprite;
+
+        StartCoroutine(ChangeResult());
+
     }
+
+
+    private IEnumerator ChangeResult()
+    {
+        float stopTime = 2.0f;
+
+        yield return new WaitForSeconds(stopTime);
+        ResultObject.SetActive(true);
+
+
+    }
+
+
 }

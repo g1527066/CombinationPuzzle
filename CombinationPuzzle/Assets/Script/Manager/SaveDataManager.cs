@@ -22,6 +22,7 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
     }
 
 
+
     //マラソンモード----------------
 
     int MarathonHiScore = 0;
@@ -51,6 +52,9 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
     protected override void Awake()
     {
         base.Awake();
+
+
+        LoadMarathonHiScore();
 
         DontDestroyOnLoad(this.gameObject);
     }

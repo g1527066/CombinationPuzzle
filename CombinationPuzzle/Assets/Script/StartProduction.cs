@@ -35,13 +35,14 @@ public class StartProduction : MonoBehaviour
     [SerializeField]
     GameObject MissionSet = null;
     [SerializeField]
+    Text MissionHiScoreText = null;
+
+    [SerializeField]
     GameObject MarathonSet = null;
 
 
     private void Start()
     {
-
-
         if (SaveDataManager.Instance.GetMode == Mode.Mission)
         {
             MissionSet.SetActive(true);
@@ -49,7 +50,8 @@ public class StartProduction : MonoBehaviour
         else
         {
             MarathonSet.SetActive(true);
-            //制限時間消す
+
+            MissionHiScoreText.text = SaveDataManager.Instance.GetMarathonHiScore.ToString() + "点";
         }
     }
 
@@ -74,12 +76,12 @@ public class StartProduction : MonoBehaviour
         MissionManager.SetActive(true);
         MissionImage.SetActive(true);
         inputManager.SetActive(true);
-
+        GameSystem.Instance.StartGame();
         ////////////
         yield return new WaitForSeconds(DrawTime);
         stopButton.interactable = true;
 
-        Destroy(startImage);
+        startImage.gameObject.SetActive(false);
 
 
         Destroy(this.gameObject);

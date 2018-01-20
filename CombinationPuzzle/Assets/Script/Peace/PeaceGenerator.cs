@@ -38,7 +38,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
     //トローゼ方式初期化
     public void AllGeneration()
     {
-        const int StartY = 3;//下からこの番号まで入れておく、被り無し
+        const int StartY = 5;//下からこの番号まで入れておく、被り無し
 
         PeaceColor addPeaceType;
         for (int countY = PeaceManager.BoardSizeY - StartY; countY < PeaceManager.BoardSizeY; countY++)

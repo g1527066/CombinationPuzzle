@@ -595,11 +595,15 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 1
+    Collab: 0
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: b99b44dc-7a36-4bd5-abee-fa0fed818a56
-  projectName: CombinationPuzzle
+  cloudProjectId: d04e9874-6734-45a9-b3ab-c64cc0abc992
+  projectName: CombinationPuzzle (3) (1)
   organizationId: risa_risa
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
