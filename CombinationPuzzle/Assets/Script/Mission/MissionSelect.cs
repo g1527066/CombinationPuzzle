@@ -26,27 +26,24 @@ public class MissionSelect : MonoBehaviour
 
     // Use this for initialization
 
+
     //ミッション決まるまでコメントアウト
-    //void Start()
-    //{
-    //    viewNumber = 0;
-    //    clearState = SaveDataManager.Instance.LoadClearList(MissionSprites.Count);
-
-    //    for (int i = 0; i < totalDraw; i++)
-    //    {
-    //        missionList[i].GetComponent<Button>().onClick.AddListener(() =>
-    //        {
-    //            ClickMissionNumber(i);
-    //        });
-    //    }
-
-    //    SetMission(0);
-    //}
-
-
-    private void ClickMissionNumber(int num)
+    void Start()
     {
+        viewNumber = 0;
+       clearState = SaveDataManager.Instance.LoadClearList(MissionSprites.Count);
+
+        SetMission(0);
+
+    }
+
+
+    public void ClickMissionNumber(int num)
+    {
+        Debug.Log(num+ "番クリック   viewNumber=" + viewNumber);
+       
         SaveDataManager.Instance.SetMissioinNumber(num + viewNumber * totalDraw);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
 
     private void SetMission(int page)
@@ -54,6 +51,7 @@ public class MissionSelect : MonoBehaviour
         for (int i = 0; i < totalDraw; i++)
         {
             missionList[i].ChangeMissionSprite(MissionSprites[totalDraw * page + i]);
+            Debug.Log(i+"=は　クリア状態="+clearState[i]);
             if (clearState[totalDraw * page + i] == MissionClearState.NotClear)
                 missionList[i].SetClearActive(false);
             else
@@ -94,9 +92,5 @@ public class MissionSelect : MonoBehaviour
     }
     
 
-    public void ClickMissionButtone(int num)
-    {
-
-    }
 
 }

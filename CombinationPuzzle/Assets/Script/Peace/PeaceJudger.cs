@@ -541,7 +541,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
     public void CheckGameOver()
     {
         //落下したら　50上ですべてリストにいたら
-        if (PeaceManager.Instance.GetPeaceTabel.Count < PeaceManager.BoardSizeX * PeaceManager.BoardSizeY)
+        if (PeaceManager.Instance.GetPeaceTabel.Count >=PeaceManager.BoardSizeX * PeaceManager.BoardSizeY)
             return;
 
         for (int x = 0; x < PeaceManager.BoardSizeX; x++)

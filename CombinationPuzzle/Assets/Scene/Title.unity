@@ -581,6 +581,31 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 285985224}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickMissionNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e156ec7dfe125af4db2ab34e7af5492c, type: 2}
   m_IsPrefabParent: 0
@@ -780,7 +805,17 @@ MonoBehaviour:
   - {fileID: 1128684937}
   - {fileID: 1381056469}
   - {fileID: 761083877}
-  MissionSprites: []
+  MissionSprites:
+  - {fileID: 21300000, guid: 929e6bd82b2780445817467496412911, type: 3}
+  - {fileID: 21300000, guid: 929e6bd82b2780445817467496412911, type: 3}
+  - {fileID: 21300000, guid: f728261020c577c4abc785098ad16f84, type: 3}
+  - {fileID: 21300000, guid: 5d76a177f091f0745927b4383b07ed98, type: 3}
+  - {fileID: 21300000, guid: f728261020c577c4abc785098ad16f84, type: 3}
+  - {fileID: 21300000, guid: f728261020c577c4abc785098ad16f84, type: 3}
+  - {fileID: 21300000, guid: f728261020c577c4abc785098ad16f84, type: 3}
+  - {fileID: 21300000, guid: 5d76a177f091f0745927b4383b07ed98, type: 3}
+  - {fileID: 21300000, guid: 5a9e7676689e3f045a17c1fbabc1b1d0, type: 3}
+  - {fileID: 21300000, guid: 929e6bd82b2780445817467496412911, type: 3}
 --- !u!1 &295922672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1222,31 @@ Prefab:
     - target: {fileID: 1014590102614280, guid: e156ec7dfe125af4db2ab34e7af5492c, type: 2}
       propertyPath: m_Name
       value: MissionMenuSet (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 285985224}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickMissionNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e156ec7dfe125af4db2ab34e7af5492c, type: 2}
@@ -1883,6 +1943,31 @@ Prefab:
     - target: {fileID: 1014590102614280, guid: e156ec7dfe125af4db2ab34e7af5492c, type: 2}
       propertyPath: m_Name
       value: MissionMenuSet (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 285985224}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickMissionNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e156ec7dfe125af4db2ab34e7af5492c, type: 2}
@@ -3822,13 +3907,28 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 285985222}
+      objectReference: {fileID: 285985224}
     - target: {fileID: 114735476394439774, guid: e156ec7dfe125af4db2ab34e7af5492c,
         type: 2}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e05edbfdd5eedcb4bb927a8343a73919,
         type: 3}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickMissionNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e156ec7dfe125af4db2ab34e7af5492c, type: 2}
   m_IsPrefabParent: 0
@@ -3933,6 +4033,31 @@ Prefab:
       propertyPath: m_Name
       value: MissionMenuSet (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 285985224}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickMissionNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213227506953986, guid: e156ec7dfe125af4db2ab34e7af5492c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e156ec7dfe125af4db2ab34e7af5492c, type: 2}
   m_IsPrefabParent: 0
@@ -4020,6 +4145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c3a7de9e8b204b9e3796b3b8e01d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missiondata: {fileID: 11400000, guid: 58affc650ed83b942b1f08945d809239, type: 2}
 --- !u!4 &1484957220
 Transform:
   m_ObjectHideFlags: 0

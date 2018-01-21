@@ -14,17 +14,20 @@ enum MissionTypeOld
     None,
 }
 
+
+
+
 //どのタイプか、何個達成、目標
-struct MisstionData
+struct MissionDataStruct
 {
-    public MissionTypeOld missionType;
-    public int completeNum;
+    public MissionType missionType;
+    public int completeNum;//終わったら
     public int MissionNum;
     public PeaceForm peaceForm;
     public PeaceColor peaceColor;
     public void Init()
     {
-        missionType = MissionTypeOld.None;
+        missionType = MissionType.None;
         completeNum = 0;
         MissionNum = 0;
         peaceForm = PeaceForm.None;
@@ -33,9 +36,14 @@ struct MisstionData
 
 }
 
+
+
+
+
 public class Mission : MonoBehaviour
 {
-    const int MissionNum = 3;
+    #region
+    const int ConstMissionNum = 3;
 
     [SerializeField]
     Image[] MissionImage = null;
@@ -44,116 +52,172 @@ public class Mission : MonoBehaviour
     [SerializeField]
     Text[] MissionDescriptionText = null;
 
-    [SerializeField]
+    [SerializeField]//全部のほうの最後を参照する
     Sprite AllPeaceSprite = null;
 
     [SerializeField]
     CutMission cutMission = null;
 
+
+
+
+    MissionDataStruct[] missionData = new MissionDataStruct[3];
+
+
+    //Missionで使用
+    List<MissionDataStruct> missionList = new List<MissionDataStruct>();
+
     [SerializeField]
-    GameObject CharaPool = null;
+    MissionData missionDataBase = null;
+    [SerializeField]
+    MissionData marathonDataBase = null;
 
-    [Header("生成系------([0]個から～[1]個の中から)")]
-
-
-    [SerializeField, Header("最上級何個作るか")]
-    int[] CreateBest = { 1, 3 };
-    [SerializeField, Header("上級")]
-    int[] CreateAdvanced = { 2, 4 };
-
-
-    [Header("削除系------([0]個から～[1]個の中から)")]
-
-    [SerializeField, Header("何個削除(白以外)")]
-    int[] DeletePeace = { 2, 4 };
-    [SerializeField, Header("まとめて消す個数")]
-    int[] CollectNum = { 4, 5, 7 };
-    [SerializeField, Header("何回消せ")]
-    int[] DeleteCount = { 3, 6 };
-    [SerializeField, Header("最上級を何個消せ")]
-    int DeleteBestNum = 1;
-
-    string deleteStr = "消去";
-    string generationStr = "生成";
-
-
-    MisstionData[] missionData = new MisstionData[3];
+    #endregion
 
     // Use this for initialization
     void Start()
     {
-        for (int i = 0; i < MissionNum; i++)
-        {
-            SetMission(i);
-        }
+
+
+        SetMission();
     }
 
 
-    private void SetMission(int missionNum)
+    private MissionDataStruct ReturnConstructionMission(MissionData.MissionDetails missionDetails)
     {
-        while (true)
-        {
-            missionData[missionNum].Init();
-            missionData[missionNum].missionType = (MissionTypeOld)Random.Range(0, (int)MissionTypeOld.None);
-            if (CheckSuffering(missionNum) == true)
-                break;
-        }
-        switch (missionData[missionNum].missionType)
-        {
-            case MissionTypeOld.CreateBest:
-                //文字とスプライトセット
-                MissionDescriptionText[missionNum].text = generationStr;
-                missionData[missionNum].MissionNum = Random.Range(CreateBest[0], CreateBest[1] + 1);
-                UpdateCreateBestText(missionNum);
-                missionData[missionNum].peaceForm = PeaceForm.Pentagon;
-                MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + 1];
-                break;
-            case MissionTypeOld.CreateAdvanced:
-                MissionDescriptionText[missionNum].text = generationStr;
-                missionData[missionNum].MissionNum = Random.Range(CreateAdvanced[0], CreateAdvanced[1] + 1);
-                UpdateCreateBestText(missionNum);
-                missionData[missionNum].peaceForm = PeaceForm.Square;
-                MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None];
-                break;
-            case MissionTypeOld.DeletePeace:
-                MissionDescriptionText[missionNum].text = deleteStr;
-                missionData[missionNum].MissionNum = Random.Range(DeletePeace[0], DeletePeace[1] + 1);
-                UpdateCreateBestText(missionNum);
-                int r = Random.Range(0, ((int)PeaceColor.None + 1));
-                if (r != (int)PeaceColor.None)
-                {
-                    missionData[missionNum].peaceColor = (PeaceColor)r;
-                    MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[r];
-                }
-                else
-                {
-                    MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None];
-                    missionData[missionNum].peaceForm = PeaceForm.Square;
-                }
-                break;
-            case MissionTypeOld.CollectNum:
-                MissionDescriptionText[missionNum].text = "まとめて消去";
-                int num= Random.Range(0, CollectNum.Length);
-                missionData[missionNum].MissionNum = CollectNum[num];
-                MissionCountText[missionNum].text = missionData[missionNum].MissionNum + "個";
-                MissionImage[missionNum].sprite = AllPeaceSprite;
-                break;
-            case MissionTypeOld.DeleteCount:
+        MissionDataStruct data = new MissionDataStruct();
+        data.Init();
+        data.missionType = missionDetails.missionType;
+        data.MissionNum = missionDetails.number;
+        data.peaceColor = missionDetails.peaceColor;
+        data.peaceForm = missionDetails.peaceForm;
 
-                MissionDescriptionText[missionNum].text = "回数消去";
-                missionData[missionNum].MissionNum = Random.Range(DeleteCount[0], DeleteCount[1]);
-                UpdateCreateBestText(missionNum);
-                MissionImage[missionNum].sprite = AllPeaceSprite;
-                break;
-            case MissionTypeOld.DeleteBestNum:
-                MissionDescriptionText[missionNum].text = "消去";
-                MissionCountText[missionNum].text = DeleteBestNum + "個";
-                MissionImage[missionNum].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + 1];
-                missionData[missionNum].peaceForm = PeaceForm.Pentagon;
-                break;
-        }
+        return data;
 
     }
+
+    //個数文字、画像、生成
+
+    private void SetDraw(int num, MissionDataStruct missionDataStruct)
+    {
+
+        //画像
+        //間違えてcolorいれられる可能性があるので先にformをチェックする
+        if (missionDataStruct.peaceForm == PeaceForm.Pentagon || missionDataStruct.peaceForm == PeaceForm.Square)
+        {
+            MissionImage[num].sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + (int)missionDataStruct.peaceForm - 1];
+        }
+        else if (missionDataStruct.peaceColor != PeaceColor.None)
+        {
+            MissionImage[num].sprite = PeaceGenerator.Instance.PeaceSprites[(int)missionDataStruct.peaceColor];
+        }
+        else
+        {
+            MissionImage[num].sprite = AllPeaceSprite;
+        }
+
+        Debug.Log("目標数 " + missionData[num].MissionNum);
+        switch (missionDataStruct.missionType)
+        {
+            case MissionType.Delete:
+                MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "個";
+                MissionDescriptionText[num].text = "消去";
+                break;
+            case MissionType.CountDelete:
+                MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "回";
+                MissionDescriptionText[num].text = "回数消去";
+                break;
+
+            case MissionType.SameDelete:
+                MissionCountText[num].text = missionData[num].MissionNum + "個";
+                MissionDescriptionText[num].text = "同時消去";
+                break;
+
+            case MissionType.MakePeace:
+                MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "個";
+                MissionDescriptionText[num].text = "生成";
+                break;
+
+            default:
+                Debug.Log("MissionSetDrawError");
+                break;
+
+
+
+        }
+
+
+    }
+
+    private void SetMission()
+    {
+        if (Mode.Mission == SaveDataManager.Instance.GetMode)
+        {
+
+            for (int missionCounter = 0
+                ; missionCounter < missionDataBase.Elements[SaveDataManager.Instance.GetMissionNumber].MissionList.Count; missionCounter++)
+            {
+                missionList.Add(ReturnConstructionMission(missionDataBase.Elements[SaveDataManager.Instance.GetMissionNumber].MissionList[missionCounter]));
+            }
+            //3つまではセット、表示する
+            //それより少ない場合は、他非表示にする
+
+            if (missionList.Count >= ConstMissionNum)
+            {
+                for (int i = 0; i < ConstMissionNum; i++)
+                {
+                    missionData[i] = missionList[i];
+                    SetDraw(i, missionList[i]);
+                }
+            }
+            else
+            {
+                Debug.Log("3つより少ない");
+                for (int i = 0; i < missionList.Count; i++)
+                {
+                    Debug.Log("リストから" + i);
+                    missionData[i] = missionList[i];
+                    SetDraw(i, missionList[i]);
+                }
+                //余計なのは非表示
+                for (int i = missionList.Count; i < ConstMissionNum; i++)
+                {
+                    Debug.Log("無し" + i);
+                    SetNonePeace(i);
+                }
+
+            }
+        }
+        else//Marathon
+        {
+            //一旦ランダムに決める
+            /*
+             *Marathonデータから（今はMission）の中からランダムに選択
+             * 被ったらやり直し
+             *画像もセット
+             * 
+             */
+            for (int i = 0; i < ConstMissionNum; i++)
+            {
+                int r = Random.Range(0, missionDataBase.Elements.Count);
+                int r2 = Random.Range(0, missionDataBase.Elements[r].MissionList.Count);
+                Debug.Log(r + "   " + r2 + "  " + missionDataBase.Elements[r].MissionList[r2].number);
+                MissionDataStruct ms = ReturnConstructionMission(missionDataBase.Elements[r].MissionList[r2]);
+                Debug.Log("ms の数" + ms.MissionNum);
+                missionData[i] = ms;
+                SetDraw(i, ms);
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    if (SameMissionDataStruct(ms, missionData[j]))//前のとかぶって似ないか
+                    {
+                        i--;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
 
 
     /// <summary>
@@ -163,7 +227,7 @@ public class Mission : MonoBehaviour
     /// <returns></returns>
     private bool CheckSuffering(int targetNum)//TODO:今は同じミッションはできない
     {
-        for (int i = 0; i < MissionNum; i++)
+        for (int i = 0; i < ConstMissionNum; i++)
         {
             if (i == targetNum) continue;
             if (missionData[i].missionType == missionData[targetNum].missionType)
@@ -172,27 +236,23 @@ public class Mission : MonoBehaviour
         return true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-
-    }
 
     public void CheckMission(List<Peace> deletePeaceList, Peace generationPeace)
     {
-        for (int i = 0; i < MissionNum; i++)
+
+        bool addCount = false;
+
+        for (int i = 0; i < ConstMissionNum; i++)
         {
             switch (missionData[i].missionType)
             {
-                #region 生成
-                case MissionTypeOld.CreateBest:
+                case MissionType.MakePeace:
                     if (generationPeace != null)
                     {
-                        if (generationPeace.GetPeaceForm == PeaceForm.Square)
+                        if (generationPeace.GetPeaceForm == missionData[i].peaceForm - 1)
                         {
                             missionData[i].completeNum++;
-                            UpdateCreateBestText(i);
+                            UpdatePercentText(i);
                             if (missionData[i].completeNum >= missionData[i].MissionNum)
                             {
                                 ClearMisstion(i);
@@ -200,95 +260,197 @@ public class Mission : MonoBehaviour
                         }
                     }
                     break;
-                case MissionTypeOld.CreateAdvanced:
-                    if (generationPeace != null)
+
+                case MissionType.Delete:
+
+                    addCount = false;
+                    if (missionData[i].peaceForm == PeaceForm.Square && deletePeaceList[0].GetPeaceForm == PeaceForm.Square ||
+                        missionData[i].peaceForm == PeaceForm.Pentagon && deletePeaceList[0].GetPeaceForm == PeaceForm.Pentagon)
                     {
-                        if (generationPeace.GetPeaceForm == PeaceForm.Triangle)
-                        {
-                            missionData[i].completeNum++;
-                            UpdateCreateBestText(i);
-                            if (missionData[i].completeNum >= missionData[i].MissionNum)
-                            {
-                                ClearMisstion(i);
-                            }
-                        }
+                        addCount = true;
+                    }//三角形//三角形で、おんなじ色だったら
+                    else if (deletePeaceList[0].GetPeaceColor == missionData[i].peaceColor &&
+                        deletePeaceList[0].GetPeaceForm == PeaceForm.Triangle)
+                    {
+                        addCount = true;
                     }
-                    break;
-                #endregion
-                #region 削除
-                case MissionTypeOld.DeletePeace:
-                    if (missionData[i].peaceColor == deletePeaceList[0].peaceColor && deletePeaceList[0].GetPeaceForm == PeaceForm.Triangle
-                        || missionData[i].peaceForm == deletePeaceList[0].GetPeaceForm)
+                    else if (missionData[i].peaceForm == PeaceForm.None && missionData[i].peaceColor == PeaceColor.None)//どの種類でもいい
+                    {
+                        addCount = true;
+                    }
+
+                    if (addCount == true)
                     {
                         missionData[i].completeNum += deletePeaceList.Count;
-                        UpdateCreateBestText(i);
+                        UpdatePercentText(i);
                         if (missionData[i].completeNum >= missionData[i].MissionNum)
                         {
                             ClearMisstion(i);
                         }
                     }
 
+
                     break;
-                case MissionTypeOld.CollectNum:
-                    if(deletePeaceList.Count>=missionData[i].MissionNum)
+                case MissionType.CountDelete:
+
+                    addCount = false;
+                    if (missionData[i].peaceForm == PeaceForm.Square && deletePeaceList[0].GetPeaceForm == PeaceForm.Square ||
+                        missionData[i].peaceForm == PeaceForm.Pentagon && deletePeaceList[0].GetPeaceForm == PeaceForm.Pentagon)
+                        addCount = true;
+                    else if (deletePeaceList[0].GetPeaceColor == missionData[i].peaceColor &&
+                   deletePeaceList[0].GetPeaceForm == PeaceForm.Triangle)
+                        addCount = true;
+                    else if (missionData[i].peaceForm == PeaceForm.None && missionData[i].peaceColor == PeaceColor.None)//どの種類でもいい
+                        addCount = true;
+
+                    if (addCount == true)
+                    {
+                        missionData[i].completeNum++;
+                        MissionCountText[i].text = missionData[i].completeNum + "/" + missionData[i].MissionNum + "回";
+                        if (missionData[i].completeNum >= missionData[i].MissionNum)
+                        {
+                            ClearMisstion(i);
+                        }
+                    }
+                    break;
+
+                case MissionType.SameDelete:
+
+                    addCount = false;
+                    if (missionData[i].peaceForm == PeaceForm.Square && deletePeaceList[0].GetPeaceForm == PeaceForm.Square ||
+                        missionData[i].peaceForm == PeaceForm.Pentagon && deletePeaceList[0].GetPeaceForm == PeaceForm.Pentagon)
+                        addCount = true;
+                    else if (deletePeaceList[0].GetPeaceColor == missionData[i].peaceColor &&
+                   deletePeaceList[0].GetPeaceForm == PeaceForm.Triangle)
+                        addCount = true;
+                    else if (missionData[i].peaceForm == PeaceForm.None && missionData[i].peaceColor == PeaceColor.None)//どの種類でもいい
+                        addCount = true;
+
+                    if (addCount == true && deletePeaceList.Count >= missionData[i].MissionNum)
                     {
                         ClearMisstion(i);
                     }
                     break;
-                case MissionTypeOld.DeleteCount:
-                    missionData[i].completeNum++;
-                    UpdateCreateBestText(i);
-                    if (missionData[i].completeNum >= missionData[i].MissionNum)
-                    {
-                        ClearMisstion(i);
-                    }
-                    break;
-                case MissionTypeOld.DeleteBestNum://TODO:4個以上に対応してない
-                    if(deletePeaceList[0].GetPeaceForm==PeaceForm.Pentagon)
-                    {
-                        ClearMisstion(i);
-                    }
-                    break;
+
                 default:
+                    Debug.Log("default" + i);
                     break;
-                    #endregion
             }
 
         }
-
     }
 
-    private void UpdateCreateBestText(int missionNum)
+    private void UpdatePercentText(int missionNum)
     {
         MissionCountText[missionNum].text = missionData[missionNum].completeNum + "/" + missionData[missionNum].MissionNum + "個";
+    }
+
+    private void SetNonePeace(int missionNum)
+    {
+        MissionImage[missionNum].gameObject.SetActive(false);
+        MissionDescriptionText[missionNum].gameObject.SetActive(false);
+        MissionCountText[missionNum].gameObject.SetActive(false);
+        //判定しないように残りはNone入れる
+        MissionDataStruct dataStruct = new MissionDataStruct();
+        dataStruct.Init();
+        missionData[missionNum] = dataStruct;
     }
 
     private void ClearMisstion(int missionNum)
     {
 
-        SpriteSlicer2D.SliceSprite(MissionImage[0].gameObject.transform.position+new Vector3(-1000, 0), MissionImage[0].gameObject.transform.position +new Vector3(1000, 0), MissionImage[0].gameObject);
-        SpriteSlicer2D.ShatterSprite(MissionImage[0].gameObject,100);
-        cutMission.SetCutEffect(AllPeaceSprite,missionNum,missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
+        Debug.Log("ClearMisstion  " + missionNum + "     " + missionData[missionNum].missionType);
+        cutMission.SetCutEffect(AllPeaceSprite, missionNum, missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
         if (SaveDataManager.Instance.GetMode == Mode.Mission)
         {
-            MissionImage[missionNum].gameObject.SetActive(false);
-            missionData[missionNum].missionType = MissionTypeOld.None;
+            int listNum = -1;
+            for (int i = 0; i < missionList.Count; i++)
+            {
+                if (SameMissionDataStruct(missionList[i], missionData[missionNum]))
+                {
+                    listNum = i;
+                    break;
+                }
+            }
+            Debug.Log("削除" + listNum);
+            missionList.RemoveAt(listNum);
+
+            if (missionList.Count >= ConstMissionNum)
+            {
+                missionData[missionNum] = missionList[ConstMissionNum - 1];
+                SetDraw(missionNum, missionData[missionNum]);
+            }
+            else
+            {
+                SetNonePeace(missionNum);
+            }
+
+            if (missionList.Count == 0)
+                GameSystem.Instance.Clear();
         }
         else
         {
-            SetMission(missionNum);
-                //Marathonなら補充
+            //Marathonなら補充
 
+            while (true)
+            {
+                int r = Random.Range(0, missionDataBase.Elements.Count);
+                int r2 = Random.Range(0, missionDataBase.Elements[r].MissionList.Count);
+                Debug.Log(r + "   " + r2 + "  " + missionDataBase.Elements[r].MissionList[r2].number);
+                MissionDataStruct ms = ReturnConstructionMission(missionDataBase.Elements[r].MissionList[r2]);
+                missionData[missionNum] = ms;
+                SetDraw(missionNum, ms);
+
+                bool Same = false;
+                for (int i = 0; i < ConstMissionNum; i++)
+                {
+                    if (i == missionNum)
+                        continue;
+                    if (SameMissionDataStruct(ms, missionData[i]))//前のとかぶって似ないか
+                    {
+                        Same = true;
+                    }
+                }
+                if (Same == false)
+                    break;
+            }
         }
 
         GameSystem.Instance.TimerControl(0, 0, GameSystem.Instance.CompleteAddTime);
 
-        for (int i = 0; i < MissionNum; i++)
+        for (int i = 0; i < ConstMissionNum; i++)
         {
-            if (missionData[i].missionType != MissionTypeOld.None) return;
+            // if (missionData[i].missionType != MissionTypeOld.None) return;
 
         }
         //すべてNoneだったらクリア
-        GameSystem.Instance.Clear();
+        // GameSystem.Instance.Clear();
     }
+
+
+    //public MissionType missionType;
+    //public int completeNum;//終わったら
+    //public int MissionNum;
+    //public PeaceForm peaceForm;
+
+
+    private bool SameMissionDataStruct(MissionDataStruct missionDataStruct1, MissionDataStruct missionDataStruct2)
+    {
+
+        //今の個数以外が合ってればいいのでは
+
+        if (missionDataStruct1.missionType != missionDataStruct2.missionType)
+            return false;
+        //if (missionDataStruct1.completeNum != missionDataStruct2.completeNum)
+        //    return false;
+        if (missionDataStruct1.MissionNum != missionDataStruct2.MissionNum)
+            return false;
+        if (missionDataStruct1.peaceForm != missionDataStruct2.peaceForm)
+            return false;
+        if (missionDataStruct1.peaceColor != missionDataStruct2.peaceColor)
+            return false;
+
+        return true;
+    }
+
 }

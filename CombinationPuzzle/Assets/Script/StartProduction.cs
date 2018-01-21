@@ -6,12 +6,7 @@ using UnityEngine.UI;
 public class StartProduction : MonoBehaviour
 {
     //activeではいけないもの
-    [SerializeField]
-    GameObject PeaceManager = null;
-    [SerializeField]
-    GameObject MissionManager = null;
-    [SerializeField]
-    GameObject MissionImage = null;
+
     [SerializeField]
     GameObject inputManager = null;
     [SerializeField]
@@ -35,25 +30,68 @@ public class StartProduction : MonoBehaviour
     [SerializeField]
     GameObject MissionSet = null;
     [SerializeField]
-    Text MissionHiScoreText = null;
+    Text MarathonHiScoreText = null;
 
     [SerializeField]
     GameObject MarathonSet = null;
+
+    //Mission関係
+    //Missionタイトル、各絵、制限時間
+    [SerializeField]
+    MissionData missionData = null;
+
+    [SerializeField]
+    Text MissionTitle = null;
+    [SerializeField]
+    Text MissionLimitTime = null;
+    [SerializeField]
+    MissionStartIcon missionStartPrefab = null;
+    [SerializeField]
+    RectTransform rectTransform;
+    [SerializeField]
+    float SlideX = 10;
 
 
     private void Start()
     {
         if (SaveDataManager.Instance.GetMode == Mode.Mission)
         {
+
             MissionSet.SetActive(true);
+            MissionTitle.text = "「" + missionData.Elements[SaveDataManager.Instance.GetMissionNumber].MissionName + "」";
+            int limit = missionData.Elements[SaveDataManager.Instance.GetMissionNumber].LmiteTime;
+            string timeString = "";
+            if (limit >= 60)
+            {
+                timeString += limit / 60 + "分";
+            }
+            if (limit % 60 != 0)
+            {
+                timeString += limit % 60 + "秒";
+            }
+            MissionLimitTime.text = timeString;
+
+
+
         }
         else
         {
             MarathonSet.SetActive(true);
 
-            MissionHiScoreText.text = SaveDataManager.Instance.GetMarathonHiScore.ToString() + "点";
+            MarathonHiScoreText.text = SaveDataManager.Instance.GetMarathonHiScore.ToString() + "点";
         }
     }
+
+    void SetDrawIcon(MissionData.MissionParams details, RectTransform rect, float RightSlide)
+    {
+        for (int i = 0; i < details.MissionList.Count; i++)
+        {
+           //画像、個数、消去
+
+
+        }
+    }
+
 
 
     private void Update()
@@ -72,9 +110,7 @@ public class StartProduction : MonoBehaviour
         //Activeにしなければならないのをする
         DrawTopWindow.SetActive(false);
 
-        PeaceManager.SetActive(true);
-        MissionManager.SetActive(true);
-        MissionImage.SetActive(true);
+   
         inputManager.SetActive(true);
         GameSystem.Instance.StartGame();
         ////////////

@@ -63,7 +63,10 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     }
     private bool isTimeStop = false;
 
-
+    public bool StopTimeFlag
+    {
+        get { return isTimeStop; }
+    }
     //得点
     private int score = 0;
     public int GetScore
@@ -102,10 +105,14 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     [SerializeField]
     GenerationCollision generationCollision = null;
 
+
+    public bool MissionClear = false;
+
     // Use this for initialization
     void Start()
     {
 
+     //   isTimeStop = true;
         MyDebug.text = ResultText;
         remainingTime = SetLimitTime;
         isGameOver = false;
@@ -155,9 +162,10 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
 
     public void Clear()
     {
-        // isGameOver = true;
-        ResultText.text = "Clear!";
-        StopTime();
+        MissionClear = true;
+        Debug.Log("くりあ");
+        isTimeStop = true;
+        GameOver();
     }
 
     //いったん操作できてしまう

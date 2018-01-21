@@ -21,7 +21,12 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
         set { mode = value; }
     }
 
-
+    [SerializeField]
+    private MissionData missiondata = null;
+    public MissionData GetMissionData
+    {
+        get { return missiondata; }
+    }
 
     //マラソンモード----------------
 
@@ -49,6 +54,7 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
     }
 
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -71,10 +77,16 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
         string kye;
         for (int i = 0; i < num; i++)
         {
-            kye = "ClearMission" + num.ToString();
-            ClearList.Add((MissionClearState)PlayerPrefs.GetInt(kye, (int)MissionClearState.NotClear));
+            kye = "ClearMission" + i.ToString();
+            ClearList.Add((MissionClearState)PlayerPrefs.GetInt(kye));
         }
         return ClearList;
+    }
+    public void SaveClearMission()
+    {
+        string kye = "ClearMission" + missionNumer.ToString();
+        PlayerPrefs.SetInt(kye, (int)MissionClearState.Clear);
+        PlayerPrefs.Save();
     }
 
     public void SetMissioinNumber(int num)

@@ -62,7 +62,7 @@ public class Result : MonoBehaviour
 
             MarathonDrawWindow.SetActive(true);
             //タイトル、すこあ、プレイ時間、ハイスコアをセットする
-            MarathonTitleText.text = "「" + "実験代用" + "」";//後で買える
+            MarathonTitleText.text = "「永久之道」";
             MarathonScoreText.text = GameSystem.Instance.GetScore + "点";
 
             MarathonTotleTimeText.text = ReturnTime((int)GameSystem.Instance.GetTotalTime);
@@ -79,12 +79,12 @@ public class Result : MonoBehaviour
             Debug.Log("リザルトMarathon");
 
             MissionWindow.SetActive(true);
-            MissionTitleText.text = "「永久之道」";
-            if (true)//クリアだったら
+            MissionTitleText.text = "「"+SaveDataManager.Instance.GetMissionData.Elements[SaveDataManager.Instance.GetMissionNumber].MissionName +"」";
+            if (GameSystem.Instance.MissionClear)
             {
                 ResultImage.sprite = ClearSprite;
                 MissionClearTime.text = "クリアタイム    " + ReturnTime((int)GameSystem.Instance.GetTotalTime);
-
+                SaveDataManager.Instance.SaveClearMission();
             }
             else
             {

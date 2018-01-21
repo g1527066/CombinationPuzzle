@@ -66,31 +66,6 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 
     }
 
-
-    //public void AllGeneration(Dictionary<POINT, Peace> dictionary, PeaceJudger peaceJudger)
-    //{
-    //    PeaceColor addPeaceType;
-    //    for (int i = 0; i < PeaceManager.BoardSizeY; i++)
-    //    {
-    //        for (int j = 0; j < PeaceManager.BoardSizeX; j++)
-    //        {
-    //            addPeaceType = (PeaceColor)UnityEngine.Random.Range(0, (int)PeaceColor.None);
-    //            Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
-    //            peace.peaceColor = addPeaceType;
-    //            peace.point = new POINT(j, i);
-    //            if (PeaceJudger.Instance.CurrentDeletable(dictionary, peace))
-    //            {
-    //                Destroy(peace.gameObject);
-    //                j--;
-    //                continue;
-    //            }
-    //            peace.transform.SetParent(PeacePool.transform, false);
-    //            peace.SetSprite(PeaceSprites[(int)peace.peaceColor]);
-    //            dictionary.Add(peace.point, peace);
-    //        }
-    //    }
-    //}
-
     //TODO:直す
     public Peace ChangeNextForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
     {
@@ -227,6 +202,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 
     void Update()
     {
+        if(GameSystem.Instance.StopTimeFlag==false)
         GenerationDropPeace();
     }
 }
