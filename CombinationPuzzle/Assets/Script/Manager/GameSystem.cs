@@ -18,41 +18,6 @@ static class MyDebug
 
 public class GameSystem : SingletonMonoBehaviour<GameSystem>
 {
-    //タイム関係
-    [SerializeField]//
-    private float SetLimitTime = 10f;
-
-    [SerializeField]
-    public float CompleteAddTime = 10f;
-    [SerializeField]
-    private float BestDeleteAddTime = 1f;
-    [SerializeField]
-    private float SummaryDeleteAddTime = 0.3f;
-    [SerializeField]
-    public int SummaryDeleteAddCount = 4;
-
-    //残り時間
-    private float remainingTime = 0;
-    public float RemainingTime
-    {
-        get
-        {
-            return remainingTime;
-        }
-    }
-
-    [SerializeField]
-    private Text TimeText = null;
-    [SerializeField]
-    Slider TimeSlider = null;
-
-    //企画さんが設定できるように数値、、、
-    //削除までの時間
-    public float DeleteTime = 1.6f;
-    //peace削除の点滅の時間
-    public float flashingTime = 0.2f;
-
-
     [SerializeField]
     private Text ResultText = null;
 
@@ -61,12 +26,7 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     {
         get { return isGameOver; }
     }
-    private bool isTimeStop = false;
 
-    public bool StopTimeFlag
-    {
-        get { return isTimeStop; }
-    }
     //得点
     private int score = 0;
     public int GetScore
@@ -83,77 +43,48 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     [SerializeField, Header("一気削除追加得点")]
     private int CollectDeletePoint = 10;
 
-
     [SerializeField]
     Text ScoreText = null;
     [SerializeField]
     GameObject ChallengeWindow = null;
 
-
-    [SerializeField]
-    GameObject Timer = null;
-
-    float totalTime = 0;
-    public float GetTotalTime
-    {
-        get
-        {
-            return totalTime;
-        }
-    }
-
     [SerializeField]
     GenerationCollision generationCollision = null;
 
-
     public bool MissionClear = false;
+
+    [SerializeField]
+    Timer timer = null;
+    public Timer GetTimer
+    {
+        get
+        {
+            return timer;
+        }
+    }
+
 
     // Use this for initialization
     void Start()
     {
-
-     //   isTimeStop = true;
-        MyDebug.text = ResultText;
-        remainingTime = SetLimitTime;
         isGameOver = false;
-
-        TimeSlider.maxValue = SetLimitTime;
-        TimeSlider.value = 0;
-        if (SaveDataManager.Instance.GetMode == Mode.Marathon)
-            Timer.SetActive(false);
-        isTimeStop = true;
     }
 
     public void StartGame()
     {
-        isTimeStop = false;
+        timer.SetTimeStop = false;
         generationCollision.GenerationCol();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (SaveDataManager.Instance.GetMode == Mode.Mission && isGameOver == false && isTimeStop == false)
+        if (SaveDataManager.Instance.GetMode == Mode.Mission && isGameOver == false && timer.StopTimeFlag == false)
         {
-            //一旦タイム制限無し
-            if (remainingTime < 0)
-            {
-                GameOver();
-            }
-            remainingTime -= Time.deltaTime;
-            TimerControl(0, 0, 0);
+            timer.TimerUpDatMissione();
         }
-
-        if (isTimeStop == false)
-            totalTime += Time.deltaTime;
     }
 
-    public void TimerControl(int SummaryCount, int BestCount, float addTime)
-    {
-        remainingTime += SummaryCount * SummaryDeleteAddTime + BestDeleteAddTime * BestCount + addTime;
-        TimeText.text = (int)remainingTime / 60 + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
-        TimeSlider.value = remainingTime;
-    }
 
     public void ResetScene()
     {
@@ -164,16 +95,8 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     {
         MissionClear = true;
         Debug.Log("くりあ");
-        isTimeStop = true;
+        timer.SetTimeStop = true;
         GameOver();
-    }
-
-    //いったん操作できてしまう
-    public void StopTime()
-    {
-        isTimeStop = !isTimeStop;
-        ChallengeWindowActive();
-        // ResultText.gameObject.SetActive(false);
     }
 
     private void UpdateScore()
@@ -206,9 +129,6 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
             ChallengeWindow.SetActive(false);
     }
 
-
-
-
     public void TestDebugPeace()
     {
         Debug.Log("---------------------------------------------------");
@@ -229,18 +149,15 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     public void GameOver()
     {
         isGameOver = true;
-        //if (isTimeStop == false)
-        //    StopTime();//一旦テスト用にコメント
-        //  ResultText.text = "GameOver!";
 
         EndImage.gameObject.SetActive(true);
 
+        AudioManager.Instance.PlaySE("PAZ_SE_Result");
         EndImage.sprite = EndSprite;
 
         StartCoroutine(ChangeResult());
 
     }
-
 
     private IEnumerator ChangeResult()
     {
@@ -251,6 +168,4 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
 
 
     }
-
-
 }

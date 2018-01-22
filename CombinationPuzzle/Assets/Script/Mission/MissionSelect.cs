@@ -40,8 +40,9 @@ public class MissionSelect : MonoBehaviour
 
     public void ClickMissionNumber(int num)
     {
+        AudioManager.Instance.PlaySE("PAZ_SE_OK");
         Debug.Log(num+ "番クリック   viewNumber=" + viewNumber);
-       
+        SaveDataManager.Instance.SetMode = Mode.Mission;
         SaveDataManager.Instance.SetMissioinNumber(num + viewNumber * totalDraw);
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }

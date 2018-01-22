@@ -36,6 +36,7 @@ public class SelectScene : MonoBehaviour {
 
     public void PushMarathonMode()
     {
+        AudioManager.Instance.PlaySE("PAZ_SE_OK");
         SaveDataManager.Instance.SetMode = Mode.Marathon;
         SceneManager.LoadScene("Main");
     }

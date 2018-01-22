@@ -416,7 +416,7 @@ public class Mission : MonoBehaviour
             }
         }
 
-        GameSystem.Instance.TimerControl(0, 0, GameSystem.Instance.CompleteAddTime);
+        GameSystem.Instance.GetTimer.TimerControl(0, 0, GameSystem.Instance.GetTimer.CompleteAddTime);
 
         for (int i = 0; i < ConstMissionNum; i++)
         {

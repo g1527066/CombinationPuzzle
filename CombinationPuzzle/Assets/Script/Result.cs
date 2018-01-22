@@ -65,7 +65,7 @@ public class Result : MonoBehaviour
             MarathonTitleText.text = "「永久之道」";
             MarathonScoreText.text = GameSystem.Instance.GetScore + "点";
 
-            MarathonTotleTimeText.text = ReturnTime((int)GameSystem.Instance.GetTotalTime);
+            MarathonTotleTimeText.text = ReturnTime((int)GameSystem.Instance.GetTimer.GetTotalTime);
 
             //今回のがハイスコアより高ければセット
             Debug.Log(SaveDataManager.Instance.GetMarathonHiScore+"過去のハイスコア    今回＝"+ GameSystem.Instance.GetScore);
@@ -83,7 +83,7 @@ public class Result : MonoBehaviour
             if (GameSystem.Instance.MissionClear)
             {
                 ResultImage.sprite = ClearSprite;
-                MissionClearTime.text = "クリアタイム    " + ReturnTime((int)GameSystem.Instance.GetTotalTime);
+                MissionClearTime.text = "クリアタイム    " + ReturnTime((int)GameSystem.Instance.GetTimer.GetTotalTime);
                 SaveDataManager.Instance.SaveClearMission();
             }
             else
@@ -99,7 +99,7 @@ public class Result : MonoBehaviour
 
 
     //秒(int)を渡すと。秒フンつけてかえってくる
-    private string ReturnTime(int time)
+    public static string ReturnTime(int time)
     {
         string playTimeString = "";
         if (time / 60 != 0)

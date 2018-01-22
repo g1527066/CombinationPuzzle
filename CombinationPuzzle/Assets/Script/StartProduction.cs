@@ -98,6 +98,7 @@ public class StartProduction : MonoBehaviour
     {
         if (tapFlag == false && null == tapStart)
         {
+            AudioManager.Instance.PlaySE("PAZ_SE_Start");
             tapFlag = true;
             StartCoroutine(DeleteStart());
         }

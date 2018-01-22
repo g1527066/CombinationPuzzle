@@ -40,6 +40,12 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
     }
     const string MarathonHiScoreKye = "MarathonHiScore";
 
+    [SerializeField]
+    private MissionData marathondata = null;
+    public MissionData GetMarathonData
+    {
+        get { return marathondata; }
+    }
 
 
     //ミッションモード-------------------
@@ -58,7 +64,6 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
     protected override void Awake()
     {
         base.Awake();
-
 
         LoadMarathonHiScore();
 
@@ -96,5 +101,6 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
     public void SetMarathonHiScore(int num)
     {
         PlayerPrefs.SetInt(MarathonHiScoreKye, num);
+        MarathonHiScore = num;
     }
 }

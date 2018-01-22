@@ -78,11 +78,11 @@ public abstract class Peace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isMatching)
+        if (isMatching&&GameSystem.Instance.GetTimer.StopTimeFlag==false)
         {
             deleteTime += Time.deltaTime;
             flashingTime += Time.deltaTime;
-            if (flashingTime > GameSystem.Instance.flashingTime)
+            if (flashingTime > GameSystem.Instance.GetTimer.flashingTime)
             {
                 flashingTime = 0;
 
@@ -94,7 +94,7 @@ public abstract class Peace : MonoBehaviour
                 isNoColor = !isNoColor;
             }
 
-            if (deleteTime > GameSystem.Instance.DeleteTime)
+            if (deleteTime > GameSystem.Instance.GetTimer.DeleteTime)
             {
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
@@ -139,9 +139,14 @@ public abstract class Peace : MonoBehaviour
 
     private IEnumerator DownMovePeace()
     {
+   
 
         while (IsDuringFall)
         {
+            while (GameSystem.Instance.GetTimer.StopTimeFlag == true)
+            {
+                yield return null;
+            }
             RectTransform.anchoredPosition -= new Vector2(0, PeaceOperator.Instance.downSpeed);
 
             if (downPosition >= RectTransform.anchoredPosition.y)

@@ -40,7 +40,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         {
             return true;
         }
-
+        Debug.Log("左開始");
         //左
         count = 0;
         for (int i = p.X - 1; i >= 0; i--)
@@ -57,6 +57,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         {
             return true;
         }
+        Debug.Log("終了");
         return false;
     }
 
@@ -262,11 +263,11 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
 
             //時間追加
             int summaryCount = 0, bestCount = 0;
-            if (nowDeletePoint.deleteCounter >= GameSystem.Instance.SummaryDeleteAddCount)
+            if (nowDeletePoint.deleteCounter >= GameSystem.Instance.GetTimer.SummaryDeleteAddCount)
                 summaryCount = nowDeletePoint.deleteCounter;
             if (nowDeletePoint.deletePeaceList[0].GetPeaceForm == PeaceForm.Pentagon)
                 bestCount = nowDeletePoint.deleteCounter;
-            GameSystem.Instance.TimerControl(summaryCount, bestCount, 0);
+            GameSystem.Instance.GetTimer.TimerControl(summaryCount, bestCount, 0);
 
             //判定
             mission.CheckMission(nowDeletePoint.deletePeaceList, nowDeletePoint.nextGenerationPeace);

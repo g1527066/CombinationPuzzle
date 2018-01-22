@@ -32,7 +32,33 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 
     public void Start()
     {
+
+
+
+        //[SerializeField, Header("初期生成 速度")]
+        //float InitialGenerationSpeed = 3.0f;
+        ////行ったん確認用に早く
+        //[SerializeField, Header("何秒で生成頻度が早くなるか")]
+        //float SpeedUpInterval = 5.0f;
+        //[SerializeField, Header("何秒早くなるか")]
+        //float SpeedUpTime = 0.5f;
+        if (Mode.Mission == SaveDataManager.Instance.GetMode)
+        {
+            InitialGenerationSpeed = SaveDataManager.Instance.GetMissionData.Elements[SaveDataManager.Instance.GetMissionNumber].FallFrequency;
+            SpeedUpInterval = SaveDataManager.Instance.GetMissionData.Elements[SaveDataManager.Instance.GetMissionNumber].LmiteTime;
+            SpeedUpTime = SaveDataManager.Instance.GetMissionData.Elements[SaveDataManager.Instance.GetMissionNumber].minusTime;
+        }
+        else
+        {
+            //TODO;Marathonデータを作って参照させたらコメントはずす　
+            //InitialGenerationSpeed = SaveDataManager.Instance.GetMarathonData.Elements[0].FallFrequency;
+            //SpeedUpInterval = SaveDataManager.Instance.GetMarathonData.Elements[0].LmiteTime;
+            //SpeedUpTime = SaveDataManager.Instance.GetMarathonData.Elements[0].minusTime;
+        }
+
         generationFrequencyTime = InitialGenerationSpeed;
+
+
     }
 
     //トローゼ方式初期化
@@ -49,6 +75,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
                 peace.peaceColor = addPeaceType;
                 peace.point = new POINT(countX, countY);
+                Debug.Break();
                 if (PeaceJudger.Instance.CurrentDeletable(PeaceManager.Instance.GetPeaceTabel, peace))
                 {
                     Destroy(peace.gameObject);
@@ -117,7 +144,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 return;
             }
         }
-        Debug.LogError("上に追加できません  "+deletePeace.point.X+ "  Y="+deletePeace.point.Y);
+        Debug.LogError("上に追加できません  " + deletePeace.point.X + "  Y=" + deletePeace.point.Y);
     }
 
     /// <summary>
@@ -176,18 +203,18 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 PeaceOperator.Instance.ResetPosition(PeaceManager.Instance.stockPeaceList[0]);
                 PeaceOperator.Instance.AddDrop(PeaceManager.Instance.stockPeaceList[0]);
                 PeaceManager.Instance.stockPeaceList.RemoveAt(0);
-                
+
             }
             else//新しく生成
             {
                 Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
                 peace.transform.SetParent(PeacePool.transform, false);
-                peace.point = new POINT(generationX,0);
+                peace.point = new POINT(generationX, 0);
                 AddToTopPeace(PeaceManager.Instance.GetPeaceTabel, peace);
                 PeaceOperator.Instance.ResetPosition(peace);
                 PeaceOperator.Instance.AddDrop(peace);
             }
-    
+
 
             generationTotalTime = 0;
             //Debug.Log("生成　X=" + generationX + "   全体数=" + PeaceManager.Instance.GetPeaceTabel.Count);
@@ -202,7 +229,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 
     void Update()
     {
-        if(GameSystem.Instance.StopTimeFlag==false)
-        GenerationDropPeace();
+        if (GameSystem.Instance.GetTimer.StopTimeFlag == false)
+            GenerationDropPeace();
     }
 }
