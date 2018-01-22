@@ -45,7 +45,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         count = 0;
         for (int i = p.X - 1; i >= 0; i--)
         {
-            if (dictionary.ContainsKey(new POINT(p.X, i)) == false) break;
+            if (dictionary.ContainsKey(new POINT(i, p.Y)) == false) break;
             if (dictionary[new POINT(i, p.Y)].peaceColor == judgeAddPeace.peaceColor)
             {
                 count++;

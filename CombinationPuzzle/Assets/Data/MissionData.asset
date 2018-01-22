@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elements:
   - MissionName: "\u96FB\u5149\u77F3\u706B"
-    LmiteTime: 60
+    LmiteTime: 10
     FallFrequency: 5
     SpeedUpTime: 0
     minusTime: 0

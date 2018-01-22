@@ -1747,7 +1747,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0f8d4cad723e8fd408a367a5cced2e37, type: 3}
   - {fileID: 8300000, guid: 86cd85de554fc694aa353bbaf91d2e21, type: 3}
   - {fileID: 8300000, guid: b15ede06adee68e4fab0f2ac970e97ce, type: 3}
-  - {fileID: 8300000, guid: aa68757761f87f34fbd78bf2ed6edad3, type: 3}
+  - {fileID: 8300000, guid: b1e7564afbb727342be1c4f2704c0b01, type: 3}
   - {fileID: 8300000, guid: 3f917a59731ab0748a756dbb9e4fdaa1, type: 3}
   MaxSE: 10
   seSources: []
@@ -4146,6 +4146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missiondata: {fileID: 11400000, guid: 58affc650ed83b942b1f08945d809239, type: 2}
+  marathondata: {fileID: 0}
 --- !u!4 &1484957220
 Transform:
   m_ObjectHideFlags: 0

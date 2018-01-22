@@ -1,0 +1,540 @@
+fileFormatVersion: 2
+guid: 022c2cf0a5313274897c0c4aa988e3d9
+timeCreated: 1516608516
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: PAZ_SpriteZanBig_0
+    21300002: PAZ_SpriteZanBig_1
+    21300004: PAZ_SpriteZanBig_2
+    21300006: PAZ_SpriteZanBig_3
+    21300008: PAZ_SpriteZanBig_4
+    21300010: PAZ_SpriteZanBig_5
+    21300012: PAZ_SpriteZanBig_6
+    21300014: PAZ_SpriteZanBig_7
+    21300016: PAZ_SpriteZanBig_8
+    21300018: PAZ_SpriteZanBig_9
+    21300020: PAZ_SpriteZanBig_10
+    21300022: PAZ_SpriteZanBig_11
+    21300024: PAZ_SpriteZanBig_12
+    21300026: PAZ_SpriteZanBig_13
+    21300028: PAZ_SpriteZanBig_14
+    21300030: PAZ_SpriteZanBig_15
+    21300032: PAZ_SpriteZanBig_16
+    21300034: PAZ_SpriteZanBig_17
+    21300036: PAZ_SpriteZanBig_18
+    21300038: PAZ_SpriteZanBig_19
+    21300040: PAZ_SpriteZanBig_20
+    21300042: PAZ_SpriteZanBig_21
+    21300044: PAZ_SpriteZanBig_22
+    21300046: PAZ_SpriteZanBig_23
+    21300048: PAZ_SpriteZanBig_24
+    21300050: PAZ_SpriteZanBig_25
+    21300052: PAZ_SpriteZanBig_26
+    21300054: PAZ_SpriteZanBig_27
+    21300056: PAZ_SpriteZanBig_28
+    21300058: PAZ_SpriteZanBig_29
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1350
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_1
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 1350
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_2
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 1350
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1200
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_4
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 1200
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_5
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 1200
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1050
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_7
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 1050
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_8
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 1050
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 900
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_10
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 900
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_11
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 900
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 750
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_13
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 750
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_14
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 750
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_16
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 600
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_17
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 600
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 450
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_19
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 450
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_20
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 450
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_22
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 300
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_23
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 300
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 150
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_25
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 150
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_26
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 150
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_28
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 0
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PAZ_SpriteZanBig_29
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 0
+        width: 1500
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

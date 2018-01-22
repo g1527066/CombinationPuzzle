@@ -64,7 +64,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
     //トローゼ方式初期化
     public void AllGeneration()
     {
-        const int StartY = 5;//下からこの番号まで入れておく、被り無し
+        const int StartY = 3;//下からこの番号まで入れておく、被り無し
 
         PeaceColor addPeaceType;
         for (int countY = PeaceManager.BoardSizeY - StartY; countY < PeaceManager.BoardSizeY; countY++)
@@ -75,9 +75,9 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
                 peace.peaceColor = addPeaceType;
                 peace.point = new POINT(countX, countY);
-                Debug.Break();
                 if (PeaceJudger.Instance.CurrentDeletable(PeaceManager.Instance.GetPeaceTabel, peace))
                 {
+                    Debug.Log("yやりなおし");
                     Destroy(peace.gameObject);
                     countX--;
                     continue;

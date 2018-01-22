@@ -100,7 +100,6 @@ public class Mission : MonoBehaviour
 
     private void SetDraw(int num, MissionDataStruct missionDataStruct)
     {
-
         //画像
         //間違えてcolorいれられる可能性があるので先にformをチェックする
         if (missionDataStruct.peaceForm == PeaceForm.Pentagon || missionDataStruct.peaceForm == PeaceForm.Square)
@@ -201,9 +200,8 @@ public class Mission : MonoBehaviour
             {
                 int r = Random.Range(0, missionDataBase.Elements.Count);
                 int r2 = Random.Range(0, missionDataBase.Elements[r].MissionList.Count);
-                Debug.Log(r + "   " + r2 + "  " + missionDataBase.Elements[r].MissionList[r2].number);
                 MissionDataStruct ms = ReturnConstructionMission(missionDataBase.Elements[r].MissionList[r2]);
-                Debug.Log("ms の数" + ms.MissionNum);
+                Debug.Log("r="+r+"  r2="+r2);
                 missionData[i] = ms;
                 SetDraw(i, ms);
                 for (int j = i - 1; j >= 0; j--)
@@ -356,7 +354,7 @@ public class Mission : MonoBehaviour
         missionData[missionNum] = dataStruct;
     }
 
-    private void ClearMisstion(int missionNum)
+    public void ClearMisstion(int missionNum)
     {
 
         Debug.Log("ClearMisstion  " + missionNum + "     " + missionData[missionNum].missionType);

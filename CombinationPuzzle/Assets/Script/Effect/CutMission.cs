@@ -21,7 +21,7 @@ public class CutMission : MonoBehaviour
     public void Updateaaaa()
     {
         totalTime += Time.deltaTime;
-        if(totalTime>drawStayTime)
+        if (totalTime > drawStayTime)
         {
             stringImage.sprite = startSprite;
         }
@@ -73,6 +73,10 @@ public class CutMission : MonoBehaviour
     [SerializeField]
     GameObject cutPeacePool = null;
 
+    [SerializeField]
+    List<AnimationImage> BigZanEffectList = new List<AnimationImage>();
+
+
     private void SetCutObject(Sprite AllSprite, int num, PeaceColor peaceColor, PeaceForm peaceForm)
     {
         CutObject cutObject = Instantiate(CutPrefab);
@@ -102,7 +106,7 @@ public class CutMission : MonoBehaviour
     private void SetCutCharacter(int num)
     {
         CutCharacter chara = Instantiate(SDcharacterPrefab, EffctPool.transform);
-        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed, StayTimingTime, StayTime);
+        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed, StayTimingTime, StayTime,BigZanEffectList[num]);
     }
 
     public void SetCutEffect(Sprite AllSprite, int num, PeaceColor peaceColor, PeaceForm peaceForm)
