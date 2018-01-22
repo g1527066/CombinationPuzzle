@@ -12,7 +12,7 @@ public class CutCharacter : MonoBehaviour
     private float StayTime = 0;
     private bool isStay = false;
     private float cutSpeed = 40f;
-
+    private int cutNum = 0;
 
     Vector2 stratPosition;
 
@@ -20,7 +20,7 @@ public class CutCharacter : MonoBehaviour
 
     AnimationImage animation = null;
 
-    public void SetCharacter(Vector2 strat, Vector2 end, float Speed, float stayTiming, float stayTime,AnimationImage zanEffect)
+    public void SetCharacter(Vector2 strat, Vector2 end, float Speed, float stayTiming, float stayTime,AnimationImage zanEffect,int cutNum)
     {
         StayTimingTime = stayTiming;
         StayTime = stayTime;
@@ -30,6 +30,7 @@ public class CutCharacter : MonoBehaviour
         addVector = (end + strat) / speed;
         this.transform.Rotate(new Vector3(0, 180, 0));
         animation = zanEffect;
+        this.cutNum = cutNum;
     }
 
     // Use this for initialization
@@ -57,9 +58,10 @@ public class CutCharacter : MonoBehaviour
             Debug.Log(" isStay ");
             nowTime += Time.deltaTime;
             gameObject.GetComponent<RectTransform>().anchoredPosition += new Vector2(cutSpeed, 0);
-            if (nowTime>speed+StayTime+5)//5秒プラスしたら
+            if (nowTime>speed+StayTime+0.5f)//5秒プラスしたら
             {
 
+                PeaceOperator.Instance.LineCut(cutNum);
                 Destroy(this.gameObject);
             }
         }
@@ -68,10 +70,14 @@ public class CutCharacter : MonoBehaviour
     private IEnumerator StayProsess()
     {
         yield return new WaitForSeconds(StayTime);
+        if(isStay==false)
+        {
+            AudioManager.Instance.PlaySE("PAZ_SE_ZanBig");
+            Debug.Log("play  PAZ_SE_ZanBig");
+        }
+
         isStay = true;
-
+        //複数回行ってしまっている
         animation.StartAnimation();
-
-
     }
 }

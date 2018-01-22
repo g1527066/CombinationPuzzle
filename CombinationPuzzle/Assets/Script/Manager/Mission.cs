@@ -115,7 +115,6 @@ public class Mission : MonoBehaviour
             MissionImage[num].sprite = AllPeaceSprite;
         }
 
-        Debug.Log("目標数 " + missionData[num].MissionNum);
         switch (missionDataStruct.missionType)
         {
             case MissionType.Delete:
@@ -359,6 +358,7 @@ public class Mission : MonoBehaviour
 
         Debug.Log("ClearMisstion  " + missionNum + "     " + missionData[missionNum].missionType);
         cutMission.SetCutEffect(AllPeaceSprite, missionNum, missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
+        AudioManager.Instance.PlaySE("PAZ_SE_Cut");
         if (SaveDataManager.Instance.GetMode == Mode.Mission)
         {
             int listNum = -1;
@@ -394,7 +394,6 @@ public class Mission : MonoBehaviour
             {
                 int r = Random.Range(0, missionDataBase.Elements.Count);
                 int r2 = Random.Range(0, missionDataBase.Elements[r].MissionList.Count);
-                Debug.Log(r + "   " + r2 + "  " + missionDataBase.Elements[r].MissionList[r2].number);
                 MissionDataStruct ms = ReturnConstructionMission(missionDataBase.Elements[r].MissionList[r2]);
                 missionData[missionNum] = ms;
                 SetDraw(missionNum, ms);

@@ -33,8 +33,9 @@ public class CutObject : MonoBehaviour
         {
             Debug.Log("カットされた、、はず、、" + startPosition + "   e=" + endPosition);
             List<SpriteSlicer2DSliceInfo> cutObject = new List<SpriteSlicer2DSliceInfo>();
+            // SpriteSlicer2D.SliceSprite(startPosition, endPosition, this.gameObject, false, ref cutObject);
+            SpriteSlicer2D.ShatterSprite(this.gameObject,30,false,ref cutObject);
 
-            SpriteSlicer2D.SliceSprite(startPosition, endPosition, this.gameObject, false, ref cutObject);
             cutFlag = true;
             //飛ばす処理もいれる
             totalTime = 0;
@@ -81,7 +82,7 @@ public class CutObject : MonoBehaviour
                     }
                 }
                 //斜方投射、今回ー前回で移動文加算
-                float zyuryoku = 1.5f;
+                float zyuryoku = 0.5f;
                 for (int i = 0; i < cutedObject.Count; i++)
                 {
                     cutedObject[i].transform.position += new Vector3(

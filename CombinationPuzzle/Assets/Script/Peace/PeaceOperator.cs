@@ -91,4 +91,65 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
         ResetPosition(peace);
     }
 
+    [SerializeField]
+    List<GameObject> cutGameObject = new List<GameObject>();
+    public void LineCut(int num)
+    {
+        Debug.Log("LineCut");
+        int[] cutLine = { 0, 2, 4 };
+
+        //消えるものを判定する
+
+        //そこのラインにあるならカット、
+        
+
+        for (int i = 0; i < PeaceManager.BoardSizeX; i++)
+        {
+            if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(i, cutLine[num])))
+            {
+                //元を審査）
+                PeaceManager.Instance.stockPeaceList.Add(PeaceGenerator.Instance.ChangeForm(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])]));
+                
+                //元の位置の上にピースがあったら落ちるように指示する
+                for (int countY = cutLine[num] - 1; countY >= 0; countY--)
+                {
+                    if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(i, countY)) == true)
+                    {
+                        PeaceOperator.Instance.AddDrop(PeaceManager.Instance.GetPeaceTabel[new POINT(i, countY)]);
+                    }
+                    else break;
+                }
+
+
+                cutGameObject[num * PeaceManager.BoardSizeX + i].SetActive(true);
+                cutGameObject[num * PeaceManager.BoardSizeX + i].GetComponent<SpriteRenderer>().sprite = PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].GetComponent<UnityEngine.UI.Image>().sprite;
+
+                List<SpriteSlicer2DSliceInfo> sliced = new List<SpriteSlicer2DSliceInfo>();
+                SpriteSlicer2D.ExplodeSprite(cutGameObject[num * PeaceManager.BoardSizeX + i], 5, 30
+                    , false, ref sliced);
+                //何秒で消える的なスクリプト付与
+                for(int sliceCount = 0; sliceCount<sliced.Count;sliceCount++)
+                {
+                    for (int childCount = 0; childCount < sliced[sliceCount].ChildObjects.Count; childCount++)
+                    {
+                        sliced[sliceCount].ChildObjects[childCount].AddComponent<DestroyObject>();
+                    }
+                }
+                cutGameObject[num * PeaceManager.BoardSizeX + i].SetActive(false);
+
+                PeaceManager.Instance.GetPeaceTabel.Remove(new POINT(i, cutLine[num]));
+                HidePeace(PeaceManager.Instance.stockPeaceList[PeaceManager.Instance.stockPeaceList.Count - 1]);//見えない位置に移動
+
+            }
+        }
+
+
+
+        //テーブルから消す
+
+        //落とす
+
+
+    }
+
 }

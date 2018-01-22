@@ -106,7 +106,7 @@ public class CutMission : MonoBehaviour
     private void SetCutCharacter(int num)
     {
         CutCharacter chara = Instantiate(SDcharacterPrefab, EffctPool.transform);
-        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed, StayTimingTime, StayTime,BigZanEffectList[num]);
+        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed, StayTimingTime, StayTime,BigZanEffectList[num],num);
     }
 
     public void SetCutEffect(Sprite AllSprite, int num, PeaceColor peaceColor, PeaceForm peaceForm)

@@ -24,10 +24,12 @@ public class Test : MonoBehaviour
 
 
     }
-
+    bool aa = false;
     // Update is called once per frame
     void Update()
     {
+        if (aa == false)
+            Click();
 
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -46,6 +48,8 @@ public class Test : MonoBehaviour
 
     public void Click()
     {
+        aa = true;
         Debug.Log("click");
+        SpriteSlicer2D.ExplodeSprite(this.gameObject,3,10);
     }
 }
