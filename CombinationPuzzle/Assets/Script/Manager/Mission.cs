@@ -200,7 +200,7 @@ public class Mission : MonoBehaviour
                 int r = Random.Range(0, missionDataBase.Elements.Count);
                 int r2 = Random.Range(0, missionDataBase.Elements[r].MissionList.Count);
                 MissionDataStruct ms = ReturnConstructionMission(missionDataBase.Elements[r].MissionList[r2]);
-                Debug.Log("r="+r+"  r2="+r2);
+                Debug.Log("r=" + r + "  r2=" + r2);
                 missionData[i] = ms;
                 SetDraw(i, ms);
                 for (int j = i - 1; j >= 0; j--)
@@ -337,6 +337,136 @@ public class Mission : MonoBehaviour
         }
     }
 
+    //まとめて
+    public void SameDeleteAll(List<PeaceColor> peaceColorList, List<PeaceForm> peaceFormList)
+    {
+        for (int i = 0; i < ConstMissionNum; i++)
+        {
+            switch (missionData[i].missionType)
+            {
+                case MissionType.Delete:
+                    if (missionData[i].peaceForm != PeaceForm.None && missionData[i].peaceForm != PeaceForm.Triangle)
+                    {//白、黒
+                        for(int fCounter=0;fCounter<peaceFormList.Count;fCounter++)
+                        {
+                            if(peaceFormList[fCounter]==missionData[i].peaceForm)
+                            {
+                                missionData[i].completeNum++;
+                            }
+                        }
+                    }
+                    else if (missionData[i].peaceForm == PeaceForm.Triangle && missionData[i].peaceColor != PeaceColor.None)
+                    {
+                        //三角形
+                        for (int cCounter = 0; cCounter < peaceColorList.Count; cCounter++)
+                        {
+                            if (peaceColorList[cCounter] == missionData[i].peaceColor)
+                            {
+                                missionData[i].completeNum++;
+                            }
+                        }
+                    }
+                    else if (missionData[i].peaceForm == PeaceForm.None && missionData[i].peaceColor == PeaceColor.None)
+                    {//なんでも
+                        missionData[i].completeNum += peaceColorList.Count + peaceFormList.Count;
+                    }
+
+                    //文字更新
+                    UpdatePercentText(i);
+                    if (missionData[i].completeNum >= missionData[i].MissionNum)
+                    {
+                        ClearMisstion(i);
+                    }
+
+                    break;
+                case MissionType.CountDelete:
+
+                    if (missionData[i].peaceForm != PeaceForm.None && missionData[i].peaceForm != PeaceForm.Triangle)
+                    {//白、黒
+                        for (int fCounter = 0; fCounter < peaceFormList.Count; fCounter++)
+                        {
+                            if (peaceFormList[fCounter] == missionData[i].peaceForm)
+                            {
+                                missionData[i].completeNum++;
+                                break;
+                            }
+                        }
+                    }
+                    else if (missionData[i].peaceForm == PeaceForm.Triangle && missionData[i].peaceColor != PeaceColor.None)
+                    {
+                        //三角形
+                        for (int cCounter = 0; cCounter < peaceColorList.Count; cCounter++)
+                        {
+                            if (peaceColorList[cCounter] == missionData[i].peaceColor)
+                            {
+                                missionData[i].completeNum++;
+                                break;
+                            }
+                        }
+                    }
+                    else if (missionData[i].peaceForm == PeaceForm.None && missionData[i].peaceColor == PeaceColor.None)
+                    {//なんでも
+                        missionData[i].completeNum++;
+                    }
+
+                    MissionCountText[i].text = missionData[i].completeNum + "/" + missionData[i].MissionNum + "回";
+                    if (missionData[i].completeNum >= missionData[i].MissionNum)
+                    {
+                        ClearMisstion(i);
+                    }
+
+                    break;
+                case MissionType.SameDelete:
+                    int totalCounter = 0;
+
+                    if (missionData[i].peaceForm != PeaceForm.None && missionData[i].peaceForm != PeaceForm.Triangle)
+                    {//白、黒
+
+                        for (int fCounter = 0; fCounter < peaceFormList.Count; fCounter++)
+                        {
+                            if (peaceFormList[fCounter] == missionData[i].peaceForm)
+                            {
+                                totalCounter++;
+                            }
+                        }
+                        if(totalCounter>=missionData[i].MissionNum)
+                        {
+                            ClearMisstion(i);
+                            return;
+                        }
+                    }
+                    else if (missionData[i].peaceForm == PeaceForm.Triangle && missionData[i].peaceColor != PeaceColor.None)
+                    {
+                        //三角形
+
+                        for (int cCounter = 0; cCounter < peaceColorList.Count; cCounter++)
+                        {
+                            if (peaceColorList[cCounter] == missionData[i].peaceColor)
+                            {
+                                totalCounter++;
+                            }
+                        }
+                        if (totalCounter >= missionData[i].MissionNum)
+                        {
+                            ClearMisstion(i);
+                            return;
+                        }
+                    }
+                    else if (missionData[i].peaceForm == PeaceForm.None && missionData[i].peaceColor == PeaceColor.None)
+                    {//なんでも
+
+                        if (peaceColorList.Count+peaceFormList.Count >= missionData[i].MissionNum)
+                        {
+                            ClearMisstion(i);
+                            return;
+                        }
+                    }
+
+                    break;
+            }
+        }
+    }
+
     private void UpdatePercentText(int missionNum)
     {
         MissionCountText[missionNum].text = missionData[missionNum].completeNum + "/" + missionData[missionNum].MissionNum + "個";
@@ -355,7 +485,6 @@ public class Mission : MonoBehaviour
 
     public void ClearMisstion(int missionNum)
     {
-
         Debug.Log("ClearMisstion  " + missionNum + "     " + missionData[missionNum].missionType);
         cutMission.SetCutEffect(AllPeaceSprite, missionNum, missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
         AudioManager.Instance.PlaySE("PAZ_SE_Cut");

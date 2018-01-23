@@ -98,24 +98,40 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
         Debug.Log("LineCut");
         int[] cutLine = { 0, 2, 4 };
 
-        //消えるものを判定する
+        List<PeaceColor> peaceColorList = new List<PeaceColor>();
+        List<PeaceForm> peaceFormList = new List<PeaceForm>();
 
-        //そこのラインにあるならカット、
-        
 
         for (int i = 0; i < PeaceManager.BoardSizeX; i++)
         {
             if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(i, cutLine[num])))
             {
+                if (PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].GetPeaceForm==PeaceForm.Triangle)
+                {
+                    peaceColorList.Add(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].GetPeaceColor);
+                }
+                else
+                {
+                    peaceFormList.Add(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].GetPeaceForm);
+                }
+
+
+                if (PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].isMatching == true)
+                {
+                    PeaceJudger.Instance.DeleteTartgetPeace(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])]);
+                }
+
+
                 //元を審査）
                 PeaceManager.Instance.stockPeaceList.Add(PeaceGenerator.Instance.ChangeForm(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])]));
-                
+
+
                 //元の位置の上にピースがあったら落ちるように指示する
                 for (int countY = cutLine[num] - 1; countY >= 0; countY--)
                 {
                     if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(i, countY)) == true)
                     {
-                        PeaceOperator.Instance.AddDrop(PeaceManager.Instance.GetPeaceTabel[new POINT(i, countY)]);
+                        Instance.AddDrop(PeaceManager.Instance.GetPeaceTabel[new POINT(i, countY)]);
                     }
                     else break;
                 }
@@ -128,7 +144,7 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
                 SpriteSlicer2D.ExplodeSprite(cutGameObject[num * PeaceManager.BoardSizeX + i], 5, 30
                     , false, ref sliced);
                 //何秒で消える的なスクリプト付与
-                for(int sliceCount = 0; sliceCount<sliced.Count;sliceCount++)
+                for (int sliceCount = 0; sliceCount < sliced.Count; sliceCount++)
                 {
                     for (int childCount = 0; childCount < sliced[sliceCount].ChildObjects.Count; childCount++)
                     {
@@ -143,13 +159,7 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
             }
         }
 
-
-
-        //テーブルから消す
-
-        //落とす
-
-
+        PeaceJudger.Instance.mission.SameDeleteAll(peaceColorList, peaceFormList);
     }
 
 }

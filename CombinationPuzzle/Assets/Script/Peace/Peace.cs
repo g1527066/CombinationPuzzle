@@ -80,6 +80,8 @@ public abstract class Peace : MonoBehaviour
     {
         if (isMatching&&GameSystem.Instance.GetTimer.StopTimeFlag==false)
         {
+            Debug.Log("isMatching=="+isMatching);
+
             deleteTime += Time.deltaTime;
             flashingTime += Time.deltaTime;
             if (flashingTime > GameSystem.Instance.GetTimer.flashingTime)

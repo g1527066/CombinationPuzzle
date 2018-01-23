@@ -18,8 +18,9 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
 
     List<DeletePoint> DeletionTargetList = new List<DeletePoint>();
 
+
     [SerializeField]
-    Mission mission = null;
+    public Mission mission = null;
 
     public bool CurrentDeletable(Dictionary<POINT, Peace> dictionary, Peace judgeAddPeace)
     {
@@ -353,8 +354,8 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             if (changeGenerationPeace != null)
                 JudgePeace(peaceTable, changeGenerationPeace, PeaceManager.Instance.nowHoldPeace);
 
-            Debug.Log(PeaceManager.Instance.GetPeaceTabel.Count+"   総数");
-           // Debug.Break();
+            Debug.Log(PeaceManager.Instance.GetPeaceTabel.Count + "   総数");
+            // Debug.Break();
         }
     }
 
@@ -542,7 +543,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
     public void CheckGameOver()
     {
         //落下したら　50上ですべてリストにいたら
-        if (PeaceManager.Instance.GetPeaceTabel.Count >=PeaceManager.BoardSizeX * PeaceManager.BoardSizeY)
+        if (PeaceManager.Instance.GetPeaceTabel.Count >= PeaceManager.BoardSizeX * PeaceManager.BoardSizeY)
             return;
 
         for (int x = 0; x < PeaceManager.BoardSizeX; x++)
@@ -596,12 +597,42 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                     }
                 }
             }
-            if(Xcollection.Count>0)
+            if (Xcollection.Count > 0)
             {
-                int r = Random.Range(0,Xcollection.Count);
+                int r = Random.Range(0, Xcollection.Count);
                 return Xcollection[r];
             }
         }
         return -1;
+    }
+
+    //渡されたピースを削除リストから削除する
+    public void DeleteTartgetPeace(Peace deletePeace)
+    {
+
+        for (int i = 0; i < DeletionTargetList.Count; i++)
+        {
+            if (deletePeace == DeletionTargetList[i].nextGenerationPeace)
+            {
+                DeletePoint nowDeletePoint = DeletionTargetList[i];
+                nowDeletePoint.nextGenerationPeace = null;
+                DeletionTargetList[i] = nowDeletePoint;
+                Debug.Log("リストから削除　（生成");
+            }
+
+            for (int j = 0; j < DeletionTargetList[i].deletePeaceList.Count; j++)
+            {
+                if (deletePeace == DeletionTargetList[i].deletePeaceList[j])
+                {
+                    DeletePoint nowDeletePoint = DeletionTargetList[i];
+                    nowDeletePoint.deletePeaceList.Remove(deletePeace);
+                    DeletionTargetList[i] = nowDeletePoint;
+                    Debug.Log("リストから削除");
+                }
+
+            }
+        }
+
+        Debug.Log("　削除終了");
     }
 }
