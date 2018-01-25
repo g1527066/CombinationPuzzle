@@ -609,7 +609,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
     //渡されたピースを削除リストから削除する
     public void DeleteTartgetPeace(Peace deletePeace)
     {
-
+        int deleteNum = 0;
         for (int i = 0; i < DeletionTargetList.Count; i++)
         {
             if (deletePeace == DeletionTargetList[i].nextGenerationPeace)
@@ -628,10 +628,17 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                     nowDeletePoint.deletePeaceList.Remove(deletePeace);
                     DeletionTargetList[i] = nowDeletePoint;
                     Debug.Log("リストから削除");
+                    deleteNum=i;
                 }
 
             }
         }
+        if(DeletionTargetList[deleteNum].deletePeaceList.Count==0)
+        {
+            Debug.Log("リストに何もないので削除します");
+            DeletionTargetList.RemoveAt(deleteNum);
+        }
+
 
         Debug.Log("　削除終了");
     }

@@ -75,7 +75,8 @@ public class CutMission : MonoBehaviour
 
     [SerializeField]
     List<AnimationImage> BigZanEffectList = new List<AnimationImage>();
-
+    [SerializeField]
+    List<GameObject> zanAnimator = new List<GameObject>();
 
     private void SetCutObject(Sprite AllSprite, int num, PeaceColor peaceColor, PeaceForm peaceForm)
     {
@@ -105,8 +106,10 @@ public class CutMission : MonoBehaviour
 
     private void SetCutCharacter(int num)
     {
+        StartCoroutine(StayProsess(num));
         CutCharacter chara = Instantiate(SDcharacterPrefab, EffctPool.transform);
-        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed, StayTimingTime, StayTime,BigZanEffectList[num],num);
+        chara.SetCharacter(new Vector2(StartPos.x, StartPos.y - (num * ShiftY)), EndPos, CharacterSpeed, StayTimingTime, StayTime, BigZanEffectList[num], num);
+
     }
 
     public void SetCutEffect(Sprite AllSprite, int num, PeaceColor peaceColor, PeaceForm peaceForm)
@@ -123,6 +126,18 @@ public class CutMission : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+    }
+
+    private IEnumerator StayProsess(int num)
+    {
+        Debug.Log("StayProsess");
+        yield return new WaitForSeconds(0.3f);
+        zanAnimator[num].gameObject.SetActive(true);
+        zanAnimator[num].GetComponent<Animator>(). Play("Mission_Slise_Animation");
+        yield return new WaitForSeconds(0.5f);
+        zanAnimator[num].gameObject.SetActive(false);
+
+
 
     }
 

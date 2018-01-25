@@ -72,6 +72,10 @@ public class Mission : MonoBehaviour
     [SerializeField]
     MissionData marathonDataBase = null;
 
+    string deleteString = "消去";
+    string countDeleteString = "回数消去";
+    string sameDeleteString = "同時消去";
+    string makeString = "生成";
     #endregion
 
     // Use this for initialization
@@ -119,21 +123,21 @@ public class Mission : MonoBehaviour
         {
             case MissionType.Delete:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "個";
-                MissionDescriptionText[num].text = "消去";
+                MissionDescriptionText[num].text = deleteString;
                 break;
             case MissionType.CountDelete:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "回";
-                MissionDescriptionText[num].text = "回数消去";
+                MissionDescriptionText[num].text = countDeleteString;
                 break;
 
             case MissionType.SameDelete:
                 MissionCountText[num].text = missionData[num].MissionNum + "個";
-                MissionDescriptionText[num].text = "同時消去";
+                MissionDescriptionText[num].text = sameDeleteString;
                 break;
 
             case MissionType.MakePeace:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "個";
-                MissionDescriptionText[num].text = "生成";
+                MissionDescriptionText[num].text = makeString;
                 break;
 
             default:
@@ -347,9 +351,9 @@ public class Mission : MonoBehaviour
                 case MissionType.Delete:
                     if (missionData[i].peaceForm != PeaceForm.None && missionData[i].peaceForm != PeaceForm.Triangle)
                     {//白、黒
-                        for(int fCounter=0;fCounter<peaceFormList.Count;fCounter++)
+                        for (int fCounter = 0; fCounter < peaceFormList.Count; fCounter++)
                         {
-                            if(peaceFormList[fCounter]==missionData[i].peaceForm)
+                            if (peaceFormList[fCounter] == missionData[i].peaceForm)
                             {
                                 missionData[i].completeNum++;
                             }
@@ -429,7 +433,7 @@ public class Mission : MonoBehaviour
                                 totalCounter++;
                             }
                         }
-                        if(totalCounter>=missionData[i].MissionNum)
+                        if (totalCounter >= missionData[i].MissionNum)
                         {
                             ClearMisstion(i);
                             return;
@@ -455,7 +459,7 @@ public class Mission : MonoBehaviour
                     else if (missionData[i].peaceForm == PeaceForm.None && missionData[i].peaceColor == PeaceColor.None)
                     {//なんでも
 
-                        if (peaceColorList.Count+peaceFormList.Count >= missionData[i].MissionNum)
+                        if (peaceColorList.Count + peaceFormList.Count >= missionData[i].MissionNum)
                         {
                             ClearMisstion(i);
                             return;
@@ -577,6 +581,65 @@ public class Mission : MonoBehaviour
             return false;
 
         return true;
+    }
+
+
+    [SerializeField]
+    MissionIcon missionIconPrefab = null;
+
+    public void DrawMissionIcon()
+    {
+        Debug.Log("DrawMissionIcon");
+
+        for (int i = 0; i < missionList.Count; i++)
+        {
+            Debug.Log("DrawMission="+i);
+
+
+            MissionIcon icon = Instantiate(missionIconPrefab);
+            //場所移動。どこかの子オブジェクトに
+            switch (missionList[i].missionType)
+            {
+                case MissionType.Delete:
+                    icon.MissionTypeText.text = deleteString;
+                    icon.NumberText.text = (missionList[i].MissionNum - missionList[i].completeNum) + "個";
+                    break;
+
+                case MissionType.CountDelete:
+                    icon.MissionTypeText.text = countDeleteString;
+                    icon.NumberText.text = (missionList[i].MissionNum - missionList[i].completeNum) + "回";
+                    break;
+
+                case MissionType.SameDelete:
+                    icon.MissionTypeText.text = sameDeleteString;
+                    icon.NumberText.text = missionList[i].MissionNum + "個";
+                    break;
+
+                case MissionType.MakePeace:
+                    icon.MissionTypeText.text = makeString;
+                    icon.NumberText.text = (missionList[i].MissionNum - missionList[i].completeNum) + "個";
+                    break;
+            }
+
+            //スプライトの適用
+            if(missionList[i].peaceForm==PeaceForm.Triangle)
+            {
+                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)missionList[i].peaceColor];
+            }
+            else if(missionList[i].peaceForm!=PeaceForm.None)
+            {
+                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None+(int)missionList[i].peaceForm-1];
+
+            }
+            else if(PeaceForm.None==missionList[i].peaceForm&& PeaceColor.None == missionList[i].peaceColor)
+            {
+                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None+(int)PeaceForm.None-1];
+
+            }
+
+        }
+
+
     }
 
 }

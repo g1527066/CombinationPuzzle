@@ -47,6 +47,8 @@ public class EffectManager : SingletonMonoBehaviour<EffectManager>
                 break;
             case "生成":
                 obj = Instantiate(generationEffectPrefab);
+                obj.transform.localScale = obj.transform.localScale / 3 * 2;
+           
                 break;
 
             default:
@@ -58,12 +60,14 @@ public class EffectManager : SingletonMonoBehaviour<EffectManager>
         //Debug.Log("前　　Z="+ obj.GetComponent<RectTransform>().position.z);
 
         obj.transform.SetParent(effectPool.transform);
-        
+
         //TODO:位置設定がわからないのでZの位置調整のため２回
         obj.transform.position = new Vector3(generationPotision.x, generationPotision.y, FromtY);
         obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, FromtY);
+        if (effectName == "生成")
+            obj.transform.localPosition += new Vector3(0, 80, 0);
 
-       // Debug.Log("あと　　Z=" + obj.GetComponent<RectTransform>().position.z);
+        // Debug.Log("あと　　Z=" + obj.GetComponent<RectTransform>().position.z);
     }
 
 }

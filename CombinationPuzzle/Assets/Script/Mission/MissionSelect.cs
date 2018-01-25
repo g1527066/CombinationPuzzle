@@ -24,6 +24,9 @@ public class MissionSelect : MonoBehaviour
 
     List<MissionClearState> clearState = new List<MissionClearState>();
 
+    [SerializeField]
+    List<GameObject> buttoneObject = new List<GameObject>();
+
     // Use this for initialization
 
 
@@ -31,9 +34,23 @@ public class MissionSelect : MonoBehaviour
     void Start()
     {
         viewNumber = 0;
-       clearState = SaveDataManager.Instance.LoadClearList(MissionSprites.Count);
+        clearState = SaveDataManager.Instance.LoadClearList(MissionSprites.Count);
 
         SetMission(0);
+
+        int count = 0;
+        for (int i = 0; i<totalDraw;i++)
+        {
+            if (clearState[i] == MissionClearState.Clear)
+                count++;
+            else
+                break;
+        }
+        if(count>=totalDraw)
+        {
+            buttoneObject[0].SetActive(true);
+            buttoneObject[1].SetActive(true);
+        }
 
     }
 
@@ -41,7 +58,7 @@ public class MissionSelect : MonoBehaviour
     public void ClickMissionNumber(int num)
     {
         AudioManager.Instance.PlaySE("PAZ_SE_OK");
-        Debug.Log(num+ "番クリック   viewNumber=" + viewNumber);
+        Debug.Log(num + "番クリック   viewNumber=" + viewNumber);
         SaveDataManager.Instance.SetMode = Mode.Mission;
         SaveDataManager.Instance.SetMissioinNumber(num + viewNumber * totalDraw);
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
@@ -52,7 +69,7 @@ public class MissionSelect : MonoBehaviour
         for (int i = 0; i < totalDraw; i++)
         {
             missionList[i].ChangeMissionSprite(MissionSprites[totalDraw * page + i]);
-            Debug.Log(i+"=は　クリア状態="+clearState[i]);
+            Debug.Log(i + "=は　クリア状態=" + clearState[i]);
             if (clearState[totalDraw * page + i] == MissionClearState.NotClear)
                 missionList[i].SetClearActive(false);
             else
@@ -91,7 +108,7 @@ public class MissionSelect : MonoBehaviour
         SaveDataManager.Instance.SetMode = Mode.Mission;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
-    
+
 
 
 }

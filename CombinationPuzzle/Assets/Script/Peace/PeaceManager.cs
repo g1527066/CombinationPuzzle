@@ -110,6 +110,8 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
         else
             return;
 
+        //落下処理消す
+        peaceTable[pointCollision.point].IsDuringFall = false;
         nowHoldPeace = peaceTable[pointCollision.point];
 
         //nowHoldPeace.GetComponent<BoxCollider2D>().enabled = false;

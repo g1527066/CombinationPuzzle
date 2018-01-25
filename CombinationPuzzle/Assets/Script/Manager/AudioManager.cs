@@ -122,5 +122,15 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         BGMVolume = (int)volumeType * 0.01f;
     }
 
+    public VolumeType GetSeVolume()
+    {
+        float se = SEVolume + 0.01f;
+        return (VolumeType)se;
+    }
 
+    public VolumeType GetBgmVolume()
+    {
+        float bgm = BGMVolume + 0.01f;
+        return (VolumeType)bgm;
+    }
 }

@@ -13,6 +13,9 @@ public class Test : MonoBehaviour
     //[SerializeField]
     //GameObject cut = null;
 
+    [SerializeField]
+    GameObject aaa = null;
+
 
     // Use this for initialization
     void Start()
@@ -21,15 +24,34 @@ public class Test : MonoBehaviour
 
         //GetComponent<BoxCollider2D>().size=new Vector2(200, 200);
 
-
+        aaa.SetActive(true);
+        aaa.GetComponent<Animator>().Play("Mission_Slise_Animation");
+        StartCoroutine(StayProsess());
+       
 
     }
+
+
+    private IEnumerator StayProsess()
+    {
+      
+            yield return new WaitForSeconds(2f);
+        aaa.SetActive(false);
+        yield return new WaitForSeconds(2f);
+
+        aaa.SetActive(true);
+        aaa.GetComponent<Animator>().Play("Mission_Slise_Animation");
+    }
+
+
+
     bool aa = false;
     // Update is called once per frame
     void Update()
     {
         if (aa == false)
             Click();
+
 
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -50,6 +72,6 @@ public class Test : MonoBehaviour
     {
         aa = true;
         Debug.Log("click");
-        SpriteSlicer2D.ExplodeSprite(this.gameObject,3,10);
+        SpriteSlicer2D.ExplodeSprite(this.gameObject, 3, 10);
     }
 }

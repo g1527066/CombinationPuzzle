@@ -49,7 +49,6 @@ public class AnimationImage : MonoBehaviour
                 {
                     image.color = Color.clear;
                     loadAnimation = false;
-                    //StartAnimation();
                 }
                 else
                 {

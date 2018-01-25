@@ -17,6 +17,13 @@ public class SelectScene : MonoBehaviour {
 
     [SerializeField]
     GameObject MissionSet = null;
+
+    [SerializeField]
+    GameObject ReturnButton = null;
+
+    [SerializeField]
+    GameObject tatami = null;
+
     private enum SceneType
     {
         Title,
@@ -48,7 +55,8 @@ public class SelectScene : MonoBehaviour {
             sceneType = SceneType.Title;
             MenuSet.SetActive(false);
             TitleSet.SetActive(true);
-           
+            ReturnButton.SetActive(false);
+            tatami.SetActive(false);
         }
         else if (sceneType == SceneType.Option)
         {
@@ -69,6 +77,8 @@ public class SelectScene : MonoBehaviour {
 
     public void ClickStartButton()
     {
+        ReturnButton.SetActive(true);
+        tatami.SetActive(true);
         sceneType = SceneType.Menu;
         TitleSet.SetActive(false);
         MenuSet.SetActive(true);

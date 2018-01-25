@@ -155,7 +155,7 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
 
                 PeaceManager.Instance.GetPeaceTabel.Remove(new POINT(i, cutLine[num]));
                 HidePeace(PeaceManager.Instance.stockPeaceList[PeaceManager.Instance.stockPeaceList.Count - 1]);//見えない位置に移動
-
+                PeaceManager.Instance.stockPeaceList[PeaceManager.Instance.stockPeaceList.Count - 1].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.white;
             }
         }
 

@@ -45,7 +45,7 @@ public class StartProduction : MonoBehaviour
     [SerializeField]
     Text MissionLimitTime = null;
     [SerializeField]
-    MissionStartIcon missionStartPrefab = null;
+    MissionIcon missionStartPrefab = null;
     [SerializeField]
     RectTransform rectTransform;
     [SerializeField]
@@ -71,6 +71,8 @@ public class StartProduction : MonoBehaviour
             }
             MissionLimitTime.text = timeString;
 
+            //目標一覧表示
+            PeaceJudger.Instance.mission.DrawMissionIcon();
 
 
         }

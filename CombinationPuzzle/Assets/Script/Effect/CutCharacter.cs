@@ -11,8 +11,9 @@ public class CutCharacter : MonoBehaviour
     private float StayTimingTime = 0;
     private float StayTime = 0;
     private bool isStay = false;
-    private float cutSpeed = 40f;
+    private float cutSpeed = 80f;
     private int cutNum = 0;
+    private bool cut = false;
 
     Vector2 stratPosition;
 
@@ -26,11 +27,12 @@ public class CutCharacter : MonoBehaviour
         StayTime = stayTime;
         speed = Speed;
         stratPosition = strat;
-        gameObject.GetComponent<RectTransform>().anchoredPosition = strat;
+        gameObject.transform.localPosition = strat;
         addVector = (end + strat) / speed;
         this.transform.Rotate(new Vector3(0, 180, 0));
         animation = zanEffect;
         this.cutNum = cutNum;
+   
     }
 
     // Use this for initialization
@@ -50,18 +52,23 @@ public class CutCharacter : MonoBehaviour
         else if (nowTime <=   StayTimingTime)
         {
             nowTime += Time.deltaTime;
-            gameObject.GetComponent<RectTransform>().anchoredPosition = stratPosition + addVector * nowTime;
+            gameObject.transform.localPosition= stratPosition + addVector * nowTime;
             //EffectManager.I.PlayEffect(gameObject.GetComponent<RectTransform>().anchoredPosition,PeaceColor.Blue.DisplayName());
         }
         else if (isStay == true)//直線に進み、終了したら切る
         {
             Debug.Log(" isStay ");
             nowTime += Time.deltaTime;
-            gameObject.GetComponent<RectTransform>().anchoredPosition += new Vector2(cutSpeed, 0);
-            if (nowTime>speed+StayTime+0.5f)//5秒プラスしたら
+            gameObject.transform.localPosition += new Vector3(cutSpeed, 0,0);
+
+            if (nowTime > speed + StayTime-0.5f&&cut==false)//主人久が端にいたら斬撃
+            {
+                cut = true;
+                PeaceOperator.Instance.LineCut(cutNum);
+            }
+            if (nowTime>speed+StayTime)//5秒プラスしたら
             {
 
-                PeaceOperator.Instance.LineCut(cutNum);
                 Destroy(this.gameObject);
             }
         }
