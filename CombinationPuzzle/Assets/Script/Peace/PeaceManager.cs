@@ -214,15 +214,12 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
         Debug.Log("マス数=" + peaceTable.Count);
         // Debug.Log("削除リスト数=" + DeletionTargetList.Count);
 
-        //for (int i = 0; i < DeletionTargetList.Count; i++)
-        //{
-        //    for (int j = 0; j < DeletionTargetList[i].point.Count; j++)
-        //    {
-        //        Debug.Log("i=" + i + " j=" + j + " X=" + DeletionTargetList[i].point[j].X + " Y=" + DeletionTargetList[i].point[j].Y);
+       foreach(var p in PeaceManager.Instance.GetPeaceTabel )
+        {
+            Debug.Log("X="+p.Value.point.X+"   Y=" + p.Value.point.Y);
 
-        //    }
+        }
 
-        //}
         Debug.Log("------------------------------");
 
 

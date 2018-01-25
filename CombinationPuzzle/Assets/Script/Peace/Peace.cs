@@ -80,7 +80,6 @@ public abstract class Peace : MonoBehaviour
     {
         if (isMatching&&GameSystem.Instance.GetTimer.StopTimeFlag==false)
         {
-            Debug.Log("isMatching=="+isMatching);
 
             deleteTime += Time.deltaTime;
             flashingTime += Time.deltaTime;
@@ -189,8 +188,8 @@ public abstract class Peace : MonoBehaviour
         int test = 0;//削除
         while (IsDuringFall == true)
         {
-            test++;
-            if (test > 100)
+            //test++;
+            //if (test > 100)
                 Debug.Log("NextCheckコルーチン内　　X=" + point.X + "  Y=" + point.Y);
 
             bool tes = PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(point.X, point.Y + 1));

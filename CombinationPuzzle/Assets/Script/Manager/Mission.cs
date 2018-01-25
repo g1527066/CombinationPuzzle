@@ -76,12 +76,21 @@ public class Mission : MonoBehaviour
     string countDeleteString = "回数消去";
     string sameDeleteString = "同時消去";
     string makeString = "生成";
+
+    Color generationColor = Color.blue;
+    //[SerializeField]
+    //[ColorHtmlProperty]
+    Color sameColor = Color.yellow;
+    Color countColor = Color.green;
+    Color deleteColor = Color.red;
+
+
     #endregion
 
     // Use this for initialization
     void Start()
     {
-
+        ColorUtility.TryParseHtmlString("FFCE00FF", out sameColor);
 
         SetMission();
     }
@@ -124,20 +133,24 @@ public class Mission : MonoBehaviour
             case MissionType.Delete:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "個";
                 MissionDescriptionText[num].text = deleteString;
+                MissionDescriptionText[num].color = deleteColor;
                 break;
             case MissionType.CountDelete:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "回";
                 MissionDescriptionText[num].text = countDeleteString;
+                MissionDescriptionText[num].color = countColor;
                 break;
 
             case MissionType.SameDelete:
                 MissionCountText[num].text = missionData[num].MissionNum + "個";
                 MissionDescriptionText[num].text = sameDeleteString;
+                MissionDescriptionText[num].color = sameColor;
                 break;
 
             case MissionType.MakePeace:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "個";
                 MissionDescriptionText[num].text = makeString;
+                MissionDescriptionText[num].color = generationColor;
                 break;
 
             default:

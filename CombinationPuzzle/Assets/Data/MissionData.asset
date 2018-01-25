@@ -41,7 +41,7 @@ MonoBehaviour:
     - missionType: 2
       peaceColor: 6
       peaceForm: 3
-      number: 15
+      number: 1
   - MissionName: "\u767E\u82B1\u7E5A\u4E71"
     LmiteTime: 180
     FallFrequency: 5
@@ -73,7 +73,7 @@ MonoBehaviour:
     - missionType: 0
       peaceColor: 0
       peaceForm: 0
-      number: 20
+      number: 1
   - MissionName: "\u4E00\u9A0E\u5F53\u5343"
     LmiteTime: 90
     FallFrequency: 5

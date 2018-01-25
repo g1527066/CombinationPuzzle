@@ -282,12 +282,15 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             {
                 EffectManager.Instance.PlayEffect(nowDeletePoint.nextGenerationPeace.gameObject.transform.position, "生成");
                 changeGenerationPeace = PeaceManager.Instance.ChangeForm(nowDeletePoint.nextGenerationPeace);
-
             }
 
             //削除した場所以降のピースを落下させる//TODO:生成がnullだと、、？
             List<POINT> downTargetPoint = new List<POINT>();
-            SetDownUnderList(downTargetPoint, nowDeletePoint.deletePeaceList, nowDeletePoint.nextGenerationPeace);
+            SetDownUnderList(downTargetPoint, nowDeletePoint.deletePeaceList, changeGenerationPeace);
+
+
+            Debug.Log("生成時の座標１");
+            Debug.Log("X="+changeGenerationPeace.point.X+ "   Y=" + changeGenerationPeace.point.Y);
 
 
 
@@ -312,6 +315,10 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                 else
                     EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "白");
 
+                //一旦ここで生成後のピースが落ちる気があるのか、どこの座標なのか確認
+                //Debug.Log();
+
+
 
                 if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace)
                 {
@@ -319,7 +326,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                     {
                         Debug.Log("生成を落下させます");
 
-                        PeaceOperator.Instance.AddDrop(nowDeletePoint.nextGenerationPeace);
+                        PeaceOperator.Instance.AddDrop(changeGenerationPeace);
                     }
                     continue;
                 }
