@@ -179,6 +179,9 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
     [SerializeField, Header("何秒早くなるか")]
     float SpeedUpTime = 0.5f;
 
+    [SerializeField, Header("最低速度")]
+    float lowestSpeed = 0.25f;
+
     float generationFrequencyTime = 2;//初期化する
 
     float generationTotalTime = 0f;
@@ -223,7 +226,8 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
         {
             speedUpTotalTime = 0;
             generationFrequencyTime -= SpeedUpTime;
-
+            if (lowestSpeed > generationFrequencyTime)
+                generationFrequencyTime = lowestSpeed;
         }
     }
 

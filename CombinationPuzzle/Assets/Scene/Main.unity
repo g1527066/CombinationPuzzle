@@ -1113,6 +1113,16 @@ Prefab:
       propertyPath: zanAnimator.Array.data[2]
       value: 
       objectReference: {fileID: 94549807}
+    - target: {fileID: 114354335812174344, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: sameColor.g
+      value: 0.80784315
+      objectReference: {fileID: 0}
+    - target: {fileID: 114354335812174344, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: sameColor.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08556e839f585354f93e50a767ea7a83, type: 2}
   m_IsPrefabParent: 0
@@ -2978,6 +2988,7 @@ MonoBehaviour:
   MarathonScoreText: {fileID: 312340302}
   MarathonTotleTimeText: {fileID: 1067970177}
   MarathonHiScoreText: {fileID: 1402199801}
+  effect: {fileID: 25323247}
 --- !u!1001 &537398595
 Prefab:
   m_ObjectHideFlags: 0

@@ -78,8 +78,8 @@ public class Mission : MonoBehaviour
     string makeString = "生成";
 
     Color generationColor = Color.blue;
-    //[SerializeField]
-    //[ColorHtmlProperty]
+    [SerializeField]
+    [ColorHtmlProperty]
     Color sameColor = Color.yellow;
     Color countColor = Color.green;
     Color deleteColor = Color.red;
@@ -90,7 +90,6 @@ public class Mission : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        ColorUtility.TryParseHtmlString("FFCE00FF", out sameColor);
 
         SetMission();
     }

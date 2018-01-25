@@ -47,13 +47,14 @@ public class Result : MonoBehaviour
     [SerializeField]
     Text MarathonHiScoreText = null;
 
-
+    [SerializeField]
+    GameObject effect = null;
 
     // Use this for initialization
     void Start()
     {
         //    DrawWindow.SetActive(true);
-
+        effect.SetActive(false);
         Debug.Log("リザルトStart");
 
         if (SaveDataManager.Instance.GetMode == Mode.Marathon)
