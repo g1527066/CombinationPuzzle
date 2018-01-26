@@ -57,7 +57,6 @@ public class CutCharacter : MonoBehaviour
         }
         else if (isStay == true)//直線に進み、終了したら切る
         {
-            Debug.Log(" isStay ");
             nowTime += Time.deltaTime;
             gameObject.transform.localPosition += new Vector3(cutSpeed, 0,0);
 

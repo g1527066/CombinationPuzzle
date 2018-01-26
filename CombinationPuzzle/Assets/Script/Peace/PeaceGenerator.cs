@@ -106,6 +106,12 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
             newPeace = changePeace.gameObject.AddComponent<PentagonPeace>();
         newPeace.point = changePeace.point;
 
+        if (changePeace.IsDuringFall == true)
+        {
+            newPeace.IsDuringFall = changePeace.IsDuringFall;
+            newPeace.downPosition = changePeace.downPosition;
+            StartCoroutine(newPeace.DownMovePeace());
+        }
         peaceTable.Add(newPeace.point, newPeace);
         Destroy(changePeace);
         return newPeace;
@@ -241,7 +247,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
     FingerParticle fingerParticle = null;
     public void FallParticle(Vector3 vector)
     {
-        fingerParticle.PlayParticle(vector+new Vector3(0,100,0));
+        fingerParticle.PlayParticle(vector + new Vector3(0, 100, 0));
     }
 
 }

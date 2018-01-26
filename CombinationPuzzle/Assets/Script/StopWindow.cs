@@ -66,13 +66,13 @@ public class StopWindow : MonoBehaviour
                 MarathonSet.SetActive(true);
                 //スコア、プレイ時間　表示
                 MarathonScore.text = GameSystem.Instance.GetScore+"点";
-                MarathonTotalTime.text = Result.ReturnTime((int)GameSystem.Instance.GetTimer.GetTotalTime);
+                MarathonTotalTime.text = Result.ReturnTime(GameSystem.Instance.GetTimer.GetTotalTime);
             }
             else
             {
                 MissionSet.SetActive(true);
                 //ピース生成、残り時間
-                MissionLimitTime.text= Result.ReturnTime((int)GameSystem.Instance.GetTimer.RemainingTime);
+                MissionLimitTime.text= Result.ReturnTime(GameSystem.Instance.GetTimer.RemainingTime);
             }
         }
         else

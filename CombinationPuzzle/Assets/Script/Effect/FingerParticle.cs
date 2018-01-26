@@ -59,7 +59,6 @@ public class FingerParticle : MonoBehaviour
             particle.transform.localPosition = PeaceManager.Instance.nowHoldPeace.transform.localPosition;
             particle.transform.localPosition += new Vector3(150, -100, -500);
             StartCoroutine(ResetParticle(particle));
-            Debug.Log(particle.transform.localPosition);
         }
     }
 
@@ -70,24 +69,36 @@ public class FingerParticle : MonoBehaviour
         stockList.Add(p);
     }
 
-    
+
+    [SerializeField]
+    ParticleSystem fallParticle = null;
+
+    List<ParticleSystem> fallParticleList = new List<ParticleSystem>();
+
     public void PlayParticle(Vector3 vector)
     {
         ParticleSystem particle;
-        if (stockList.Count == 0)
+        if (fallParticleList.Count == 0)
         {
-            particle = Instantiate(fingerParticle);
+            particle = Instantiate(fallParticle);
             particle.transform.SetParent(effectPool.transform, false);
         }
         else
         {
-            particle = stockList[0];
+            particle = fallParticleList[0];
             particle.gameObject.SetActive(true);
-            stockList.RemoveAt(0);
+            fallParticleList.RemoveAt(0);
             particle.Play();
         }
         particle.transform.localPosition = vector;
         particle.transform.localPosition += new Vector3(150, -100, -500);
-        StartCoroutine(ResetParticle(particle));
+        StartCoroutine(ResetFallParticle(particle));
+    }
+
+    private IEnumerator ResetFallParticle(ParticleSystem p)
+    {
+        yield return new WaitForSeconds(0.3f);
+        p.gameObject.SetActive(false);
+        fallParticleList.Add(p);
     }
 }

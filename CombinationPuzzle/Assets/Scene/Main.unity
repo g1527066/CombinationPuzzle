@@ -1171,6 +1171,8 @@ MonoBehaviour:
   effectPool: {fileID: 25323247}
   fingerParticle: {fileID: 198792967008780942, guid: f5421b25a420ab14eb9090251781f102,
     type: 2}
+  fallParticle: {fileID: 198034396696764150, guid: cd88fd9987595504ca5fb42fa603ec58,
+    type: 2}
 --- !u!1001 &94549805
 Prefab:
   m_ObjectHideFlags: 0
@@ -2795,7 +2797,6 @@ GameObject:
   - component: {fileID: 457408515}
   - component: {fileID: 457408514}
   - component: {fileID: 457408513}
-  - component: {fileID: 457408512}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -2803,13 +2804,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &457408512
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 457408511}
-  m_Enabled: 1
 --- !u!92 &457408513
 Behaviour:
   m_ObjectHideFlags: 0
@@ -12509,7 +12503,7 @@ RectTransform:
   m_GameObject: {fileID: 1554222295}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.00008, y: 1.00008, z: 1.00008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1959969200}
   - {fileID: 1044930262}
@@ -15392,7 +15386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 272.16, y: -186}
+  m_AnchoredPosition: {x: 205, y: -186}
   m_SizeDelta: {x: 544.31, y: 80.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2135222360
@@ -15421,7 +15415,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 8
     m_MaxSize: 83
-    m_Alignment: 0
+    m_Alignment: 2
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0

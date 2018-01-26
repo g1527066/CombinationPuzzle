@@ -506,6 +506,9 @@ public class Mission : MonoBehaviour
         AudioManager.Instance.PlaySE("PAZ_SE_Cut");
         StartCoroutine(ResetMission(missionNum));
 
+        if (missionList.Count == 1)
+            GameSystem.Instance.Clear();
+
         GameSystem.Instance.GetTimer.TimerControl(0, 0, GameSystem.Instance.GetTimer.CompleteAddTime);
     }
 
@@ -517,9 +520,9 @@ public class Mission : MonoBehaviour
 
     private IEnumerator ResetMission(int missionNum)
     {
+        MissionDataStruct m = missionData[missionNum];//保存
         //見た目消す、Noneにする
         missionData[missionNum].Init();
-
         MissionImage[missionNum].gameObject.SetActive(false);
         MissionDescriptionText[missionNum].gameObject.SetActive(false);
         MissionCountText[missionNum].gameObject.SetActive(false);
@@ -530,13 +533,12 @@ public class Mission : MonoBehaviour
             int listNum = -1;
             for (int i = 0; i < missionList.Count; i++)
             {
-                if (SameMissionDataStruct(missionList[i], missionData[missionNum]))
+                if (SameMissionDataStruct(missionList[i], m))
                 {
                     listNum = i;
                     break;
                 }
             }
-            Debug.Log("削除" + listNum);
             missionList.RemoveAt(listNum);
 
             if (missionList.Count >= ConstMissionNum)
@@ -579,9 +581,14 @@ public class Mission : MonoBehaviour
             }
         }
 
+        if (missionData[missionNum].missionType == MissionType.None)
+            yield break;
+
         MissionImage[missionNum].gameObject.SetActive(true);
         MissionDescriptionText[missionNum].gameObject.SetActive(true);
         MissionCountText[missionNum].gameObject.SetActive(true);
+
+
         //徐々に
         for (float i = 0; i <= 1; i += 0.08f)
         {

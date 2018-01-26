@@ -275,6 +275,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             //得点追加
             GameSystem.Instance.AddScorePoint(nowDeletePoint.deletePeaceList.Count, nowDeletePoint.deletePeaceList[0].GetPeaceForm);
 
+
             Peace changeGenerationPeace = null;
             // Debug.Log("全て削除済み");
             //生成するありなら
@@ -283,6 +284,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                 EffectManager.Instance.PlayEffect(nowDeletePoint.nextGenerationPeace.gameObject.transform.position, "生成");
                 changeGenerationPeace = PeaceManager.Instance.ChangeForm(nowDeletePoint.nextGenerationPeace);
             }
+
 
             //削除した場所以降のピースを落下させる//TODO:生成がnullだと、、？
             List<POINT> downTargetPoint = new List<POINT>();
@@ -630,12 +632,12 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                     nowDeletePoint.deletePeaceList.Remove(deletePeace);
                     DeletionTargetList[i] = nowDeletePoint;
                     Debug.Log("リストから削除");
-                    deleteNum=i;
+                    deleteNum = i;
                 }
 
             }
         }
-        if(DeletionTargetList[deleteNum].deletePeaceList.Count==0)
+        if (DeletionTargetList[deleteNum].deletePeaceList.Count == 0)
         {
             Debug.Log("リストに何もないので削除します");
             DeletionTargetList.RemoveAt(deleteNum);

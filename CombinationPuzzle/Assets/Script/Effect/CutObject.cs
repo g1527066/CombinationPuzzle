@@ -31,7 +31,6 @@ public class CutObject : MonoBehaviour
         totalTime += Time.deltaTime;
         if (cutFlag == false && totalTime >= cutTime)
         {
-            Debug.Log("カットされた、、はず、、" + startPosition + "   e=" + endPosition);
             List<SpriteSlicer2DSliceInfo> cutObject = new List<SpriteSlicer2DSliceInfo>();
             // SpriteSlicer2D.SliceSprite(startPosition, endPosition, this.gameObject, false, ref cutObject);
             SpriteSlicer2D.ShatterSprite(this.gameObject,30,false,ref cutObject);

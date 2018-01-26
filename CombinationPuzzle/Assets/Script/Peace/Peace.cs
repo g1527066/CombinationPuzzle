@@ -141,7 +141,7 @@ public abstract class Peace : MonoBehaviour
 
 
 
-    private IEnumerator DownMovePeace()
+    public IEnumerator DownMovePeace()
     {
    
 
@@ -198,7 +198,7 @@ public abstract class Peace : MonoBehaviour
         {
             //test++;
             //if (test > 100)
-                Debug.Log("NextCheckコルーチン内　　X=" + point.X + "  Y=" + point.Y);
+               // Debug.Log("NextCheckコルーチン内　　X=" + point.X + "  Y=" + point.Y);
 
             bool tes = PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(point.X, point.Y + 1));
             //if(tes==true)

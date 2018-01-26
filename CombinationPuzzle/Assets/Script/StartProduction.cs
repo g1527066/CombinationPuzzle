@@ -17,7 +17,7 @@ public class StartProduction : MonoBehaviour
     //始め！,表示する時間
     [SerializeField]
     Image startImage = null;
-    float DrawTime = 2.0f;
+    float DrawTime = 0.8f;
 
     [SerializeField]
     Flashing tapStart = null;
@@ -65,10 +65,7 @@ public class StartProduction : MonoBehaviour
             {
                 timeString += limit / 60 + "分";
             }
-            if (limit % 60 != 0)
-            {
-                timeString += limit % 60 + "秒";
-            }
+                timeString += limit % 60 + ".00秒";
             MissionLimitTime.text = timeString;
 
             //目標一覧表示
