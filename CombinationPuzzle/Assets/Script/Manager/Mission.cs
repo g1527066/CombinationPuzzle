@@ -504,6 +504,27 @@ public class Mission : MonoBehaviour
         Debug.Log("ClearMisstion  " + missionNum + "     " + missionData[missionNum].missionType);
         cutMission.SetCutEffect(AllPeaceSprite, missionNum, missionData[missionNum].peaceColor, missionData[missionNum].peaceForm);
         AudioManager.Instance.PlaySE("PAZ_SE_Cut");
+        StartCoroutine(ResetMission(missionNum));
+
+        GameSystem.Instance.GetTimer.TimerControl(0, 0, GameSystem.Instance.GetTimer.CompleteAddTime);
+    }
+
+
+    //public MissionType missionType;
+    //public int completeNum;//終わったら
+    //public int MissionNum;
+    //public PeaceForm peaceForm;
+
+    private IEnumerator ResetMission(int missionNum)
+    {
+        //見た目消す、Noneにする
+        missionData[missionNum].Init();
+
+        MissionImage[missionNum].gameObject.SetActive(false);
+        MissionDescriptionText[missionNum].gameObject.SetActive(false);
+        MissionCountText[missionNum].gameObject.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+
         if (SaveDataManager.Instance.GetMode == Mode.Mission)
         {
             int listNum = -1;
@@ -558,22 +579,23 @@ public class Mission : MonoBehaviour
             }
         }
 
-        GameSystem.Instance.GetTimer.TimerControl(0, 0, GameSystem.Instance.GetTimer.CompleteAddTime);
-
-        for (int i = 0; i < ConstMissionNum; i++)
+        MissionImage[missionNum].gameObject.SetActive(true);
+        MissionDescriptionText[missionNum].gameObject.SetActive(true);
+        MissionCountText[missionNum].gameObject.SetActive(true);
+        //徐々に
+        for (float i = 0; i <= 1; i += 0.08f)
         {
-            // if (missionData[i].missionType != MissionTypeOld.None) return;
-
+            MissionImage[missionNum].color
+                = new Color(MissionImage[missionNum].color.r, MissionImage[missionNum].color.g, MissionImage[missionNum].color.b, i);
+            MissionDescriptionText[missionNum].color 
+                = new Color(MissionDescriptionText[missionNum].color.r, MissionDescriptionText[missionNum].color.g, MissionDescriptionText[missionNum].color.b, i);
+            MissionCountText[missionNum].color 
+                = new Color(MissionCountText[missionNum].color.r, MissionCountText[missionNum].color.g, MissionCountText[missionNum].color.b, i);
+            yield return null;
         }
-        //すべてNoneだったらクリア
-        // GameSystem.Instance.Clear();
     }
 
 
-    //public MissionType missionType;
-    //public int completeNum;//終わったら
-    //public int MissionNum;
-    //public PeaceForm peaceForm;
 
 
     private bool SameMissionDataStruct(MissionDataStruct missionDataStruct1, MissionDataStruct missionDataStruct2)
@@ -605,7 +627,7 @@ public class Mission : MonoBehaviour
 
         for (int i = 0; i < missionList.Count; i++)
         {
-            Debug.Log("DrawMission="+i);
+            Debug.Log("DrawMission=" + i);
 
 
             MissionIcon icon = Instantiate(missionIconPrefab);
@@ -634,18 +656,18 @@ public class Mission : MonoBehaviour
             }
 
             //スプライトの適用
-            if(missionList[i].peaceForm==PeaceForm.Triangle)
+            if (missionList[i].peaceForm == PeaceForm.Triangle)
             {
                 icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)missionList[i].peaceColor];
             }
-            else if(missionList[i].peaceForm!=PeaceForm.None)
+            else if (missionList[i].peaceForm != PeaceForm.None)
             {
-                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None+(int)missionList[i].peaceForm-1];
+                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + (int)missionList[i].peaceForm - 1];
 
             }
-            else if(PeaceForm.None==missionList[i].peaceForm&& PeaceColor.None == missionList[i].peaceColor)
+            else if (PeaceForm.None == missionList[i].peaceForm && PeaceColor.None == missionList[i].peaceColor)
             {
-                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None+(int)PeaceForm.None-1];
+                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + (int)PeaceForm.None - 1];
 
             }
 

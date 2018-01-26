@@ -55,6 +55,8 @@ public abstract class Peace : MonoBehaviour
     public bool IsDuringFall = false;
     RectTransform rectTransform;
     public float downPosition = 0f;
+    int particleCounter = 0;
+    int particleWave = 2;
 
 
     public RectTransform RectTransform
@@ -126,7 +128,7 @@ public abstract class Peace : MonoBehaviour
     {
         //    Debug.Log("最初の位置" + RectTransform.anchoredPosition);
         //    Debug.Log("目標地点=" + yPosition);
-        //  if (IsDuringFall == true) return;
+         if (IsDuringFall == true) return;
         IsDuringFall = true;
         downPosition = yPosition;
         StartCoroutine(DownMovePeace());//erorrたくさん消した時？
@@ -136,6 +138,7 @@ public abstract class Peace : MonoBehaviour
             StartCoroutine(NextCheck());//まだ下にいるかもしれないから、移動はするがPOINTは変えない
         }
     }
+
 
 
     private IEnumerator DownMovePeace()
@@ -149,7 +152,12 @@ public abstract class Peace : MonoBehaviour
                 yield return null;
             }
             RectTransform.anchoredPosition -= new Vector2(0, PeaceOperator.Instance.downSpeed);
-
+            particleCounter++;
+            if (particleCounter>particleWave)
+            {
+                PeaceGenerator.Instance.FallParticle(this.transform.localPosition);
+                particleCounter = 0;
+            }
             if (downPosition >= RectTransform.anchoredPosition.y)
             {
                 // Debug.Log("セットしなおし");

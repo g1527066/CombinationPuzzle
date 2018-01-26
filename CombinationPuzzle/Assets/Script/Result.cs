@@ -53,6 +53,8 @@ public class Result : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
+        AudioManager.Instance.StopBGM();
         //    DrawWindow.SetActive(true);
         effect.SetActive(false);
         Debug.Log("リザルトStart");

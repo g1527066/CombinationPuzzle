@@ -236,4 +236,12 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
         if (GameSystem.Instance.GetTimer.StopTimeFlag == false)
             GenerationDropPeace();
     }
+
+    [SerializeField]
+    FingerParticle fingerParticle = null;
+    public void FallParticle(Vector3 vector)
+    {
+        fingerParticle.PlayParticle(vector+new Vector3(0,100,0));
+    }
+
 }

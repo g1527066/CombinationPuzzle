@@ -289,11 +289,6 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             SetDownUnderList(downTargetPoint, nowDeletePoint.deletePeaceList, changeGenerationPeace);
 
 
-            Debug.Log("生成時の座標１");
-            Debug.Log("X="+changeGenerationPeace.point.X+ "   Y=" + changeGenerationPeace.point.Y);
-
-
-
             //生成されたもの以外リストから削除
             List<Peace> SetChangeList = new List<Peace>();
             for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
