@@ -107,7 +107,7 @@ public class Result : MonoBehaviour
         string playTimeString = "";
         if ((int)time / 60 != 0)
         {
-            playTimeString += time / 60 + "分";
+            playTimeString += (int)(time / 60) + "分";
         }
 
         playTimeString += System.Math.Round((time % 60), 2) + "秒";

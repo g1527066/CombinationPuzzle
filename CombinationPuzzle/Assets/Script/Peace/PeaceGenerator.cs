@@ -250,4 +250,17 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
         fingerParticle.PlayParticle(vector + new Vector3(0, 100, 0));
     }
 
+    public void TestSpeedUp()
+    {
+        generationFrequencyTime -= 1;
+        if (lowestSpeed > generationFrequencyTime)
+            generationFrequencyTime = lowestSpeed;
+    }
+    public void TestSpeedDown()
+    {
+        generationFrequencyTime += 1;
+    }
+
+
+
 }

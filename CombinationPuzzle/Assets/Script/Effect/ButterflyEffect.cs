@@ -27,12 +27,17 @@ public class ButterflyEffect : MonoBehaviour
     bool upflag = false;
     float totalTime = 0;
 
+    int MaxSize = 170;
+    int MinSize = 100;
+
 
 
     //   // Use this for initialization
     void Start()
     {
         startPosition = butterfly.rectTransform.anchoredPosition;
+        int r = Random.Range(MinSize, MaxSize);
+        this.GetComponent<RectTransform>().sizeDelta = new Vector2(r,r);
     }
 
     // Update is called once per frame
@@ -46,11 +51,11 @@ public class ButterflyEffect : MonoBehaviour
 
             float moveX = 2;
             float moveY = 3;
-            
+
             if (upflag)
             {
                 butterfly.rectTransform.anchoredPosition += new Vector2(moveX, moveY);
-                if(upTime<totalTime)
+                if (upTime < totalTime)
                 {
                     upflag = false;
                     totalTime = 0;
@@ -79,10 +84,13 @@ public class ButterflyEffect : MonoBehaviour
             }
 
         }
-        if(generationTotalTime > genearationTime+15)
+        if (generationTotalTime > genearationTime + 50)
         {
             generationTotalTime = 0;
             butterfly.rectTransform.anchoredPosition = startPosition;
+            int r = Random.Range(MinSize, MaxSize);
+            this.GetComponent<RectTransform>().sizeDelta = new Vector2(r, r);
+
         }
     }
 }

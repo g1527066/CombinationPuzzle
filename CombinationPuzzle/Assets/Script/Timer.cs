@@ -103,7 +103,7 @@ public class Timer : MonoBehaviour {
     public void TimerControl(int SummaryCount, int BestCount, float addTime)
     {
         remainingTime += SummaryCount * SummaryDeleteAddTime + BestDeleteAddTime * BestCount + addTime;
-        TimeText.text = (int)remainingTime / 60 + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
+        TimeText.text = (int)(remainingTime / 60) + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
         TimeSlider.value = remainingTime;
     }
 

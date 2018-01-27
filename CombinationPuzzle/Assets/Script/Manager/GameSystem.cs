@@ -143,8 +143,6 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     Image EndImage = null;
     [SerializeField]
     GameObject ResultObject = null;
-    [SerializeField]
-    Sprite EndSprite = null;
 
     public void GameOver()
     {
@@ -153,7 +151,6 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         EndImage.gameObject.SetActive(true);
 
         AudioManager.Instance.PlaySE("PAZ_SE_Result");
-        EndImage.sprite = EndSprite;
 
         StartCoroutine(ChangeResult());
 

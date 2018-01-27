@@ -121,6 +121,9 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
                     PeaceJudger.Instance.DeleteTartgetPeace(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])]);
                 }
 
+                cutGameObject[num * PeaceManager.BoardSizeX + i].SetActive(true);
+                cutGameObject[num * PeaceManager.BoardSizeX + i].GetComponent<SpriteRenderer>().sprite = PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].GetComponent<UnityEngine.UI.Image>().sprite;
+
 
                 //元を審査）
                 PeaceManager.Instance.stockPeaceList.Add(PeaceGenerator.Instance.ChangeForm(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])]));
@@ -137,10 +140,7 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
                 }
 
 
-                cutGameObject[num * PeaceManager.BoardSizeX + i].SetActive(true);
-                cutGameObject[num * PeaceManager.BoardSizeX + i].GetComponent<SpriteRenderer>().sprite = PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].GetComponent<UnityEngine.UI.Image>().sprite;
-
-                List<SpriteSlicer2DSliceInfo> sliced = new List<SpriteSlicer2DSliceInfo>();
+              List<SpriteSlicer2DSliceInfo> sliced = new List<SpriteSlicer2DSliceInfo>();
                 SpriteSlicer2D.ExplodeSprite(cutGameObject[num * PeaceManager.BoardSizeX + i], 5, 30
                     , false, ref sliced);
                 //何秒で消える的なスクリプト付与
