@@ -262,5 +262,30 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
     }
 
 
+    public void TestCharge()
+    {
+
+        PeaceColor addPeaceType;
+        for (int countY = 1; countY < PeaceManager.BoardSizeY; countY++)
+        {
+            for (int countX = 0; countX < PeaceManager.BoardSizeX; countX++)
+            {
+                if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(countX, countY)))
+                    continue;
+
+                addPeaceType = (PeaceColor)UnityEngine.Random.Range(0, (int)PeaceColor.None);
+                Peace peace = Instantiate(peacePrefab).AddComponent<TrianglePeace>();
+                peace.peaceColor = addPeaceType;
+                peace.point = new POINT(countX, countY);
+
+                peace.transform.SetParent(PeacePool.transform, false);
+                peace.SetSprite(PeaceSprites[(int)peace.peaceColor]);
+                PeaceManager.Instance.GetPeaceTabel.Add(peace.point, peace);
+                PeaceOperator.Instance.ResetPosition(peace);
+            }
+
+        }
+    }
+
 
 }

@@ -41,39 +41,47 @@ MonoBehaviour:
     - missionType: 2
       peaceColor: 6
       peaceForm: 3
-      number: 1
+      number: 10
   - MissionName: "\u767E\u82B1\u7E5A\u4E71"
     LmiteTime: 180
-    FallFrequency: 5
+    FallFrequency: 0.5
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
     - missionType: 1
       peaceColor: 0
       peaceForm: 0
-      number: 1
+      number: 6
     - missionType: 1
-      peaceColor: 1
+      peaceColor: 5
       peaceForm: 0
-      number: 1
+      number: 6
     - missionType: 1
       peaceColor: 2
       peaceForm: 0
-      number: 1
+      number: 6
     - missionType: 1
       peaceColor: 3
       peaceForm: 0
-      number: 1
+      number: 6
+    - missionType: 1
+      peaceColor: 1
+      peaceForm: 0
+      number: 6
+    - missionType: 1
+      peaceColor: 4
+      peaceForm: 0
+      number: 6
   - MissionName: "\u767E\u6226\u932C\u78E8"
     LmiteTime: 90
-    FallFrequency: 5
+    FallFrequency: 0.5
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
     - missionType: 0
-      peaceColor: 0
-      peaceForm: 0
-      number: 1
+      peaceColor: 6
+      peaceForm: 3
+      number: 100
   - MissionName: "\u4E00\u9A0E\u5F53\u5343"
     LmiteTime: 90
     FallFrequency: 5
@@ -81,7 +89,7 @@ MonoBehaviour:
     minusTime: 0
     MissionList:
     - missionType: 0
-      peaceColor: 0
+      peaceColor: 5
       peaceForm: 0
       number: 5
   - MissionName: "\u68EE\u7F85\u4E07\u8C61"
@@ -90,37 +98,37 @@ MonoBehaviour:
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
-    - missionType: 0
-      peaceColor: 0
+    - missionType: 2
+      peaceColor: 4
       peaceForm: 0
-      number: 10
+      number: 9
   - MissionName: "\u5B9F\u9A13\u4E4B\u516B"
     LmiteTime: 70
     FallFrequency: 5
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
-    - missionType: 0
-      peaceColor: 0
+    - missionType: 1
+      peaceColor: 1
       peaceForm: 0
-      number: 5
+      number: 7
   - MissionName: "\u5B9F\u9A13\u4E4B\u4E5D"
     LmiteTime: 90
     FallFrequency: 5
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
-    - missionType: 0
-      peaceColor: 0
+    - missionType: 2
+      peaceColor: 3
       peaceForm: 0
-      number: 5
+      number: 10
   - MissionName: "\u5B9F\u9A13\u4E4B\u5341"
     LmiteTime: 90
     FallFrequency: 5
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
-    - missionType: 0
-      peaceColor: 0
-      peaceForm: 0
-      number: 5
+    - missionType: 3
+      peaceColor: 6
+      peaceForm: 1
+      number: 9

@@ -51,6 +51,9 @@ public class Mission : MonoBehaviour
     Text[] MissionCountText = null;
     [SerializeField]
     Text[] MissionDescriptionText = null;
+    [SerializeField]
+    Text[] MissionTopDescriptionText = null;
+
 
     [SerializeField]//全部のほうの最後を参照する
     Sprite AllPeaceSprite = null;
@@ -131,23 +134,27 @@ public class Mission : MonoBehaviour
         {
             case MissionType.Delete:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "個";
+                MissionTopDescriptionText[num].text = deleteString;
                 MissionDescriptionText[num].text = deleteString;
                 MissionDescriptionText[num].color = deleteColor;
                 break;
             case MissionType.CountDelete:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "回";
+                MissionTopDescriptionText[num].text = countDeleteString;
                 MissionDescriptionText[num].text = countDeleteString;
                 MissionDescriptionText[num].color = countColor;
                 break;
 
             case MissionType.SameDelete:
                 MissionCountText[num].text = missionData[num].MissionNum + "個";
+                MissionTopDescriptionText[num].text = sameDeleteString;
                 MissionDescriptionText[num].text = sameDeleteString;
                 MissionDescriptionText[num].color = sameColor;
                 break;
 
             case MissionType.MakePeace:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "個";
+                MissionTopDescriptionText[num].text = makeString;
                 MissionDescriptionText[num].text = makeString;
                 MissionDescriptionText[num].color = generationColor;
                 break;
@@ -594,9 +601,9 @@ public class Mission : MonoBehaviour
         {
             MissionImage[missionNum].color
                 = new Color(MissionImage[missionNum].color.r, MissionImage[missionNum].color.g, MissionImage[missionNum].color.b, i);
-            MissionDescriptionText[missionNum].color 
-                = new Color(MissionDescriptionText[missionNum].color.r, MissionDescriptionText[missionNum].color.g, MissionDescriptionText[missionNum].color.b, i);
-            MissionCountText[missionNum].color 
+            MissionTopDescriptionText[missionNum].color =new Color(MissionTopDescriptionText[missionNum].color.r, MissionTopDescriptionText[missionNum].color.g, MissionTopDescriptionText[missionNum].color.b, i);
+            MissionDescriptionText[missionNum].color = new Color(MissionDescriptionText[missionNum].color.r, MissionDescriptionText[missionNum].color.g, MissionDescriptionText[missionNum].color.b, i);
+            MissionCountText[missionNum].color
                 = new Color(MissionCountText[missionNum].color.r, MissionCountText[missionNum].color.g, MissionCountText[missionNum].color.b, i);
             yield return null;
         }
@@ -683,4 +690,20 @@ public class Mission : MonoBehaviour
 
     }
 
+
+    [SerializeField]
+    Text text = null;
+    int testCutNum = 1;
+    public void TestChangeNumberZan()
+    {
+        testCutNum++;
+        if (testCutNum >= 3)
+            testCutNum = 0;
+        text.text = "↑" + testCutNum;
+    }
+
+    public void TextZAN()
+    {
+        ClearMisstion(testCutNum);
+    }
 }

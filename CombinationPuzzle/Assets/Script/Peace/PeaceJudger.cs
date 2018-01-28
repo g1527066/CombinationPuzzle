@@ -41,7 +41,6 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         {
             return true;
         }
-        Debug.Log("左開始");
         //左
         count = 0;
         for (int i = p.X - 1; i >= 0; i--)
@@ -58,7 +57,6 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         {
             return true;
         }
-        Debug.Log("終了");
         return false;
     }
 
@@ -250,117 +248,121 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         //全て削除済みで、生成も変わっていたら
         if (nowDeletePoint.deleteCounter == nowDeletePoint.deletePeaceList.Count)//全て削除済みだったら、上から追加、判定する（両方）、ずらす
         {
-
-            //サウンド
-            if (nowDeletePoint.nextGenerationPeace != null)
-            {
-                if (nowDeletePoint.nextGenerationPeace.GetPeaceForm == PeaceForm.Triangle)
-                    AudioManager.Instance.PlaySE("PAZ_SE_EraseSt");
-                else
-                    AudioManager.Instance.PlaySE("PAZ_SE_EraseNd");
-            }
-            else
-                AudioManager.Instance.PlaySE("PAZ_SE_EraseRd");
-
-            //時間追加
-            int summaryCount = 0, bestCount = 0;
-            if (nowDeletePoint.deleteCounter >= GameSystem.Instance.GetTimer.SummaryDeleteAddCount)
-                summaryCount = nowDeletePoint.deleteCounter;
-            if (nowDeletePoint.deletePeaceList[0].GetPeaceForm == PeaceForm.Pentagon)
-                bestCount = nowDeletePoint.deleteCounter;
-            GameSystem.Instance.GetTimer.TimerControl(summaryCount, bestCount, 0);
-
-            //判定
-            mission.CheckMission(nowDeletePoint.deletePeaceList, nowDeletePoint.nextGenerationPeace);
-            //得点追加
-            GameSystem.Instance.AddScorePoint(nowDeletePoint.deletePeaceList.Count, nowDeletePoint.deletePeaceList[0].GetPeaceForm);
-
-
-            Peace changeGenerationPeace = null;
-            // Debug.Log("全て削除済み");
-            //生成するありなら
-            if (nowDeletePoint.nextGenerationPeace != null)
-            {
-                EffectManager.Instance.PlayEffect(nowDeletePoint.nextGenerationPeace.gameObject.transform.position, "生成");
-                changeGenerationPeace = PeaceManager.Instance.ChangeForm(nowDeletePoint.nextGenerationPeace);
-            }
-
-
-            //削除した場所以降のピースを落下させる//TODO:生成がnullだと、、？
-            List<POINT> downTargetPoint = new List<POINT>();
-            SetDownUnderList(downTargetPoint, nowDeletePoint.deletePeaceList, changeGenerationPeace);
-
-
-            //生成されたもの以外リストから削除
-            List<Peace> SetChangeList = new List<Peace>();
-            for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
-            {
-                //if(nowDeletePoint.deletePeaceList[i].gameObject==null)//error
-                //{
-                //    Debug.Break();
-                //    Debug.LogError("nowDeletePoint.deletePeaceList[i].gameObject==null");
-                //}
-
-
-                if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Triangle)
-                {
-                    //error↓
-                    EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, nowDeletePoint.deletePeaceList[i].peaceColor.DisplayName());
-                }
-                else if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Square)
-                    EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "黒");
-                else
-                    EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "白");
-
-                //一旦ここで生成後のピースが落ちる気があるのか、どこの座標なのか確認
-                //Debug.Log();
-
-
-
-                if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace)
-                {
-                    if (CheckPossibleDown(peaceTable, nowDeletePoint.nextGenerationPeace))
-                    {
-                        Debug.Log("生成を落下させます");
-
-                        PeaceOperator.Instance.AddDrop(changeGenerationPeace);
-                    }
-                    continue;
-                }
-
-                //SetChangeList.Add();
-                //リストから削除
-                PeaceManager.Instance.stockPeaceList.Add(PeaceGenerator.Instance.ChangeForm(nowDeletePoint.deletePeaceList[i]));
-                peaceTable.Remove(nowDeletePoint.deletePeaceList[i].point);
-
-                //見えない位置に移動
-                PeaceOperator.Instance.HidePeace(PeaceManager.Instance.stockPeaceList[PeaceManager.Instance.stockPeaceList.Count - 1]);
-                //PeaceManager.Instance.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
-            }
-
-            //  動かすのはあと、場所がずれるため
-            for (int i = 0; i < downTargetPoint.Count; i++)
-            {
-                for (int j = downTargetPoint[i].Y; j >= 0; j--)
-                {
-                    // Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
-                    if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(downTargetPoint[i].X, j)))
-                    {
-                        if (PeaceManager.Instance.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)] != PeaceManager.Instance.nowHoldPeace)
-                            PeaceOperator.Instance.AddDrop(PeaceManager.Instance.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)]);
-                    }
-                }
-            }
-
-            //削除リストを削除
-            DeletionTargetList.Remove(DeletionTargetList[delteListNumber]);
-            //生成後のみ審査??TODO:変える
-            if (changeGenerationPeace != null)
-                JudgePeace(peaceTable, changeGenerationPeace, PeaceManager.Instance.nowHoldPeace);
-
-            Debug.Log(PeaceManager.Instance.GetPeaceTabel.Count + "   総数");
-            // Debug.Break();
+            ListAllDelete(nowDeletePoint, delteListNumber);
         }
+    }
+
+    public void ListAllDelete(DeletePoint nowDeletePoint,int delteListNumber)
+    {
+        //サウンド
+        if (nowDeletePoint.nextGenerationPeace != null)
+        {
+            if (nowDeletePoint.nextGenerationPeace.GetPeaceForm == PeaceForm.Triangle)
+                AudioManager.Instance.PlaySE("PAZ_SE_EraseSt");
+            else
+                AudioManager.Instance.PlaySE("PAZ_SE_EraseNd");
+        }
+        else
+            AudioManager.Instance.PlaySE("PAZ_SE_EraseRd");
+
+        //時間追加
+        int summaryCount = 0, bestCount = 0;
+        if (nowDeletePoint.deleteCounter >= GameSystem.Instance.GetTimer.SummaryDeleteAddCount)
+            summaryCount = nowDeletePoint.deleteCounter;
+        if (nowDeletePoint.deletePeaceList[0].GetPeaceForm == PeaceForm.Pentagon)//error
+            bestCount = nowDeletePoint.deleteCounter;
+        GameSystem.Instance.GetTimer.TimerControl(summaryCount, bestCount, 0);
+
+        //判定
+        mission.CheckMission(nowDeletePoint.deletePeaceList, nowDeletePoint.nextGenerationPeace);
+        //得点追加
+        GameSystem.Instance.AddScorePoint(nowDeletePoint.deletePeaceList.Count, nowDeletePoint.deletePeaceList[0].GetPeaceForm);
+
+
+        Peace changeGenerationPeace = null;
+        // Debug.Log("全て削除済み");
+        //生成するありなら
+        if (nowDeletePoint.nextGenerationPeace != null)
+        {
+            EffectManager.Instance.PlayEffect(nowDeletePoint.nextGenerationPeace.gameObject.transform.position, "生成");
+            changeGenerationPeace = PeaceManager.Instance.ChangeForm(nowDeletePoint.nextGenerationPeace);
+        }
+
+
+        //削除した場所以降のピースを落下させる//TODO:生成がnullだと、、？
+        List<POINT> downTargetPoint = new List<POINT>();
+        SetDownUnderList(downTargetPoint, nowDeletePoint.deletePeaceList, changeGenerationPeace);
+
+
+        //生成されたもの以外リストから削除
+        List<Peace> SetChangeList = new List<Peace>();
+        for (int i = 0; i < nowDeletePoint.deletePeaceList.Count; i++)
+        {
+            //if(nowDeletePoint.deletePeaceList[i].gameObject==null)//error
+            //{
+            //    Debug.Break();
+            //    Debug.LogError("nowDeletePoint.deletePeaceList[i].gameObject==null");
+            //}
+
+
+            if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Triangle)
+            {
+                //error↓
+                EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, nowDeletePoint.deletePeaceList[i].peaceColor.DisplayName());
+            }
+            else if (nowDeletePoint.deletePeaceList[i].GetPeaceForm == PeaceForm.Square)
+                EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "黒");
+            else
+                EffectManager.Instance.PlayEffect(nowDeletePoint.deletePeaceList[i].gameObject.transform.position, "白");
+
+            //一旦ここで生成後のピースが落ちる気があるのか、どこの座標なのか確認
+            //Debug.Log();
+
+
+
+            if (nowDeletePoint.deletePeaceList[i] == nowDeletePoint.nextGenerationPeace)
+            {
+                if (CheckPossibleDown(PeaceManager.Instance.GetPeaceTabel, nowDeletePoint.nextGenerationPeace))
+                {
+                    Debug.Log("生成を落下させます");
+
+                    PeaceOperator.Instance.AddDrop(changeGenerationPeace);
+                }
+                continue;
+            }
+
+            //SetChangeList.Add();
+            //リストから削除
+            PeaceManager.Instance.stockPeaceList.Add(PeaceGenerator.Instance.ChangeForm(nowDeletePoint.deletePeaceList[i]));
+            PeaceManager.Instance.GetPeaceTabel.Remove(nowDeletePoint.deletePeaceList[i].point);
+
+            //見えない位置に移動
+            PeaceOperator.Instance.HidePeace(PeaceManager.Instance.stockPeaceList[PeaceManager.Instance.stockPeaceList.Count - 1]);
+            //PeaceManager.Instance.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
+        }
+
+        //  動かすのはあと、場所がずれるため
+        for (int i = 0; i < downTargetPoint.Count; i++)
+        {
+            for (int j = downTargetPoint[i].Y; j >= 0; j--)
+            {
+                // Debug.Log("上を落下させる " + downTargetPoint[i].X + "  " + j);
+                if (PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(downTargetPoint[i].X, j)))
+                {
+                    if (PeaceManager.Instance.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)] != PeaceManager.Instance.nowHoldPeace)
+                        PeaceOperator.Instance.AddDrop(PeaceManager.Instance.GetPeaceTabel[new POINT(downTargetPoint[i].X, j)]);
+                }
+            }
+        }
+
+        //削除リストを削除
+        DeletionTargetList.Remove(DeletionTargetList[delteListNumber]);
+        //生成後のみ審査??TODO:変える
+        if (changeGenerationPeace != null)
+            JudgePeace(PeaceManager.Instance.GetPeaceTabel, changeGenerationPeace, PeaceManager.Instance.nowHoldPeace);
+
+        Debug.Log(PeaceManager.Instance.GetPeaceTabel.Count + "   総数");
+        // Debug.Break();
     }
 
     private void SetDeletePoint(Dictionary<POINT, Peace> peaceTable, List<POINT> deleteList)
@@ -633,6 +635,19 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                     DeletionTargetList[i] = nowDeletePoint;
                     Debug.Log("リストから削除");
                     deleteNum = i;
+
+                    Debug.Log("削除番号="+i+"   カウント="+ DeletionTargetList[i].deleteCounter
+                        + "  リストサイズ"+ DeletionTargetList[i].deletePeaceList.Count);
+
+                    //この時、ほかの消去はされていたら判定開始
+                    if (DeletionTargetList[i].deleteCounter == DeletionTargetList[i].deletePeaceList.Count)
+                    {
+                    
+                        ListAllDelete(DeletionTargetList[i], i);//error関数内
+                        text.text= "全て消去済み、判定開始";
+
+                    }
+
                 }
 
             }
@@ -646,4 +661,8 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
 
         Debug.Log("　削除終了");
     }
+
+
+    [SerializeField]
+    UnityEngine.UI.Text text = null;
 }

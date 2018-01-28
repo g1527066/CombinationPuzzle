@@ -116,14 +116,17 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
                 }
 
 
+                //マッチ中なら消去
                 if (PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].isMatching == true)
                 {
                     PeaceJudger.Instance.DeleteTartgetPeace(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])]);
                 }
+                
+                
 
                 cutGameObject[num * PeaceManager.BoardSizeX + i].SetActive(true);
                 cutGameObject[num * PeaceManager.BoardSizeX + i].GetComponent<SpriteRenderer>().sprite = PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].GetComponent<UnityEngine.UI.Image>().sprite;
-
+                //↑error
 
                 //元を審査）
                 PeaceManager.Instance.stockPeaceList.Add(PeaceGenerator.Instance.ChangeForm(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])]));
