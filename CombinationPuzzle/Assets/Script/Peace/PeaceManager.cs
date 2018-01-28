@@ -65,7 +65,7 @@ public class PeaceManager : SingletonMonoBehaviour<PeaceManager>
 
                     POINT p = nowHoldPeace.point;
                     PeaceOperator.Instance.TradeDictionaryPeace(peaceTable, nowHoldPeace, peaceTable[pointCollision.point]);
-                    PeaceOperator.Instance.ResetPosition(peaceTable[p]);
+                    PeaceOperator.Instance.ResetPosition(peaceTable[p]);//エラー　無し
 
                     if (PeaceJudger.Instance.CheckPossibleDown(peaceTable, peaceTable[p])&&peaceTable[p].IsDuringFall==false)
                         PeaceOperator.Instance.AddDrop(peaceTable[p]);//これだと先に下があってもやってしまう？？動けるかの判定も先にやった方がいい疑惑

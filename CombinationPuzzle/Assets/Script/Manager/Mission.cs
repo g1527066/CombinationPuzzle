@@ -514,9 +514,11 @@ public class Mission : MonoBehaviour
         StartCoroutine(ResetMission(missionNum));
 
         if (missionList.Count == 1)
+        {
             GameSystem.Instance.Clear();
+            GameSystem.Instance.ChangeDebugText("ClearMisstion");
 
-        GameSystem.Instance.GetTimer.TimerControl(0, 0, GameSystem.Instance.GetTimer.CompleteAddTime);
+        }
     }
 
 
@@ -559,7 +561,11 @@ public class Mission : MonoBehaviour
             }
 
             if (missionList.Count == 0)
+            {
                 GameSystem.Instance.Clear();
+                GameSystem.Instance.ChangeDebugText("ミッション数0");
+
+            }
         }
         else
         {

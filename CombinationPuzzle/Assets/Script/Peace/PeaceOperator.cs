@@ -116,12 +116,13 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
                 }
 
 
-                //マッチ中なら消去
-                if (PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].isMatching == true)
+                //マッチング中じゃなくても、マッチングの一部かもしれないので判定する
+                int deleteNum = PeaceJudger.Instance.ReturnSameDeleteListNumber(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])],PeaceJudger.Instance.GetDeletionTargetList);
+                if(deleteNum!=-1)
                 {
                     PeaceJudger.Instance.DeleteTartgetPeace(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])]);
                 }
-                
+
                 
 
                 cutGameObject[num * PeaceManager.BoardSizeX + i].SetActive(true);

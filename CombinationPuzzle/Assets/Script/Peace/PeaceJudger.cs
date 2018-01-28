@@ -17,8 +17,13 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
     const int DeleteCount = 3;
 
     List<DeletePoint> DeletionTargetList = new List<DeletePoint>();
-
-
+    public List<DeletePoint> GetDeletionTargetList
+    {
+        get
+        {
+            return DeletionTargetList;
+        }
+    }
     [SerializeField]
     public Mission mission = null;
 
@@ -234,7 +239,6 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
     {
 
         int delteListNumber = ReturnSameDeleteListNumber(deletePeace, DeletionTargetList);
-        POINT dPoint = deletePeace.point;
 
         if (delteListNumber == -1)
         {
@@ -252,7 +256,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         }
     }
 
-    public void ListAllDelete(DeletePoint nowDeletePoint,int delteListNumber)
+    public void ListAllDelete(DeletePoint nowDeletePoint, int delteListNumber)
     {
         //サウンド
         if (nowDeletePoint.nextGenerationPeace != null)
@@ -271,7 +275,6 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             summaryCount = nowDeletePoint.deleteCounter;
         if (nowDeletePoint.deletePeaceList[0].GetPeaceForm == PeaceForm.Pentagon)//error
             bestCount = nowDeletePoint.deleteCounter;
-        GameSystem.Instance.GetTimer.TimerControl(summaryCount, bestCount, 0);
 
         //判定
         mission.CheckMission(nowDeletePoint.deletePeaceList, nowDeletePoint.nextGenerationPeace);
@@ -334,8 +337,10 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             //SetChangeList.Add();
             //リストから削除
             PeaceManager.Instance.stockPeaceList.Add(PeaceGenerator.Instance.ChangeForm(nowDeletePoint.deletePeaceList[i]));
-            PeaceManager.Instance.GetPeaceTabel.Remove(nowDeletePoint.deletePeaceList[i].point);
 
+            Debug.Log("リストから削除　X=" + nowDeletePoint.deletePeaceList[i].point.X + "  Y=" + nowDeletePoint.deletePeaceList[i].point.Y);
+
+            PeaceManager.Instance.GetPeaceTabel.Remove(nowDeletePoint.deletePeaceList[i].point);
             //見えない位置に移動
             PeaceOperator.Instance.HidePeace(PeaceManager.Instance.stockPeaceList[PeaceManager.Instance.stockPeaceList.Count - 1]);
             //PeaceManager.Instance.AddToTopPeace(SetChangeList[SetChangeList.Count - 1]);
@@ -363,7 +368,19 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
 
         Debug.Log(PeaceManager.Instance.GetPeaceTabel.Count + "   総数");
         // Debug.Break();
+
+
     }
+
+
+    //private IEnumerator Test()
+    //{
+    //    yield return new WaitForSeconds(0.45f);
+    //    mission.ClearMisstion(1);
+
+
+    //}
+
 
     private void SetDeletePoint(Dictionary<POINT, Peace> peaceTable, List<POINT> deleteList)
     {
@@ -396,6 +413,10 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
             //   peaceTable[generationPoint].nextPeaceForm = p + 1;
         }
         DeletionTargetList.Add(d);
+
+        //TODO;テスト用バグ発生
+
+      //  StartCoroutine(Test());
     }
 
     private bool IsDeletable(Peace peace, Peace nowHoldPeace)
@@ -444,7 +465,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
     }
 
     //DeleteListの何番目にあるか
-    private int ReturnSameDeleteListNumber(Peace checkPeace, List<DeletePoint> deletionTargetList)
+    public int ReturnSameDeleteListNumber(Peace checkPeace, List<DeletePoint> deletionTargetList)
     {
         for (int i = 0; i < deletionTargetList.Count; i++)
         {
@@ -525,7 +546,10 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         //落下したら　リストに格納、数フレーム待ってから判定
         StartCoroutine(WaitJudge());
         if (PeaceManager.Instance.GetPeaceTabel.Count >= PeaceManager.BoardSizeX * PeaceManager.BoardSizeY)
+        {
             GameSystem.Instance.GameOver();
+            GameSystem.Instance.ChangeDebugText("ピースいっぱい");
+        }
     }
 
     private IEnumerator WaitJudge()
@@ -562,6 +586,7 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
         }
 
         GameSystem.Instance.GameOver();
+        GameSystem.Instance.ChangeDebugText("ピースいっぱい２");
     }
 
 
@@ -631,20 +656,22 @@ public class PeaceJudger : SingletonMonoBehaviour<PeaceJudger>
                 if (deletePeace == DeletionTargetList[i].deletePeaceList[j])
                 {
                     DeletePoint nowDeletePoint = DeletionTargetList[i];
+                    if (deletePeace.isMatching == false)//もしカウントを追加していたら減らす
+                        nowDeletePoint.deleteCounter--;
                     nowDeletePoint.deletePeaceList.Remove(deletePeace);
                     DeletionTargetList[i] = nowDeletePoint;
                     Debug.Log("リストから削除");
                     deleteNum = i;
 
-                    Debug.Log("削除番号="+i+"   カウント="+ DeletionTargetList[i].deleteCounter
-                        + "  リストサイズ"+ DeletionTargetList[i].deletePeaceList.Count);
+                    Debug.Log("削除番号=" + i + "   カウント=" + DeletionTargetList[i].deleteCounter
+                        + "  リストサイズ" + DeletionTargetList[i].deletePeaceList.Count);
 
                     //この時、ほかの消去はされていたら判定開始
                     if (DeletionTargetList[i].deleteCounter == DeletionTargetList[i].deletePeaceList.Count)
                     {
-                    
+
                         ListAllDelete(DeletionTargetList[i], i);//error関数内
-                        text.text= "全て消去済み、判定開始";
+                        text.text = "全て消去済み、判定開始";
 
                     }
 

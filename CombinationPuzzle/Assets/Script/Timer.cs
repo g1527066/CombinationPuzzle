@@ -100,9 +100,8 @@ public class Timer : MonoBehaviour {
         if (isTimeStop == false)
             totalTime += Time.deltaTime;
     }
-    public void TimerControl(int SummaryCount, int BestCount, float addTime)
+    public void TimerControl()
     {
-        remainingTime += SummaryCount * SummaryDeleteAddTime + BestDeleteAddTime * BestCount + addTime;
         TimeText.text = (int)(remainingTime / 60) + ":" + string.Format("{0:D2}", ((int)remainingTime % 60));
         TimeSlider.value = remainingTime;
     }
@@ -113,9 +112,10 @@ public class Timer : MonoBehaviour {
         if (remainingTime < 0)
         {
             GameSystem.Instance.GameOver();
+           GameSystem.Instance.ChangeDebugText("タイムアップ");
         }
         remainingTime -= Time.deltaTime;
-        TimerControl(0, 0, 0);
+        TimerControl();
 
         if (fewTimeUp == false && TimeUpFew >= remainingTime)
         {

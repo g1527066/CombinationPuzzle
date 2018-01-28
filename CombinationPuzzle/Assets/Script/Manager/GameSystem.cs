@@ -97,6 +97,7 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         Debug.Log("くりあ");
         timer.SetTimeStop = true;
         GameOver();
+
     }
 
     private void UpdateScore()
@@ -166,6 +167,11 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
 
     }
 
-    
+    [SerializeField]
+    Text debugText = null;
+    public void ChangeDebugText(string s)
+    {
+        debugText.text = s;
+    }
 
 }

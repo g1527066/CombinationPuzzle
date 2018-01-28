@@ -252,13 +252,16 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 
     public void TestSpeedUp()
     {
-        generationFrequencyTime -= 1;
+  
+        generationFrequencyTime -= 0.1f;
         if (lowestSpeed > generationFrequencyTime)
             generationFrequencyTime = lowestSpeed;
+        GameSystem.Instance.ChangeDebugText("速度=" + generationFrequencyTime);
     }
     public void TestSpeedDown()
     {
-        generationFrequencyTime += 1;
+        generationFrequencyTime += 0.1f;
+        GameSystem.Instance.ChangeDebugText("速度=" + generationFrequencyTime);
     }
 
 

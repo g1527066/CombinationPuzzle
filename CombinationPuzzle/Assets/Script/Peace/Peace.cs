@@ -99,6 +99,7 @@ public abstract class Peace : MonoBehaviour
 
             if (deleteTime > GameSystem.Instance.GetTimer.DeleteTime)
             {
+                Debug.Log("マッチ終了　X="+point.X+"  Y="+point.Y);
                 isMatching = false;
                 this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
                 PeaceJudger.Instance.DeletePeace(PeaceManager.Instance.GetPeaceTabel, this);
@@ -196,9 +197,9 @@ public abstract class Peace : MonoBehaviour
         int test = 0;//削除
         while (IsDuringFall == true)
         {
-            //test++;
-            //if (test > 100)
-               // Debug.Log("NextCheckコルーチン内　　X=" + point.X + "  Y=" + point.Y);
+            test++;
+            if (test > 100)
+                Debug.Log("NextCheckコルーチン内　　X=" + point.X + "  Y=" + point.Y);
 
             bool tes = PeaceManager.Instance.GetPeaceTabel.ContainsKey(new POINT(point.X, point.Y + 1));
             //if(tes==true)
