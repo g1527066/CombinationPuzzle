@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TrianglePeace : Peace
 {
-
     public override PeaceForm GetPeaceForm
     {
         get { return PeaceForm.Triangle; }

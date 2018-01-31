@@ -14,9 +14,6 @@ enum MissionTypeOld
     None,
 }
 
-
-
-
 //どのタイプか、何個達成、目標
 struct MissionDataStruct
 {
@@ -33,12 +30,7 @@ struct MissionDataStruct
         peaceForm = PeaceForm.None;
         peaceColor = PeaceColor.None;
     }
-
 }
-
-
-
-
 
 public class Mission : MonoBehaviour
 {
@@ -61,11 +53,7 @@ public class Mission : MonoBehaviour
     [SerializeField]
     CutMission cutMission = null;
 
-
-
-
     MissionDataStruct[] missionData = new MissionDataStruct[3];
-
 
     //Missionで使用
     List<MissionDataStruct> missionList = new List<MissionDataStruct>();
@@ -87,16 +75,14 @@ public class Mission : MonoBehaviour
     Color countColor = Color.green;
     Color deleteColor = Color.red;
 
-
     #endregion
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-
+        Debug.Log("ミッションスタート");
         SetMission();
     }
-
 
     private MissionDataStruct ReturnConstructionMission(MissionData.MissionDetails missionDetails)
     {
@@ -108,11 +94,9 @@ public class Mission : MonoBehaviour
         data.peaceForm = missionDetails.peaceForm;
 
         return data;
-
     }
 
     //個数文字、画像、生成
-
     private void SetDraw(int num, MissionDataStruct missionDataStruct)
     {
         //画像
@@ -144,37 +128,28 @@ public class Mission : MonoBehaviour
                 MissionDescriptionText[num].text = countDeleteString;
                 MissionDescriptionText[num].color = countColor;
                 break;
-
             case MissionType.SameDelete:
                 MissionCountText[num].text = missionData[num].MissionNum + "個";
                 MissionTopDescriptionText[num].text = sameDeleteString;
                 MissionDescriptionText[num].text = sameDeleteString;
                 MissionDescriptionText[num].color = sameColor;
                 break;
-
             case MissionType.MakePeace:
                 MissionCountText[num].text = missionData[num].completeNum + "/" + missionData[num].MissionNum + "個";
                 MissionTopDescriptionText[num].text = makeString;
                 MissionDescriptionText[num].text = makeString;
                 MissionDescriptionText[num].color = generationColor;
                 break;
-
             default:
                 Debug.Log("MissionSetDrawError");
                 break;
-
-
-
         }
-
-
     }
 
     private void SetMission()
     {
         if (Mode.Mission == SaveDataManager.Instance.GetMode)
         {
-
             for (int missionCounter = 0
                 ; missionCounter < missionDataBase.Elements[SaveDataManager.Instance.GetMissionNumber].MissionList.Count; missionCounter++)
             {
@@ -182,7 +157,6 @@ public class Mission : MonoBehaviour
             }
             //3つまではセット、表示する
             //それより少ない場合は、他非表示にする
-
             if (missionList.Count >= ConstMissionNum)
             {
                 for (int i = 0; i < ConstMissionNum; i++)
@@ -206,7 +180,6 @@ public class Mission : MonoBehaviour
                     Debug.Log("無し" + i);
                     SetNonePeace(i);
                 }
-
             }
         }
         else//Marathon
@@ -237,9 +210,6 @@ public class Mission : MonoBehaviour
             }
         }
     }
-
-
-
     /// <summary>
     /// 同じミッションは生成しない
     /// </summary>
@@ -256,10 +226,8 @@ public class Mission : MonoBehaviour
         return true;
     }
 
-
     public void CheckMission(List<Peace> deletePeaceList, Peace generationPeace)
     {
-
         bool addCount = false;
 
         for (int i = 0; i < ConstMissionNum; i++)
@@ -308,9 +276,8 @@ public class Mission : MonoBehaviour
                             ClearMisstion(i);
                         }
                     }
-
-
                     break;
+
                 case MissionType.CountDelete:
 
                     addCount = false;
@@ -356,7 +323,6 @@ public class Mission : MonoBehaviour
                     Debug.Log("default" + i);
                     break;
             }
-
         }
     }
 
@@ -484,7 +450,6 @@ public class Mission : MonoBehaviour
                             return;
                         }
                     }
-
                     break;
             }
         }
@@ -520,12 +485,6 @@ public class Mission : MonoBehaviour
 
         }
     }
-
-
-    //public MissionType missionType;
-    //public int completeNum;//終わったら
-    //public int MissionNum;
-    //public PeaceForm peaceForm;
 
     private IEnumerator ResetMission(int missionNum)
     {
@@ -564,13 +523,11 @@ public class Mission : MonoBehaviour
             {
                 GameSystem.Instance.Clear();
                 GameSystem.Instance.ChangeDebugText("ミッション数0");
-
             }
         }
         else
         {
             //Marathonなら補充
-
             while (true)
             {
                 int r = Random.Range(0, missionDataBase.Elements.Count);
@@ -601,13 +558,12 @@ public class Mission : MonoBehaviour
         MissionDescriptionText[missionNum].gameObject.SetActive(true);
         MissionCountText[missionNum].gameObject.SetActive(true);
 
-
         //徐々に
         for (float i = 0; i <= 1; i += 0.08f)
         {
             MissionImage[missionNum].color
                 = new Color(MissionImage[missionNum].color.r, MissionImage[missionNum].color.g, MissionImage[missionNum].color.b, i);
-            MissionTopDescriptionText[missionNum].color =new Color(MissionTopDescriptionText[missionNum].color.r, MissionTopDescriptionText[missionNum].color.g, MissionTopDescriptionText[missionNum].color.b, i);
+            MissionTopDescriptionText[missionNum].color = new Color(MissionTopDescriptionText[missionNum].color.r, MissionTopDescriptionText[missionNum].color.g, MissionTopDescriptionText[missionNum].color.b, i);
             MissionDescriptionText[missionNum].color = new Color(MissionDescriptionText[missionNum].color.r, MissionDescriptionText[missionNum].color.g, MissionDescriptionText[missionNum].color.b, i);
             MissionCountText[missionNum].color
                 = new Color(MissionCountText[missionNum].color.r, MissionCountText[missionNum].color.g, MissionCountText[missionNum].color.b, i);
@@ -615,12 +571,8 @@ public class Mission : MonoBehaviour
         }
     }
 
-
-
-
     private bool SameMissionDataStruct(MissionDataStruct missionDataStruct1, MissionDataStruct missionDataStruct2)
     {
-
         //今の個数以外が合ってればいいのでは
 
         if (missionDataStruct1.missionType != missionDataStruct2.missionType)
@@ -639,65 +591,6 @@ public class Mission : MonoBehaviour
 
 
     [SerializeField]
-    MissionIcon missionIconPrefab = null;
-
-    public void DrawMissionIcon()
-    {
-        Debug.Log("DrawMissionIcon");
-
-        for (int i = 0; i < missionList.Count; i++)
-        {
-            Debug.Log("DrawMission=" + i);
-
-
-            MissionIcon icon = Instantiate(missionIconPrefab);
-            //場所移動。どこかの子オブジェクトに
-            switch (missionList[i].missionType)
-            {
-                case MissionType.Delete:
-                    icon.MissionTypeText.text = deleteString;
-                    icon.NumberText.text = (missionList[i].MissionNum - missionList[i].completeNum) + "個";
-                    break;
-
-                case MissionType.CountDelete:
-                    icon.MissionTypeText.text = countDeleteString;
-                    icon.NumberText.text = (missionList[i].MissionNum - missionList[i].completeNum) + "回";
-                    break;
-
-                case MissionType.SameDelete:
-                    icon.MissionTypeText.text = sameDeleteString;
-                    icon.NumberText.text = missionList[i].MissionNum + "個";
-                    break;
-
-                case MissionType.MakePeace:
-                    icon.MissionTypeText.text = makeString;
-                    icon.NumberText.text = (missionList[i].MissionNum - missionList[i].completeNum) + "個";
-                    break;
-            }
-
-            //スプライトの適用
-            if (missionList[i].peaceForm == PeaceForm.Triangle)
-            {
-                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)missionList[i].peaceColor];
-            }
-            else if (missionList[i].peaceForm != PeaceForm.None)
-            {
-                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + (int)missionList[i].peaceForm - 1];
-
-            }
-            else if (PeaceForm.None == missionList[i].peaceForm && PeaceColor.None == missionList[i].peaceColor)
-            {
-                icon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + (int)PeaceForm.None - 1];
-
-            }
-
-        }
-
-
-    }
-
-
-    [SerializeField]
     Text text = null;
     int testCutNum = 1;
     public void TestChangeNumberZan()
@@ -712,4 +605,81 @@ public class Mission : MonoBehaviour
     {
         ClearMisstion(testCutNum);
     }
+
+    [SerializeField]
+    MissionIcon MissionIconPrefab = null;
+    List<MissionIcon> drawRemainingIcon = new List<MissionIcon>();
+    public void DrawRemainingMissionIcon(GameObject generationObject, bool drawAgain, Vector2 startPosition, float IntervalX,float scale)
+    {
+        Debug.Log("miiiiii");
+        for (int i = 0; i < missionList.Count; i++)
+        {
+            MissionIcon missionIcon;
+
+            //一回だけか、また描画するか
+            if (drawAgain == false || drawAgain == true && drawRemainingIcon.Count >= i)
+            {
+                missionIcon = Instantiate(MissionIconPrefab);
+                missionIcon.gameObject.transform.SetParent(generationObject.transform);
+                missionIcon.transform.localPosition = new Vector3(startPosition.x + IntervalX * i, startPosition.y, 0);
+                if (drawAgain == true)
+                    drawRemainingIcon.Add(missionIcon);
+                missionIcon.gameObject.transform.localScale =new Vector3(scale,scale,1);
+            }
+            else
+            {
+                drawRemainingIcon[i].gameObject.SetActive(true);
+                missionIcon = drawRemainingIcon[i];
+            }
+            //スプライト
+            if (missionList[i].peaceForm == PeaceForm.Pentagon || missionList[i].peaceForm == PeaceForm.Square)
+                missionIcon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)PeaceColor.None + (int)missionList[i].peaceForm - 1];
+            else if (missionList[i].peaceColor != PeaceColor.None)
+                missionIcon.PeaceImage.sprite = PeaceGenerator.Instance.PeaceSprites[(int)missionList[i].peaceColor];
+            else
+                missionIcon.PeaceImage.sprite = AllPeaceSprite;
+            //文字、個数適用
+            switch (missionList[i].missionType)
+            {
+                case MissionType.Delete:
+                    missionIcon.MissionTypeText.text = deleteString;
+                    missionIcon.MissionTypeText.color = deleteColor;
+                    missionIcon.BackTypeText.text = deleteString;
+                    missionIcon.NumberText.text = (missionList[i].MissionNum - missionList[i].completeNum) + "個";
+                    break;
+
+                case MissionType.CountDelete:
+                    missionIcon.MissionTypeText.text = countDeleteString;
+                    missionIcon.MissionTypeText.color = countColor;
+                    missionIcon.BackTypeText.text = countDeleteString;
+                    missionIcon.NumberText.text = (missionList[i].MissionNum - missionList[i].completeNum) + "回";
+                    break;
+
+                case MissionType.SameDelete:
+                    missionIcon.MissionTypeText.text = sameDeleteString;
+                    missionIcon.MissionTypeText.color = sameColor;
+                    missionIcon.BackTypeText.text = sameDeleteString;
+                    missionIcon.NumberText.text = missionList[i].MissionNum + "個";
+                    break;
+
+                case MissionType.MakePeace:
+                    missionIcon.MissionTypeText.text = makeString;
+                    missionIcon.MissionTypeText.color = generationColor;
+                    missionIcon.BackTypeText.text = makeString;
+                    missionIcon.NumberText.text = (missionList[i].MissionNum - missionList[i].completeNum) + "個";
+                    break;
+            }
+        }
+
+        //消えた分はアクティブを切る
+        if(drawRemainingIcon.Count>missionList.Count)
+        {
+            for(int i= missionList.Count; i< drawRemainingIcon.Count;i++)
+            {
+                drawRemainingIcon[i].gameObject.SetActive(false);
+            }
+
+        }
+    }
+
 }

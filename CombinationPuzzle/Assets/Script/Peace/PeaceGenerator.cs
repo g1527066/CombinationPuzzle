@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 static class PeaceColorExt
 {
     // Gender に対する拡張メソッドの定義
@@ -14,34 +12,20 @@ static class PeaceColorExt
     }
 }
 
-
 public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 {
-
     [SerializeField]
     public GameObject peacePrefab = null;
 
     [SerializeField]
     GameObject PeacePool = null;
 
-
     //カラーの後は形
     [SerializeField]
     public List<Sprite> PeaceSprites = new List<Sprite>();
 
-
     public void Start()
     {
-
-
-
-        //[SerializeField, Header("初期生成 速度")]
-        //float InitialGenerationSpeed = 3.0f;
-        ////行ったん確認用に早く
-        //[SerializeField, Header("何秒で生成頻度が早くなるか")]
-        //float SpeedUpInterval = 5.0f;
-        //[SerializeField, Header("何秒早くなるか")]
-        //float SpeedUpTime = 0.5f;
         if (Mode.Mission == SaveDataManager.Instance.GetMode)
         {
             InitialGenerationSpeed = SaveDataManager.Instance.GetMissionData.Elements[SaveDataManager.Instance.GetMissionNumber].FallFrequency;
@@ -55,10 +39,7 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
             //SpeedUpInterval = SaveDataManager.Instance.GetMarathonData.Elements[0].LmiteTime;
             //SpeedUpTime = SaveDataManager.Instance.GetMarathonData.Elements[0].minusTime;
         }
-
         generationFrequencyTime = InitialGenerationSpeed;
-
-
     }
 
     //トローゼ方式初期化
@@ -85,18 +66,13 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 peace.transform.SetParent(PeacePool.transform, false);
                 peace.SetSprite(PeaceSprites[(int)peace.peaceColor]);
                 PeaceManager.Instance.GetPeaceTabel.Add(peace.point, peace);
-
             }
-
         }
-
-
     }
 
     //TODO:直す
     public Peace ChangeNextForm(Dictionary<POINT, Peace> peaceTable, Peace changePeace)
     {
-
         peaceTable.Remove(changePeace.point);
         Peace newPeace = null;
         changePeace.SetSprite(PeaceSprites[(int)changePeace.GetNextPeaceForm + (int)PeaceColor.None - 1]);
@@ -172,10 +148,8 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
         //リストにセットしなおす
         PeaceManager.Instance.GetPeaceTabel.Add(newPoint, p);
         //    Debug.Log("セットしなおし"+ "次は X=" + newPoint.X + " Y=" + newPoint.Y + "に代入しました");
-
         return true;
     }
-
 
     [SerializeField, Header("初期生成 速度")]
     float InitialGenerationSpeed = 3.0f;
@@ -212,7 +186,6 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 PeaceOperator.Instance.ResetPosition(PeaceManager.Instance.stockPeaceList[0]);
                 PeaceOperator.Instance.AddDrop(PeaceManager.Instance.stockPeaceList[0]);
                 PeaceManager.Instance.stockPeaceList.RemoveAt(0);
-
             }
             else//新しく生成
             {
@@ -223,7 +196,6 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 PeaceOperator.Instance.ResetPosition(peace);
                 PeaceOperator.Instance.AddDrop(peace);
             }
-
 
             generationTotalTime = 0;
             //Debug.Log("生成　X=" + generationX + "   全体数=" + PeaceManager.Instance.GetPeaceTabel.Count);
@@ -252,7 +224,6 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 
     public void TestSpeedUp()
     {
-  
         generationFrequencyTime -= 0.1f;
         if (lowestSpeed > generationFrequencyTime)
             generationFrequencyTime = lowestSpeed;
@@ -264,10 +235,8 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
         GameSystem.Instance.ChangeDebugText("速度=" + generationFrequencyTime);
     }
 
-
     public void TestCharge()
     {
-
         PeaceColor addPeaceType;
         for (int countY = 1; countY < PeaceManager.BoardSizeY; countY++)
         {
@@ -286,9 +255,6 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
                 PeaceManager.Instance.GetPeaceTabel.Add(peace.point, peace);
                 PeaceOperator.Instance.ResetPosition(peace);
             }
-
         }
     }
-
-
 }

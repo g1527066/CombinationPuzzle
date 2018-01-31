@@ -13,10 +13,8 @@ public enum VolumeType
     Big = 100,
 }
 
-
 public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
-
     public List<AudioClip> BGMList;
     public List<AudioClip> SEList;
     public int MaxSE = 10;
@@ -103,7 +101,6 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         this.bgmSource.Stop();
         this.bgmSource.clip = null;
     }
-
 
     //新規のもその音量にする
     public void SetSEVolume(VolumeType volumeType)

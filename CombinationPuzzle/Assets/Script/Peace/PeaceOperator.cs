@@ -115,15 +115,12 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
                     peaceFormList.Add(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].GetPeaceForm);
                 }
 
-
                 //マッチング中じゃなくても、マッチングの一部かもしれないので判定する
                 int deleteNum = PeaceJudger.Instance.ReturnSameDeleteListNumber(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])],PeaceJudger.Instance.GetDeletionTargetList);
                 if(deleteNum!=-1)
                 {
                     PeaceJudger.Instance.DeleteTartgetPeace(PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])]);
                 }
-
-                
 
                 cutGameObject[num * PeaceManager.BoardSizeX + i].SetActive(true);
                 cutGameObject[num * PeaceManager.BoardSizeX + i].GetComponent<SpriteRenderer>().sprite = PeaceManager.Instance.GetPeaceTabel[new POINT(i, cutLine[num])].GetComponent<UnityEngine.UI.Image>().sprite;
@@ -165,5 +162,4 @@ public class PeaceOperator : SingletonMonoBehaviour<PeaceOperator>
 
         PeaceJudger.Instance.mission.SameDeleteAll(peaceColorList, peaceFormList);
     }
-
 }

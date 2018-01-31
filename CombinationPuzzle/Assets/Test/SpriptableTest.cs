@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 //スクリプタブルオブジェクトのテスト
 [CreateAssetMenu(menuName = "MyGame/Create ParameterTable", fileName = "ParameterTable")]
 public class SpriptableTest : ScriptableObject {
@@ -23,9 +21,5 @@ public class SpriptableTest : ScriptableObject {
     {
         public PeaceColor peace;
         public string ContentsName;
-
-
     }
-
-
 }

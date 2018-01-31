@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
+//http://baba-s.hatenablog.com/entry/2015/12/28/100000
 [CustomPropertyDrawer(typeof(ColorHtmlPropertyAttribute))]
 public class ColorHtmlPropertyDrawer : PropertyDrawer
 {

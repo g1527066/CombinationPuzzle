@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public enum PeaceColor
 {
-
     Red,
     Blue,
     Yellow,
@@ -23,18 +21,14 @@ public enum PeaceForm
     None,
 }
 
-
-
 public abstract class Peace : MonoBehaviour
 {
-
     public PeaceColor peaceColor;
 
     public abstract PeaceForm GetPeaceForm
     {
         get;
     }
-
 
     public abstract PeaceColor GetPeaceColor
     {
@@ -58,7 +52,6 @@ public abstract class Peace : MonoBehaviour
     int particleCounter = 0;
     int particleWave = 2;
 
-
     public RectTransform RectTransform
     {
         get
@@ -76,13 +69,10 @@ public abstract class Peace : MonoBehaviour
         Initialization();
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         if (isMatching&&GameSystem.Instance.GetTimer.StopTimeFlag==false)
         {
-
             deleteTime += Time.deltaTime;
             flashingTime += Time.deltaTime;
             if (flashingTime > GameSystem.Instance.GetTimer.flashingTime)
@@ -106,6 +96,7 @@ public abstract class Peace : MonoBehaviour
             }
         }
     }
+
     public void SetSprite(Sprite setSptrite)
     {
         this.GetComponent<UnityEngine.UI.Image>().sprite = setSptrite;
@@ -120,6 +111,7 @@ public abstract class Peace : MonoBehaviour
         nextPeaceForm = PeaceForm.None;
         isMatching = false;
     }
+
     public void SetNewType()
     {
         peaceColor = (PeaceColor)Random.Range(0, (int)PeaceColor.None);
@@ -140,12 +132,8 @@ public abstract class Peace : MonoBehaviour
         }
     }
 
-
-
     public IEnumerator DownMovePeace()
     {
-   
-
         while (IsDuringFall)
         {
             while (GameSystem.Instance.GetTimer.StopTimeFlag == true)
@@ -177,7 +165,6 @@ public abstract class Peace : MonoBehaviour
                     //   Debug.Log("前downPosition" + downPosition);
                     downPosition = PeaceOperator.Instance.DownPosition(new POINT(point.X, point.Y));
                     // Debug.Log("現在downPosition" + downPosition);
-
                 }
                 else
                 {
@@ -187,7 +174,6 @@ public abstract class Peace : MonoBehaviour
                     break;
                 }
             }
-
             yield return null;
         }
     }
@@ -209,9 +195,7 @@ public abstract class Peace : MonoBehaviour
             //else
             //{
             //    Debug.Log("X=" + point.X + "  Y=" + point.Y + "の下無し");
-
             //}
-
 
             if (PeaceGenerator.Instance.SetPeaceList(this, new POINT(point.X, point.Y + 1)) == true)
             {
@@ -220,6 +204,5 @@ public abstract class Peace : MonoBehaviour
             }
             yield return null;
         }
-
     }
 }

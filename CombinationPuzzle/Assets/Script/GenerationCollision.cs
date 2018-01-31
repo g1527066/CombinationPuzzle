@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class GenerationCollision : MonoBehaviour {
 
-    //poolのサイズは表示するサイズにする（それを元に判定作成
-    //[SerializeField]
-    //RectTransform CollisionPool = null;
-
     [SerializeField]
     PointCollision PointCollisionPrefab = null;
 
     List<PointCollision> collistionList = new List<PointCollision>();
 
-  //  public void GenerationCollistion()
     public void GenerationCol()
     {
         //XYが同じサイズであること前提
@@ -29,9 +24,7 @@ public class GenerationCollision : MonoBehaviour {
                 pointCollition.GetComponent<RectTransform>().anchoredPosition =
                     PeaceOperator.Instance.PeacePosition(pointCollition.point);
 
-            //    pointCollition.GetComponent<BoxCollider2D>().enabled = false;
                 collistionList.Add(pointCollition);
-
             }
         }
     }

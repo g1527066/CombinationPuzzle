@@ -1398,6 +1398,12 @@ Prefab:
       propertyPath: debugText
       value: 
       objectReference: {fileID: 1244113147}
+    - target: {fileID: 114354335812174344, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: MissionIconPrefab
+      value: 
+      objectReference: {fileID: 114554880644297894, guid: 8bd9347b52c104d4bb4c2cc6c0697ca4,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08556e839f585354f93e50a767ea7a83, type: 2}
   m_IsPrefabParent: 0
@@ -16121,7 +16127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1730820808
 RectTransform:
   m_ObjectHideFlags: 0

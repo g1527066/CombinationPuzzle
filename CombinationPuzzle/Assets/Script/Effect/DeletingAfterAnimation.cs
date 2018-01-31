@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class DeletingAfterAnimation : MonoBehaviour {
 
-
     [SerializeField]
     Animator animator = null;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
 	void Update () {
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)//1以上だとアニメは終了している
             Destroy(this.gameObject);
-
 	}
 }

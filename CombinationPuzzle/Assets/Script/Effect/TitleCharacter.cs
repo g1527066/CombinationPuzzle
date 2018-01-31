@@ -7,17 +7,6 @@ public class TitleCharacter : MonoBehaviour
     [SerializeField]
     Animator animator = null;
 
-
-
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -30,7 +19,6 @@ public class TitleCharacter : MonoBehaviour
                 GameObject result = collition2d.transform.gameObject;
                 Debug.Log("clickCharacter");
                 animator.CrossFade("Wink_Animation", 0);
-
             }
         }
     }

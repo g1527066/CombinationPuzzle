@@ -12,8 +12,6 @@ public class StartProduction : MonoBehaviour
     [SerializeField]
     Button stopButton = null;
 
-
-
     //始め！,表示する時間
     [SerializeField]
     Image startImage = null;
@@ -51,7 +49,6 @@ public class StartProduction : MonoBehaviour
     [SerializeField]
     float SlideX = 10;
 
-
     private void Start()
     {
         if (SaveDataManager.Instance.GetMode == Mode.Mission)
@@ -68,10 +65,8 @@ public class StartProduction : MonoBehaviour
                 timeString += limit % 60 + ".00秒";
             MissionLimitTime.text = timeString;
 
-            //目標一覧表示
-            PeaceJudger.Instance.mission.DrawMissionIcon();
-
-
+            ////目標一覧表示
+            PeaceJudger.Instance.mission.DrawRemainingMissionIcon(MissionSet,false,new Vector2(-657,72),250,1);
         }
         else
         {
@@ -86,12 +81,10 @@ public class StartProduction : MonoBehaviour
         for (int i = 0; i < details.MissionList.Count; i++)
         {
            //画像、個数、消去
-
+           //途中
 
         }
     }
-
-
 
     private void Update()
     {
@@ -109,7 +102,6 @@ public class StartProduction : MonoBehaviour
 
         //Activeにしなければならないのをする
         DrawTopWindow.SetActive(false);
-
    
         inputManager.SetActive(true);
         GameSystem.Instance.StartGame();
@@ -118,7 +110,6 @@ public class StartProduction : MonoBehaviour
         stopButton.interactable = true;
 
         startImage.gameObject.SetActive(false);
-
 
         Destroy(this.gameObject);
     }

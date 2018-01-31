@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class StopWindow : MonoBehaviour
 {
-
     //Mission
     [SerializeField]
     GameObject MissionSet = null;
@@ -46,12 +45,6 @@ public class StopWindow : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void ClickStopButton()
     {
         AudioManager.Instance.PlaySE("PAZ_SE_OK");
@@ -73,6 +66,7 @@ public class StopWindow : MonoBehaviour
                 MissionSet.SetActive(true);
                 //ピース生成、残り時間
                 MissionLimitTime.text= Result.ReturnTime(GameSystem.Instance.GetTimer.RemainingTime);
+                PeaceJudger.Instance.mission.DrawRemainingMissionIcon(MissionSet, true, new Vector2(-507, 72), 200,0.7f);
             }
         }
         else
@@ -103,8 +97,4 @@ public class StopWindow : MonoBehaviour
         GameSystem.Instance.GetTimer.StopTime();
         EffectPool.SetActive(true);
     }
-
-
- 
-
 }

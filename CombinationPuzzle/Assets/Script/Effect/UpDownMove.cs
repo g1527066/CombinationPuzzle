@@ -6,7 +6,6 @@ public class UpDownMove : MonoBehaviour {
 
     [SerializeField]
     float UpDownTime = 1;
-
     
     [SerializeField]
     float moveY = 1;
@@ -15,12 +14,6 @@ public class UpDownMove : MonoBehaviour {
 
     bool upFlag = false;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
 	void Update () {
 
         totalTime += Time.deltaTime;
@@ -36,9 +29,7 @@ public class UpDownMove : MonoBehaviour {
         }
         else
         {
-
             transform.localPosition += new Vector3(0, -moveY, 0);
         }
-
 	}
 }

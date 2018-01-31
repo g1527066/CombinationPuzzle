@@ -4,32 +4,6 @@ using UnityEngine;
 
 public class CutMission : MonoBehaviour
 {
-
-    [SerializeField]
-    Sprite startSprite = null;
-
-    [SerializeField]
-    float drawStayTime = 1f;
-    [SerializeField]
-    float drawStartTime = 1f;
-
-    float totalTime = 0f;
-    [SerializeField]
-    UnityEngine.UI.Image stringImage = null;
-
-
-    public void Updateaaaa()
-    {
-        totalTime += Time.deltaTime;
-        if (totalTime > drawStayTime)
-        {
-            stringImage.sprite = startSprite;
-        }
-    }
-
-    //-----------------------------
-
-
     [SerializeField]
     GameObject EffctPool = null;
 
@@ -123,11 +97,6 @@ public class CutMission : MonoBehaviour
         SetCutObject(null, num, PeaceColor.Blue, PeaceForm.None);
     }
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
     private IEnumerator StayProsess(int num)
     {
         Debug.Log("StayProsess");
@@ -136,25 +105,5 @@ public class CutMission : MonoBehaviour
         zanAnimator[num].GetComponent<Animator>(). Play("Mission_Slise_Animation");
         yield return new WaitForSeconds(0.5f);
         zanAnimator[num].gameObject.SetActive(false);
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        //if (nowTime < speed)
-        //{
-        //    nowTime += Time.deltaTime;
-        //    gameObject.GetComponent<RectTransform>().anchoredPosition = StartPos[deleteNum] + addVector * nowTime;
-        //    //EffectManager.I.PlayEffect(gameObject.GetComponent<RectTransform>().anchoredPosition,PeaceColor.Blue.DisplayName());
-        //}
-        //else
-        //{
-        //    Destroy(this.gameObject);
-        //}
-
     }
 }

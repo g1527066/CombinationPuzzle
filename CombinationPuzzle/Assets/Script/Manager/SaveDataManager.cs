@@ -10,7 +10,6 @@ public enum Mode
 
 public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
 {
-
     private Mode mode;
     public Mode GetMode
     {
@@ -29,7 +28,6 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
     }
 
     //マラソンモード----------------
-
     int MarathonHiScore = 0;
     public int GetMarathonHiScore
     {
@@ -47,7 +45,6 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
         get { return marathondata; }
     }
 
-
     //ミッションモード-------------------
     const string MissionNumberKye = "MissionNumber";
     int missionNumer = 0;
@@ -58,8 +55,6 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
             return missionNumer;
         }
     }
-
-
 
     protected override void Awake()
     {
@@ -98,6 +93,7 @@ public class SaveDataManager : SingletonMonoBehaviour<SaveDataManager>
     {
         missionNumer = num;
     }
+
     public void SetMarathonHiScore(int num)
     {
         PlayerPrefs.SetInt(MarathonHiScoreKye, num);

@@ -14,8 +14,6 @@ static class MyDebug
     }
 }
 
-
-
 public class GameSystem : SingletonMonoBehaviour<GameSystem>
 {
     [SerializeField]
@@ -63,7 +61,6 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         }
     }
 
-
     // Use this for initialization
     void Start()
     {
@@ -76,7 +73,6 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         generationCollision.GenerationCol();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (SaveDataManager.Instance.GetMode == Mode.Mission && isGameOver == false && timer.StopTimeFlag == false)
@@ -84,7 +80,6 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
             timer.TimerUpDatMissione();
         }
     }
-
 
     public void ResetScene()
     {
@@ -97,7 +92,6 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
         Debug.Log("くりあ");
         timer.SetTimeStop = true;
         GameOver();
-
     }
 
     private void UpdateScore()
@@ -163,8 +157,6 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
 
         yield return new WaitForSeconds(stopTime);
         ResultObject.SetActive(true);
-
-
     }
 
     [SerializeField]
@@ -173,5 +165,4 @@ public class GameSystem : SingletonMonoBehaviour<GameSystem>
     {
         debugText.text = s;
     }
-
 }

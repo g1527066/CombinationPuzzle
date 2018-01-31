@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class AnimationImage : MonoBehaviour
 {
-
     [SerializeField]
     List<Sprite> list = new List<Sprite>();
     [SerializeField]
@@ -20,11 +19,6 @@ public class AnimationImage : MonoBehaviour
 
     bool loadAnimation = false;
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
     public void StartAnimation()
     {
         loadAnimation = true;
@@ -34,7 +28,6 @@ public class AnimationImage : MonoBehaviour
         spriteNumber = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (loadAnimation == true)

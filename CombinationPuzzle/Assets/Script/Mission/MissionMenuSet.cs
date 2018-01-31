@@ -20,5 +20,4 @@ public class MissionMenuSet : MonoBehaviour {
     {
         MissionImage.sprite = sprite;
     }
-   
 }

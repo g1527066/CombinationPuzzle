@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FingerParticle : MonoBehaviour
 {
-
     [SerializeField]
     GameObject effectPool = null;
 
@@ -13,26 +12,16 @@ public class FingerParticle : MonoBehaviour
 
     int count = 0;
 
-
-    float activeTime = 0.5f;
+    const int ParticleFrequency = 3;
 
     List<ParticleSystem> stockList = new List<ParticleSystem>();
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
-
-
         if (PeaceManager.Instance.nowHoldPeace != null && GameSystem.Instance.GetTimer.StopTimeFlag == false && Input.GetMouseButton(0) == true)
         {
             count++;
-            if (count < 3) return;
+            if (count < ParticleFrequency) return;
 
             count = 0;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -50,7 +39,6 @@ public class FingerParticle : MonoBehaviour
             }
             else
             {
-
                 particle = stockList[0];
                 particle.gameObject.SetActive(true);
                 stockList.RemoveAt(0);
@@ -64,7 +52,7 @@ public class FingerParticle : MonoBehaviour
 
     private IEnumerator ResetParticle(ParticleSystem p)
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.3f);//少し表示したら消す、エフェクトが2回出るため
         p.gameObject.SetActive(false);
         stockList.Add(p);
     }
@@ -97,7 +85,7 @@ public class FingerParticle : MonoBehaviour
 
     private IEnumerator ResetFallParticle(ParticleSystem p)
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.3f);//少し表示したら消す、エフェクトが2回出るため
         p.gameObject.SetActive(false);
         fallParticleList.Add(p);
     }

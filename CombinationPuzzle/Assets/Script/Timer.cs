@@ -48,7 +48,6 @@ public class Timer : MonoBehaviour {
         set { isTimeStop = value; ; }
     }
 
-
     [SerializeField]
     GameObject TimerObject = null;
 
@@ -78,24 +77,19 @@ public class Timer : MonoBehaviour {
             //TODO:落下頻度も受けとるようにする
 
             TimerObject.SetActive(true);
-
         }
         else
         {
             TimerObject.SetActive(false);
         }
-
         isTimeStop = true;
     }
-
 
     public void StopTime()
     {
         isTimeStop = !isTimeStop;
     }
 
-
-    // Update is called once per frame
     void Update () {
         if (isTimeStop == false)
             totalTime += Time.deltaTime;
@@ -126,7 +120,5 @@ public class Timer : MonoBehaviour {
         {
             fewTimeUp = false;
         }
-
     }
-
 }

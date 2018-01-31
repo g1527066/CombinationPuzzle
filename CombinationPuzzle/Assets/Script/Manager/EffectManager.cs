@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class EffectManager : SingletonMonoBehaviour<EffectManager>
 {
-
     private const float FromtY = -5;
 
     [SerializeField]
@@ -48,7 +46,6 @@ public class EffectManager : SingletonMonoBehaviour<EffectManager>
             case "生成":
                 obj = Instantiate(generationEffectPrefab);
                 obj.transform.localScale = obj.transform.localScale / 3 * 2;
-           
                 break;
 
             default:
@@ -69,5 +66,4 @@ public class EffectManager : SingletonMonoBehaviour<EffectManager>
 
         // Debug.Log("あと　　Z=" + obj.GetComponent<RectTransform>().position.z);
     }
-
 }

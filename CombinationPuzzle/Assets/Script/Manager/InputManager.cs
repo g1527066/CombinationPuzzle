@@ -10,7 +10,6 @@ public enum Direction
     Left,
 }
 
-
 public class InputManager : MonoBehaviour
 {
     Vector2 savePosition;
@@ -29,20 +28,16 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         //左下(0,0)スクリーン座標での位置
-
         puzzleSpaceStartPosition = new Vector2(
             1920/2+PuzzleSpace.anchoredPosition.x-PuzzleSpace.sizeDelta.x/2,
             1080/2+ PuzzleSpace.anchoredPosition.y+PuzzleSpace.sizeDelta.y/2);
 
     }
 
-
     // Update is called once per frame
     void Update()
     {
         if (GameSystem.Instance.IsGameOver == true) return;
-
-
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -65,9 +60,7 @@ public class InputManager : MonoBehaviour
             Vector2 d = new Vector2(pos.x - oldPosition.x, pos.y - oldPosition.y);
             PeaceManager.Instance.MoveHoldPeace(d,pos);
 
-
             oldPosition = pos;
-
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -78,7 +71,6 @@ public class InputManager : MonoBehaviour
     //もしピースを掴んでいて範囲外に出ていたら、範囲内に修正する
     private Vector2 PuzzleSpaceRange()
     {
-
         Vector2 screenSize = new Vector2(1920, 1080);
 
         Vector2 convertPostion;// = new Vector2(screenSize.x * Input.mousePosition.x / Screen.width, screenSize.y * Input.mousePosition.y / Screen.height);
@@ -104,16 +96,12 @@ public class InputManager : MonoBehaviour
         }
         else//範囲外なら修正（その時の解像度でやる）
         {
-
-
             if (puzzleSpaceStartPosition.x+correctionSize > convertPostion.x)
             {
-
                 returnPosition.x = (Screen.width * puzzleSpaceStartPosition.x) / screenSize.x+ correctionSize;
             }
             else if (puzzleSpaceStartPosition.x + PuzzleSpace.sizeDelta.x-correctionSize < convertPostion.x)
             {
-
                 returnPosition.x = (Screen.width * (puzzleSpaceStartPosition.x + PuzzleSpace.sizeDelta.x)) / screenSize.x- correctionSize;
             }
 
@@ -123,10 +111,8 @@ public class InputManager : MonoBehaviour
             }
             else if (puzzleSpaceStartPosition.y - PuzzleSpace.sizeDelta.y+correctionSize > convertPostion.y)
             {
-
                 returnPosition.y = (Screen.height *(puzzleSpaceStartPosition.y - PuzzleSpace.sizeDelta.y)) / screenSize.y+ correctionSize;
             }
-
         }
         return returnPosition;
     }

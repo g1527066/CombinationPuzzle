@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ButterflyEffect : MonoBehaviour
 {
-
     [SerializeField]
     Image butterfly = null;
 
@@ -19,7 +18,6 @@ public class ButterflyEffect : MonoBehaviour
     float spriteChange = 0.5f;
 
 
-
     Vector2 startPosition;
     //移動
     float upTime = 0.4f;
@@ -27,8 +25,8 @@ public class ButterflyEffect : MonoBehaviour
     bool upflag = false;
     float totalTime = 0;
 
-    int MaxSize = 170;
-    int MinSize = 100;
+    const int MaxSize = 170;
+    const int MinSize = 100;
 
 
 
@@ -37,7 +35,7 @@ public class ButterflyEffect : MonoBehaviour
     {
         startPosition = butterfly.rectTransform.anchoredPosition;
         int r = Random.Range(MinSize, MaxSize);
-        this.GetComponent<RectTransform>().sizeDelta = new Vector2(r,r);
+        this.GetComponent<RectTransform>().sizeDelta = new Vector2(r, r);
     }
 
     // Update is called once per frame
@@ -84,7 +82,7 @@ public class ButterflyEffect : MonoBehaviour
             }
 
         }
-        if (generationTotalTime > genearationTime + 50)
+        if (generationTotalTime > genearationTime + 50)//最初からまたスタート
         {
             generationTotalTime = 0;
             butterfly.rectTransform.anchoredPosition = startPosition;

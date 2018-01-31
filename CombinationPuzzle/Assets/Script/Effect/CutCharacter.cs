@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CutCharacter : MonoBehaviour
 {
-
-
     private float speed = 1.5f;
     private float nowTime = 0.0f;
     private float StayTimingTime = 0;
@@ -35,13 +33,6 @@ public class CutCharacter : MonoBehaviour
    
     }
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
 
@@ -53,7 +44,6 @@ public class CutCharacter : MonoBehaviour
         {
             nowTime += Time.deltaTime;
             gameObject.transform.localPosition= stratPosition + addVector * nowTime;
-            //EffectManager.I.PlayEffect(gameObject.GetComponent<RectTransform>().anchoredPosition,PeaceColor.Blue.DisplayName());
         }
         else if (isStay == true)//直線に進み、終了したら切る
         {
@@ -67,11 +57,9 @@ public class CutCharacter : MonoBehaviour
             }
             if (nowTime>speed+StayTime)//5秒プラスしたら
             {
-
                 Destroy(this.gameObject);
             }
         }
-
     }
     private IEnumerator StayProsess()
     {

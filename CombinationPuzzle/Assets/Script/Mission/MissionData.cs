@@ -11,7 +11,6 @@ public enum MissionType
     None,
 }
 
-
 [CreateAssetMenu(menuName = "CreateData/MissionData", fileName = "MissionData")]
 public class MissionData : ScriptableObject {
 
@@ -23,7 +22,6 @@ public class MissionData : ScriptableObject {
         public float  FallFrequency;//初期落下頻度
         public float SpeedUpTime;//何秒で早くなるか
         public float minusTime;//何秒引くか
-
 
         public List<MissionDetails> MissionList = new List<MissionDetails>();
     }
@@ -37,7 +35,5 @@ public class MissionData : ScriptableObject {
         public int number;
     }
 
-
     public List<MissionParams> Elements = new List<MissionParams>();
-
 }

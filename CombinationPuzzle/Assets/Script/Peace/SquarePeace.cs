@@ -16,5 +16,4 @@ public class SquarePeace : Peace {
     {
         get { return PeaceForm.Pentagon; }
     }
-
 }

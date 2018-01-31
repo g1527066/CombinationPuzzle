@@ -4,14 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
 public class Result : MonoBehaviour
 {
-
-    //[SerializeField]
-    //GameObject DrawWindow = null;
-
-
     //ミッション-------------------------------------
     [Header("ミッション")]
 
@@ -29,8 +23,6 @@ public class Result : MonoBehaviour
     Sprite MissSprite = null;
     [SerializeField]
     Text MissionClearTime = null;
-
-
 
     //マラソン-------------------------------------
     [Header("マラソン")]
@@ -53,7 +45,6 @@ public class Result : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         AudioManager.Instance.StopBGM();
         //    DrawWindow.SetActive(true);
         effect.SetActive(false);
@@ -94,12 +85,8 @@ public class Result : MonoBehaviour
                 ResultImage.sprite = MissSprite;
                 MissionClearTime.text = "";
             }
-
         }
-
-
     }
-
 
     //秒(int)を渡すと。秒フンつけてかえってくる
     public static string ReturnTime(float time)
@@ -114,7 +101,6 @@ public class Result : MonoBehaviour
 
         return playTimeString;
     }
-
 
     // Update is called once per frame
     void Update()

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PentagonPeace : Peace
 {
-
     public override PeaceForm GetPeaceForm
     {
         get { return PeaceForm.Pentagon; }

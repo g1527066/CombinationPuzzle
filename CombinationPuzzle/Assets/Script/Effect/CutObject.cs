@@ -14,25 +14,16 @@ public class CutObject : MonoBehaviour
     protected Vector3 SavePosition;
     protected Vector3[] syosokudo;
     protected float[] kakudoRadian;
-    //   protected float totalTime;
     protected bool isHit;
 
-
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
     bool cutFlag = false;
-    // Update is called once per frame
+
     void Update()
     {
         totalTime += Time.deltaTime;
         if (cutFlag == false && totalTime >= cutTime)
         {
             List<SpriteSlicer2DSliceInfo> cutObject = new List<SpriteSlicer2DSliceInfo>();
-            // SpriteSlicer2D.SliceSprite(startPosition, endPosition, this.gameObject, false, ref cutObject);
             SpriteSlicer2D.ShatterSprite(this.gameObject,30,false,ref cutObject);
 
             cutFlag = true;
@@ -103,11 +94,6 @@ public class CutObject : MonoBehaviour
                 }
             }
         }
-
-
-
-        // Debug.DrawLine(new Vector3(-4.11f, 3.43f, 0), new Vector3(-10.16f, 0.33f, 0), Color.red);
-        //Debug.DrawLine(startPosition, endPosition,Color.red);
     }
 
     //スプライト

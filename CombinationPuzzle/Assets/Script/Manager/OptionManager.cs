@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class OptionManager : MonoBehaviour
 {
-
-    // Use this for initialization
-
     [SerializeField]
     List<Button> SEButton = new List<Button>();
 
@@ -19,7 +16,6 @@ public class OptionManager : MonoBehaviour
 
     [SerializeField]
     List<Text> seList = new List<Text>();
-
 
     private void Start()
     {
@@ -80,9 +76,6 @@ public class OptionManager : MonoBehaviour
 
         VolumeType se = AudioManager.Instance.GetSeVolume();
 
-
-
-
         VolumeType bgm = AudioManager.Instance.GetBgmVolume();
 
         Debug.Log(se);
@@ -123,17 +116,7 @@ public class OptionManager : MonoBehaviour
                     ChengeButtoneColor(3, false);
                     break;
             }
-
         }
-
-        //switch(se)
-        //{
-        //    case VolumeType.:
-        //        break;
-
-        //}
-
-
     }
 
     private void ChengeButtoneColor(int num, bool isSe)
@@ -156,10 +139,5 @@ public class OptionManager : MonoBehaviour
 
             bgmList[num].color = Color.red;
         }
-
     }
-
-
-
-
 }
