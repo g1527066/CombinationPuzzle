@@ -14,9 +14,9 @@ MonoBehaviour:
   Elements:
   - MissionName: "\u96FB\u5149\u77F3\u706B"
     LmiteTime: 60
-    FallFrequency: 1
+    FallFrequency: 0.8
     SpeedUpTime: 0
-    minusTime: 1
+    minusTime: 0
     MissionList:
     - missionType: 0
       peaceColor: 6
@@ -24,7 +24,7 @@ MonoBehaviour:
       number: 3
   - MissionName: "\u4E00\u7DB2\u6253\u5C3D"
     LmiteTime: 90
-    FallFrequency: 5
+    FallFrequency: 0.8
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
@@ -36,7 +36,7 @@ MonoBehaviour:
     LmiteTime: 60
     FallFrequency: 1.5
     SpeedUpTime: 1
-    minusTime: 0.08
+    minusTime: 0.008
     MissionList:
     - missionType: 2
       peaceColor: 6
@@ -44,7 +44,7 @@ MonoBehaviour:
       number: 15
   - MissionName: "\u767E\u82B1\u7E5A\u4E71"
     LmiteTime: 180
-    FallFrequency: 1
+    FallFrequency: 0.8
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
@@ -91,10 +91,10 @@ MonoBehaviour:
     - missionType: 2
       peaceColor: 6
       peaceForm: 2
-      number: 100
+      number: 10
   - MissionName: "\u68EE\u7F85\u4E07\u8C61"
     LmiteTime: 300
-    FallFrequency: 0.3
+    FallFrequency: 0.6
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
@@ -132,7 +132,7 @@ MonoBehaviour:
       number: 15
   - MissionName: "\u5343\u5909\u4E07\u5316"
     LmiteTime: 120
-    FallFrequency: 1
+    FallFrequency: 0.8
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
@@ -142,9 +142,9 @@ MonoBehaviour:
       number: 7
   - MissionName: "\u56DB\u9762\u695A\u6B4C"
     LmiteTime: 60
-    FallFrequency: 0.25
-    SpeedUpTime: 0
-    minusTime: 0
+    FallFrequency: 5
+    SpeedUpTime: 1
+    minusTime: 0.08
     MissionList:
     - missionType: 0
       peaceColor: 6
@@ -152,19 +152,39 @@ MonoBehaviour:
       number: 10
   - MissionName: "\u5FEB\u5200\u4E71\u9EBB"
     LmiteTime: 180
-    FallFrequency: 4
+    FallFrequency: 0.25
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
-    - missionType: 1
-      peaceColor: 6
-      peaceForm: 1
-      number: 14
     - missionType: 1
       peaceColor: 0
       peaceForm: 0
       number: 4
     - missionType: 1
-      peaceColor: 0
+      peaceColor: 1
       peaceForm: 0
+      number: 4
+    - missionType: 1
+      peaceColor: 2
+      peaceForm: 0
+      number: 4
+    - missionType: 1
+      peaceColor: 3
+      peaceForm: 0
+      number: 4
+    - missionType: 1
+      peaceColor: 4
+      peaceForm: 0
+      number: 4
+    - missionType: 1
+      peaceColor: 5
+      peaceForm: 0
+      number: 4
+    - missionType: 1
+      peaceColor: 6
+      peaceForm: 1
+      number: 4
+    - missionType: 1
+      peaceColor: 6
+      peaceForm: 2
       number: 4
