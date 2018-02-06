@@ -141,7 +141,7 @@ MonoBehaviour:
       peaceForm: 2
       number: 7
   - MissionName: "\u56DB\u9762\u695A\u6B4C"
-    LmiteTime: 60
+    LmiteTime: 180
     FallFrequency: 5
     SpeedUpTime: 1
     minusTime: 0.08
