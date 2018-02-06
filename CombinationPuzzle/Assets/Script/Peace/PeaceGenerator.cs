@@ -29,17 +29,20 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
         if (Mode.Mission == SaveDataManager.Instance.GetMode)
         {
             InitialGenerationSpeed = SaveDataManager.Instance.GetMissionData.Elements[SaveDataManager.Instance.GetMissionNumber].FallFrequency;
-            SpeedUpInterval = SaveDataManager.Instance.GetMissionData.Elements[SaveDataManager.Instance.GetMissionNumber].LmiteTime;
+            SpeedUpInterval = SaveDataManager.Instance.GetMissionData.Elements[SaveDataManager.Instance.GetMissionNumber].SpeedUpTime;
             SpeedUpTime = SaveDataManager.Instance.GetMissionData.Elements[SaveDataManager.Instance.GetMissionNumber].minusTime;
         }
         else
         {
             //TODO;Marathonデータを作って参照させたらコメントはずす　
-            //InitialGenerationSpeed = SaveDataManager.Instance.GetMarathonData.Elements[0].FallFrequency;
-            //SpeedUpInterval = SaveDataManager.Instance.GetMarathonData.Elements[0].LmiteTime;
-            //SpeedUpTime = SaveDataManager.Instance.GetMarathonData.Elements[0].minusTime;
+            InitialGenerationSpeed = SaveDataManager.Instance.GetMarathonData.Elements[0].FallFrequency;
+            SpeedUpInterval = SaveDataManager.Instance.GetMarathonData.Elements[0].SpeedUpTime;
+            SpeedUpTime = SaveDataManager.Instance.GetMarathonData.Elements[0].minusTime;
         }
         generationFrequencyTime = InitialGenerationSpeed;
+
+        Debug.Log("generationFrequencyTime" + generationFrequencyTime);
+
     }
 
     //トローゼ方式初期化
@@ -169,6 +172,9 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
 
     private void GenerationDropPeace()
     {
+        Debug.Log("generationFrequencyTime"+generationFrequencyTime);
+
+
         generationTotalTime += Time.deltaTime;
         speedUpTotalTime += Time.deltaTime;
 
@@ -200,6 +206,8 @@ public class PeaceGenerator : SingletonMonoBehaviour<PeaceGenerator>
             generationTotalTime = 0;
             //Debug.Log("生成　X=" + generationX + "   全体数=" + PeaceManager.Instance.GetPeaceTabel.Count);
         }
+
+        if (SpeedUpInterval == 0) return;
         if (speedUpTotalTime > SpeedUpInterval)
         {
             speedUpTotalTime = 0;

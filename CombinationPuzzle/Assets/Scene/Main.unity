@@ -1079,7 +1079,7 @@ Prefab:
         type: 2}
       propertyPath: missionDataBase
       value: 
-      objectReference: {fileID: 11400000, guid: 58affc650ed83b942b1f08945d809239,
+      objectReference: {fileID: 11400000, guid: ec4516dfe56958a4fb8e2a03b9d1bf66,
         type: 2}
     - target: {fileID: 114848406771347216, guid: 08556e839f585354f93e50a767ea7a83,
         type: 2}
@@ -1107,7 +1107,7 @@ Prefab:
         type: 2}
       propertyPath: missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 58affc650ed83b942b1f08945d809239,
+      objectReference: {fileID: 11400000, guid: ec4516dfe56958a4fb8e2a03b9d1bf66,
         type: 2}
     - target: {fileID: 114470191041277464, guid: 08556e839f585354f93e50a767ea7a83,
         type: 2}
@@ -1403,6 +1403,12 @@ Prefab:
       propertyPath: MissionIconPrefab
       value: 
       objectReference: {fileID: 114554880644297894, guid: 8bd9347b52c104d4bb4c2cc6c0697ca4,
+        type: 2}
+    - target: {fileID: 114354335812174344, guid: 08556e839f585354f93e50a767ea7a83,
+        type: 2}
+      propertyPath: marathonDataBase
+      value: 
+      objectReference: {fileID: 11400000, guid: 2f0d9e6f28386a14981e70c7f42597e2,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08556e839f585354f93e50a767ea7a83, type: 2}

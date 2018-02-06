@@ -4356,8 +4356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c3a7de9e8b204b9e3796b3b8e01d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missiondata: {fileID: 11400000, guid: 58affc650ed83b942b1f08945d809239, type: 2}
-  marathondata: {fileID: 0}
+  missiondata: {fileID: 11400000, guid: ec4516dfe56958a4fb8e2a03b9d1bf66, type: 2}
+  marathondata: {fileID: 11400000, guid: 2f0d9e6f28386a14981e70c7f42597e2, type: 2}
 --- !u!4 &1484957220
 Transform:
   m_ObjectHideFlags: 0

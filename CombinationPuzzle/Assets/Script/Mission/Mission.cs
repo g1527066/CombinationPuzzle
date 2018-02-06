@@ -193,9 +193,9 @@ public class Mission : MonoBehaviour
              */
             for (int i = 0; i < ConstMissionNum; i++)
             {
-                int r = Random.Range(0, missionDataBase.Elements.Count);
-                int r2 = Random.Range(0, missionDataBase.Elements[r].MissionList.Count);
-                MissionDataStruct ms = ReturnConstructionMission(missionDataBase.Elements[r].MissionList[r2]);
+                int r = Random.Range(0, marathonDataBase.Elements.Count);
+                int r2 = Random.Range(0, marathonDataBase.Elements[r].MissionList.Count);
+                MissionDataStruct ms = ReturnConstructionMission(marathonDataBase.Elements[r].MissionList[r2]);
                 Debug.Log("r=" + r + "  r2=" + r2);
                 missionData[i] = ms;
                 SetDraw(i, ms);
