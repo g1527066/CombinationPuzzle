@@ -13,14 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elements:
   - MissionName: "\u96FB\u5149\u77F3\u706B"
-    LmiteTime: 10
-    FallFrequency: 5
+    LmiteTime: 60
+    FallFrequency: 1
     SpeedUpTime: 0
-    minusTime: 0
+    minusTime: 1
     MissionList:
     - missionType: 0
       peaceColor: 6
-      peaceForm: 1
+      peaceForm: 2
       number: 3
   - MissionName: "\u4E00\u7DB2\u6253\u5C3D"
     LmiteTime: 90
@@ -34,17 +34,17 @@ MonoBehaviour:
       number: 7
   - MissionName: "\u4E00\u65E5\u5343\u79CB"
     LmiteTime: 60
-    FallFrequency: 10
-    SpeedUpTime: 0
-    minusTime: 0
+    FallFrequency: 1.5
+    SpeedUpTime: 1
+    minusTime: 0.08
     MissionList:
     - missionType: 2
       peaceColor: 6
       peaceForm: 3
-      number: 10
+      number: 15
   - MissionName: "\u767E\u82B1\u7E5A\u4E71"
     LmiteTime: 180
-    FallFrequency: 0.5
+    FallFrequency: 1
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
@@ -73,62 +73,98 @@ MonoBehaviour:
       peaceForm: 0
       number: 6
   - MissionName: "\u767E\u6226\u932C\u78E8"
-    LmiteTime: 90
+    LmiteTime: 180
     FallFrequency: 0.5
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
-    - missionType: 0
+    - missionType: 2
       peaceColor: 6
       peaceForm: 3
       number: 100
   - MissionName: "\u4E00\u9A0E\u5F53\u5343"
-    LmiteTime: 90
-    FallFrequency: 5
+    LmiteTime: 180
+    FallFrequency: 0.4
+    SpeedUpTime: 0
+    minusTime: 0
+    MissionList:
+    - missionType: 2
+      peaceColor: 6
+      peaceForm: 2
+      number: 100
+  - MissionName: "\u68EE\u7F85\u4E07\u8C61"
+    LmiteTime: 300
+    FallFrequency: 0.3
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
     - missionType: 0
+      peaceColor: 0
+      peaceForm: 0
+      number: 15
+    - missionType: 0
       peaceColor: 5
       peaceForm: 0
-      number: 5
-  - MissionName: "\u68EE\u7F85\u4E07\u8C61"
-    LmiteTime: 90
-    FallFrequency: 5
-    SpeedUpTime: 0
-    minusTime: 0
-    MissionList:
-    - missionType: 2
+      number: 15
+    - missionType: 0
+      peaceColor: 2
+      peaceForm: 0
+      number: 15
+    - missionType: 0
+      peaceColor: 3
+      peaceForm: 0
+      number: 15
+    - missionType: 0
+      peaceColor: 1
+      peaceForm: 0
+      number: 15
+    - missionType: 0
       peaceColor: 4
       peaceForm: 0
-      number: 9
-  - MissionName: "\u5B9F\u9A13\u4E4B\u516B"
-    LmiteTime: 70
-    FallFrequency: 5
+      number: 15
+    - missionType: 0
+      peaceColor: 6
+      peaceForm: 1
+      number: 15
+    - missionType: 0
+      peaceColor: 5
+      peaceForm: 2
+      number: 15
+  - MissionName: "\u5343\u5909\u4E07\u5316"
+    LmiteTime: 120
+    FallFrequency: 1
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
     - missionType: 1
-      peaceColor: 1
-      peaceForm: 0
+      peaceColor: 5
+      peaceForm: 2
       number: 7
-  - MissionName: "\u5B9F\u9A13\u4E4B\u4E5D"
-    LmiteTime: 90
-    FallFrequency: 5
+  - MissionName: "\u56DB\u9762\u695A\u6B4C"
+    LmiteTime: 60
+    FallFrequency: 0.25
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
-    - missionType: 2
-      peaceColor: 3
-      peaceForm: 0
+    - missionType: 0
+      peaceColor: 6
+      peaceForm: 2
       number: 10
-  - MissionName: "\u5B9F\u9A13\u4E4B\u5341"
-    LmiteTime: 90
-    FallFrequency: 5
+  - MissionName: "\u5FEB\u5200\u4E71\u9EBB"
+    LmiteTime: 180
+    FallFrequency: 4
     SpeedUpTime: 0
     minusTime: 0
     MissionList:
-    - missionType: 3
+    - missionType: 1
       peaceColor: 6
       peaceForm: 1
-      number: 9
+      number: 14
+    - missionType: 1
+      peaceColor: 0
+      peaceForm: 0
+      number: 4
+    - missionType: 1
+      peaceColor: 0
+      peaceForm: 0
+      number: 4
